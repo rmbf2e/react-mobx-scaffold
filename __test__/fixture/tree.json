@@ -1,0 +1,117 @@
+[
+  {
+    "checked": true,
+    "children": [
+      {
+        "checked": true,
+        "children": null,
+        "fullName": "快捷查询",
+        "icon": "search",
+        "level": 2,
+        "name": "quickSearch",
+        "orderNo": 1,
+        "pid": 242,
+        "remark": null,
+        "resId": 243,
+        "resType": 2,
+        "siteId": 9,
+        "status": 1,
+        "url": "/main"
+      }
+    ],
+    "fullName": "首页",
+    "icon": "profile",
+    "level": 1,
+    "name": "main",
+    "orderNo": 42,
+    "pid": 0,
+    "remark": null,
+    "resId": 242,
+    "resType": 5,
+    "siteId": 9,
+    "status": 1,
+    "url": null
+  },
+  {
+    "checked": true,
+    "children": [
+      {
+        "checked": true,
+        "children": [
+          {
+            "checked": true,
+            "children": null,
+            "fullName": "定价Band设置",
+            "icon": null,
+            "level": 3,
+            "name": "bandRate",
+            "orderNo": 1,
+            "pid": 194,
+            "remark": null,
+            "resId": 196,
+            "resType": 2,
+            "siteId": 9,
+            "status": 1,
+            "url": "/bandRate"
+          },
+          {
+            "checked": true,
+            "children": null,
+            "fullName": "定价规则管理",
+            "icon": null,
+            "level": 3,
+            "name": "pricingRulesManagement",
+            "orderNo": 2,
+            "pid": 194,
+            "remark": null,
+            "resId": 195,
+            "resType": 2,
+            "siteId": 9,
+            "status": 1,
+            "url": "/pricingRulesManagement"
+          },
+          {
+            "checked": true,
+            "children": null,
+            "fullName": "三级分类维护",
+            "icon": null,
+            "level": 3,
+            "name": "thirdCategoryMaintain",
+            "orderNo": 3,
+            "pid": 194,
+            "remark": null,
+            "resId": 254,
+            "resType": 2,
+            "siteId": 9,
+            "status": 1,
+            "url": "/thirdCategoryMaintain"
+          }
+        ],
+        "fullName": "规则管理",
+        "icon": "profile",
+        "level": 2,
+        "name": "ruleManagement",
+        "orderNo": 1,
+        "pid": 192,
+        "remark": null,
+        "resId": 194,
+        "resType": 5,
+        "siteId": 9,
+        "status": 1,
+        "url": null
+      }
+    ],
+    "fullName": "智慧定价",
+    "icon": "",
+    "level": 1,
+    "name": "0",
+    "orderNo": 142,
+    "pid": 0,
+    "remark": null,
+    "resId": 192,
+    "resType": 5,
+    "siteId": 9,
+    "status": 1,
+    "url": null
+  }
+]

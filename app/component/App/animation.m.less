@@ -1,0 +1,28 @@
+.share {
+  transition: all 250ms ease-in;
+}
+
+.enter {
+  z-index: 1;
+  transform: translateY(-30px);
+  opacity: 0;
+  .share;
+}
+
+.enterActive {
+  transform: translateY(0);
+  opacity: 1;
+  .share;
+}
+
+// .appear {
+//   transform: translateY(-30px);
+//   opacity: 0;
+//   .share;
+// }
+
+// .appearActive {
+//   transform: translateY(0);
+//   opacity: 1;
+//   .share;
+// }

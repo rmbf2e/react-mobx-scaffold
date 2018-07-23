@@ -1,0 +1,124 @@
+{
+  "data": {
+    "entities": [
+      {
+        "fullName": "自营超级管理员",
+        "name": "xx",
+        "operateDate": "2018-07-20 14:24:05",
+        "roleId": 29,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "自营商家",
+        "name": "MERCHANT",
+        "operateDate": "2018-04-13 13:50:54",
+        "roleId": 36,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "7Fresh系统管理员",
+        "name": "7f",
+        "operateDate": "2018-04-08 16:48:08",
+        "roleId": 37,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "自营品牌商",
+        "name": "PASSPORT",
+        "operateDate": "2018-04-13 13:50:45",
+        "roleId": 38,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "海尔品牌商",
+        "name": "haier",
+        "operateDate": "2018-05-09 10:29:47",
+        "roleId": 43,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "张玥品牌商",
+        "name": "zy品牌商",
+        "operateDate": "2018-04-28 22:19:47",
+        "roleId": 44,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "张玥自营采销",
+        "name": "张玥自营采销",
+        "operateDate": "2018-04-28 22:29:24",
+        "roleId": 45,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "7fresh采销",
+        "name": "7fresh采销",
+        "operateDate": "2018-05-02 15:44:24",
+        "roleId": 46,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "自营采销",
+        "name": "陈立芝自营采销",
+        "operateDate": "2018-05-08 11:20:29",
+        "roleId": 47,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "权限系统管理员",
+        "name": "super",
+        "operateDate": "2018-05-14 16:54:19",
+        "roleId": 49,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "自营品类管理",
+        "name": "self_cate",
+        "operateDate": "2018-06-11 10:14:16",
+        "roleId": 50,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "自营品类管理员2",
+        "name": "自营品类管理员2",
+        "operateDate": "2018-06-12 14:30:33",
+        "roleId": 51,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "品类权限测试",
+        "name": "品类权限测试",
+        "operateDate": "2018-07-20 11:34:15",
+        "roleId": 52,
+        "siteId": 5,
+        "status": 1
+      },
+      {
+        "fullName": "品类权限测试1",
+        "name": "品类权限测试1",
+        "operateDate": "2018-07-20 14:23:20",
+        "roleId": 53,
+        "siteId": 5,
+        "status": 1
+      }
+    ],
+    "entityCount": 14,
+    "firstEntityIndex": 0,
+    "lastEntityIndex": 20,
+    "pageCount": 1,
+    "pageNo": 1,
+    "pageSize": 20
+  }
+}

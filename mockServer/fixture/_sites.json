@@ -1,0 +1,24 @@
+{
+  "data": {
+    "entities": [
+      {
+        "fullName": "促销助手",
+        "name": "pphelper",
+        "siteId": 1
+      },
+      {
+        "fullName": "运筹优化",
+        "name": "optimize",
+        "siteId": 2
+      },
+      {
+        "fullName": "泰坦",
+        "name": "titan",
+        "siteId": 3
+      }
+    ],
+    "pageCount": 1,
+    "pageNo": 1,
+    "pageSize": 20
+  }
+}

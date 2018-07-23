@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  align-items: flex-start;
+  transition: margin-top 0.3s;
+  border-bottom: none;
+  :global {
+    .ant-menu-horizontal {
+      line-height: @layout-header-height;
+    }
+    .ant-form-item {
+      margin-left: 1em;
+      line-height: @layout-header-height;
+    }
+  }
+}
+
+.logo {
+  height: @layout-header-height;
+  margin: 0 2em 0 0;
+  font-size: 2em;
+  line-height: @layout-header-height;
+  img {
+    width: 1.3em;
+    margin-right: 1em;
+  }
+}
+.me {
+  position: absolute;
+  right: 0;
+  height: @layout-header-height;
+  margin: 0 2em 0 0;
+  line-height: @layout-header-height;
+  a {
+    margin-left: 1em;
+  }
+}
+.hide {
+  margin-top: -@layout-header-height;
+}
+.form {
+  margin-left: 2em;
+}
