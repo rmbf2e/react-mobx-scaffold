@@ -96,7 +96,7 @@
     "mobx-react-router": "^4.0.4",
     "moment": "^2.22.2",
     "moxios": "^0.4.0",
-    "nightwatch": "^1.0.6",
+    "nightwatch": "^0.9.21",
     "nightwatch-helpers": "^1.2.0",
     "opn": "^5.3.0",
     "path-to-regexp": "^2.2.1",

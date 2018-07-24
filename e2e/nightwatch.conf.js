@@ -24,7 +24,7 @@ module.exports = {
     cli_args: {
       // eslint-disable-next-line
       'webdriver.chrome.driver': require('chromedriver').path,
-      'webdriver.gecko.driver': '/path/to/geckodriver',
+      // 'webdriver.gecko.driver': '/path/to/geckodriver',
     },
   },
 
@@ -50,13 +50,13 @@ module.exports = {
       },
     },
 
-    firefox: {
-      desiredCapabilities: {
-        browserName: 'firefox',
-        javascriptEnabled: true,
-        marionette: true,
-        acceptSslCerts: true,
-      },
-    },
+    // firefox: {
+    //   desiredCapabilities: {
+    //     browserName: 'firefox',
+    //     javascriptEnabled: true,
+    //     marionette: true,
+    //     acceptSslCerts: true,
+    //   },
+    // },
   },
 }
