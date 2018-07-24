@@ -73,6 +73,6 @@ npm run coverage
 ```
 npm run e2e
 ```
-  nightwatch会尝试使用当前的开发环境，如果没有启动则自动打开一个新的webpackDevServer服务，使用webpack.config文件中的端口号，并运行e2e测试用例。
+  nightwatch启动脚本会尝试使用当前的开发环境，如果没有启动则自动打开一个新的webpackDevServer服务，使用webpack.config文件中的端口号，并运行e2e测试用例。
   如果使用域名测试，需要配置本地hosts指向配置的域名后，将域名改为
   使用了一些额外的[nightwatch-helpers](https://npm.taobao.org/package/nightwatch-helpers)(尤大神作品)增强工具。

@@ -19,12 +19,17 @@ export default class Role extends React.Component {
           dataSource: PropTypes.array,
           pagination: PropTypes.object,
         }),
+        restoreRoles: PropTypes.func,
         showFormModal: PropTypes.func,
       }),
       user: PropTypes.shape({
         fetchAllRoles: PropTypes.func,
       }),
     }).isRequired,
+  }
+
+  componentWillUnmount() {
+    this.props.store.role.restoreRoles()
   }
 
   onEdit = e => {

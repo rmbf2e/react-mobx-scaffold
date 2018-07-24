@@ -20,6 +20,9 @@ import fxios from 'util/fxios'
  * 会生成 group 属性，默认值为default
  * 会生成 creatingGroup 属性
  * 会生成 createGroup 方法
+ * createGroup方法参数 data 提交的数据 必须
+ *                     query url上带的queryA 可选
+ *                     param url路由需要的参数，如果url为'/group/:id', 则param需要为{ id: '123' } 可选
  * 如果没有create，则不会生成这两项
  *
  * update, fetch, destroy方法与create相同

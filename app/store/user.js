@@ -1,7 +1,7 @@
 import storeProp from 'app/storeProp'
 import { observable, action } from 'mobx'
 import api from 'app/api'
-import { GENDER } from 'app/constant'
+import { GENDER, USER_STATUS } from 'app/constant'
 import fxios from 'util/fxios'
 
 const defaultUser = {
@@ -10,6 +10,7 @@ const defaultUser = {
   sex: GENDER[0].value,
   mail: '',
   mobile: '',
+  status: USER_STATUS[0].value,
   roles: [],
   userType: '',
 }

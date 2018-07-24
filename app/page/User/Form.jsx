@@ -41,9 +41,6 @@ export default class FormModal extends React.Component {
         if (isUpdate) {
           values.userId = user.user.userId
         }
-        values.erp = `${values.source}_${values.account}`
-        delete values.source
-        delete values.account
         user[`${isUpdate ? 'update' : 'create'}User`](
           values,
           {},
