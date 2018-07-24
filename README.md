@@ -20,6 +20,7 @@
     https://blog.csdn.net/orangleliu/article/details/79862248
     https://github.com/axios/axios/issues/980
     axios的maxRedirects: 0只在nodejs端有用，浏览器没用
+* 当前项目与后端的约定配置，比如返回状态码为200则为成功，返回分页数据格式等，需要在app/util/fxios中配置。
 * SearchForm使用时注意如果里面有Datepicker组件，若为时间格式则需要该表单项以Time结尾，否则不能正确识别为时间格式。
   [SearchForm](http://git.jd.com/rmb-frontend/react-scaffold/blob/master/app/component/SearchForm/index.jsx)具体使用文档见代码注释。
 * 使用storeProp修饰mobx store，可自动生成一些store属性与方法。
@@ -34,6 +35,7 @@
 * app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组建会映射为/user路由。
   如需要配置特殊路由，在app/router.template.jsx中单独配置。
 * app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
+* 参考[mobx最佳实践](https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140)
 
 app/api/index.js
 ```
@@ -47,17 +49,21 @@ app/api/index.js
 
 ### 常用命令
 
-* 开发模式
+* 本地模拟接口开发模式
 ```
 npm start
 ```
-项目默认使用本地nodejs启动express提供后端接口。
-若有后端提供swiagger接口，可修改webpack.config.babel.js中的proxyTargets变量remote属性，指向后端接口域名。
-然后用
+最初没有后端接口支持时，使用本地nodejs启动express提供后端接口。
+
+* 后端接口联调阶段
+  若有后端提供swiagger接口，可修改webpack.config.babel.js中的proxyTargets变量remote属性，指向后端接口域名。
+然后用命令启动开发模式。
 ```
 npm run dev:remote
 ```
-命令启动开发模式。
+此时基本不会再用本地模拟接口，可将package.json中的script中的start改为
+    "start": "npm run dev:remote | npm run server",
+继续用 `npm start`来开发项目。
 
 * 打包生成测试环境代码，登录环境为http://test.ssa.jd.com/sso/login
 ```
