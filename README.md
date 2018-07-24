@@ -42,8 +42,9 @@ app/api/index.js
 也可根据逻辑写成mockerServer/fixture/user/me.js，里面的内容可根据请求动态返回。
 
 * 项目所用配置文件在app/config.js，详见代码注释。
-* app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组建会映射为/user路由。
+* app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组件会映射为/user路由。
   如需要配置特殊路由，在app/router.template.jsx中单独配置。
+  app/router.jsx每次启动项目会从app/router.template.jsx文件自动生成覆盖，所以不要编辑它。
 * app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
 * 参考[mobx最佳实践](https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140)
 

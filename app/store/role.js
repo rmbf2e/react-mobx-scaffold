@@ -16,7 +16,7 @@ const defaultRole = {
       name: 'form',
     },
   ],
-  crud: [
+  rest: [
     {
       name: 'role',
       default: defaultRole,

@@ -25,7 +25,7 @@ const defaultUser = {
     },
   ],
   modal: ['form', 'import', 'batchEdit', 'category'],
-  crud: [
+  rest: [
     {
       name: 'me',
       default: {},
@@ -67,15 +67,19 @@ class User {
     this.fetchingRoles = true
     return fxios
       .get(api.rolesAll)
-      .then(action('setAllRoles', res => {
+      .then(
+        action('setAllRoles', res => {
           this.ALL_ROLES = res.data.map(r => ({
             label: r.fullName,
             value: String(r.roleId),
           }))
-        }))
-      .finally(action('setFetchingRoles', () => {
+        }),
+      )
+      .finally(
+        action('setFetchingRoles', () => {
           this.fetchingRoles = false
-        }))
+        }),
+      )
   }
 
   // 关闭modal且将role还原
@@ -96,9 +100,11 @@ class User {
   @action
   importUsers = data => {
     this.importingUsers = true
-    return fxios.post(api.userImport, data).finally(action('setImportingUsers', () => {
+    return fxios.post(api.userImport, data).finally(
+      action('setImportingUsers', () => {
         this.importingUsers = false
-      }))
+      }),
+    )
   }
 
   // 根据帐号查询对应信息自动填充表单

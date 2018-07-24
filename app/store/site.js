@@ -20,7 +20,7 @@ const defaultSite = {
     rowKey: 'siteId',
     rowSelectionKey: 'siteId',
   },
-  crud: [
+  rest: [
     {
       name: 'site',
       default: defaultSite,

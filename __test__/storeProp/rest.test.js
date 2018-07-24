@@ -1,14 +1,14 @@
 // import fetch from 'util/fetch'
 import { toJS } from 'mobx'
 import fetchMock from 'fetch-mock'
-import crud from 'storeProp/crud'
+import rest from 'storeProp/rest'
 import config from 'app/config'
 
 const defaultResponse = {
   code: 200,
 }
 
-describe('storeProp/crud', () => {
+describe('storeProp/rest', () => {
   // const host = 'http://localhost'
   const option = {
     name: 'user',
@@ -20,7 +20,7 @@ describe('storeProp/crud', () => {
   }
   class A {
     constructor() {
-      crud.call(this, [option])
+      rest.call(this, [option])
     }
   }
   const a = new A()
@@ -89,7 +89,7 @@ describe('storeProp/crud', () => {
       fetchMock.delete(`${config.baseURL}${Boption[method].url}`, mockRes)
       class B {
         constructor() {
-          crud.call(this, [Boption])
+          rest.call(this, [Boption])
         }
       }
       const b = new B()
@@ -108,7 +108,8 @@ describe('storeProp/crud', () => {
         expect(a[doing]).toBe(false)
         // eslint-disable-next-line
         expect(JSON.parse(fetchMock.lastCall()[0].body)).toEqual(
-          Boption[method].interceptor.request(data))
+          Boption[method].interceptor.request(data),
+        )
         expect(res).toEqual(Boption[method].interceptor.response(mockRes))
       })
     })
@@ -144,7 +145,7 @@ describe('storeProp/crud', () => {
     )
     class B {
       constructor() {
-        crud.call(this, [Boption])
+        rest.call(this, [Boption])
       }
     }
     const b = new B()
@@ -155,7 +156,8 @@ describe('storeProp/crud', () => {
       expect(a.fetchingUser).toBe(false)
       // eslint-disable-next-line
       expect(fetchMock.lastCall()[0].url).toEqual(
-        `${config.baseURL}${Boption.fetch.url}?name=prenewUser`)
+        `${config.baseURL}${Boption.fetch.url}?name=prenewUser`,
+      )
       expect(res).toEqual(Boption.fetch.interceptor.response(mockRes))
     })
   })
@@ -225,7 +227,7 @@ describe('storeProp/crud', () => {
     }
     class B {
       constructor() {
-        crud.call(this, [Boption])
+        rest.call(this, [Boption])
       }
     }
     const b = new B()
@@ -260,7 +262,7 @@ describe('storeProp/crud', () => {
     fetchMock.delete(`${config.baseURL}${Boption.destroy.url}`, mockRes)
     class B {
       constructor() {
-        crud.call(this, [Boption])
+        rest.call(this, [Boption])
       }
 
       emit = fn
