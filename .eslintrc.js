@@ -1,6 +1,11 @@
 module.exports = {
   parser: 'babel-eslint',
-  extends: ['airbnb', 'plugin:import/react', 'plugin:import/recommended'],
+  extends: [
+    'airbnb',
+    'plugin:import/react',
+    'plugin:import/recommended',
+    'prettier',
+  ],
   plugins: ['import'],
   rules: {
     semi: [0, 'never'],
