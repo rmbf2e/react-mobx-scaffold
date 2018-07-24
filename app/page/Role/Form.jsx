@@ -37,7 +37,13 @@ export default class FormModal extends React.Component {
         if (isUpdate) {
           values.roleId = role.role.roleId
         }
-        role[`${isUpdate ? 'update' : 'create'}Role`](values)
+        role[`${isUpdate ? 'update' : 'create'}Role`](
+          values,
+          {},
+          {
+            id: values.roleId,
+          },
+        )
           .then(() => {
             role.fetchRoles()
             user.fetchAllRoles()

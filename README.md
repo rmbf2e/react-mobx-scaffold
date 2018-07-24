@@ -15,7 +15,7 @@
 * 最终发布文件放到dist文件夹。
 * 使用mockServer文件夹存放作为后端服务提供开发伪数据。
 * ~~使用axios获取接口数据。~~
-* 使用fetch获取接口数据。
+* 使用[fxios](https://github.com/superwf/fxios) (fetch的简单封装)获取接口数据。
     axios无法处理返回302的redirect状态，所以还是用fetch
     https://blog.csdn.net/orangleliu/article/details/79862248
     https://github.com/axios/axios/issues/980
@@ -49,7 +49,7 @@ npm start
 npm run build:test
 ```
 
-* 到包生成生产环境代码，登录环境为https://ssa.jd.com/sso/login
+* 打包生成生产环境代码，登录环境为https://ssa.jd.com/sso/login
 * 发布到jdos必须有一个bin文件夹，放到public里，没什么内容，占位用
 ```
 npm run build:production

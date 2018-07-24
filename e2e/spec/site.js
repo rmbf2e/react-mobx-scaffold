@@ -8,7 +8,6 @@ module.exports = {
     }
 
     browser
-      .login()
       .click(siteMenu)
       .pause(2000)
       .waitForElementVisible('.ant-layout-content .ant-card-body', 8000)
