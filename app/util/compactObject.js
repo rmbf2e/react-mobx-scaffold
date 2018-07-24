@@ -1,5 +1,5 @@
-import reduce from 'lodash/reduce'
 import isEmptyArray from 'util/isEmptyArray'
+import reduce from 'lodash/reduce'
 
 const isEmpty = v => v === undefined || v === null || v === ''
 

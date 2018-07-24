@@ -1,6 +1,6 @@
-import storeProp from 'app/storeProp'
 import EventEmitter from 'events'
 import { action } from 'mobx'
+import storeProp from 'app/storeProp'
 import api from 'app/api'
 
 const defaultSite = {

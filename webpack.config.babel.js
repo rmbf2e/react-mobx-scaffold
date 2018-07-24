@@ -1,7 +1,7 @@
-import webpack from 'webpack'
-import opn from 'opn'
 import cp from 'child_process'
 import path from 'path'
+import webpack from 'webpack'
+import opn from 'opn'
 import rimraf from 'rimraf'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
@@ -27,7 +27,7 @@ const resolvePath = relativePath => path.resolve(__dirname, relativePath)
 // 是否使用远程swagger接口调试
 const proxyTargets = {
   // 开发时改为当前项目对应的后端swagger接口域名或ip
-  // remote: 'http://your.backend',
+  remote: 'http://your.backend',
   local: `http://localhost:${serverConfig.port}`,
 }
 const envProxy = process.env.PROXY || 'local'

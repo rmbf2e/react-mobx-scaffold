@@ -1,6 +1,6 @@
 import { observable, action, toJS } from 'mobx'
-import sider from 'store/sider'
 import find from 'lodash/find'
+import sider from 'store/sider'
 
 class Menu {
   menus = [

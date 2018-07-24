@@ -1,8 +1,8 @@
 // import createHashHistory from 'history/createHashHistory'
+import url from 'url'
 import createBrowserHistory from 'history/createBrowserHistory'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import { extendObservable } from 'mobx'
-import url from 'url'
 
 const routerStore = new RouterStore()
 const appHistory = createBrowserHistory()

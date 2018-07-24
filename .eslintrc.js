@@ -9,6 +9,19 @@ module.exports = {
   plugins: ['import'],
   rules: {
     semi: [0, 'never'],
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+        ],
+      },
+    ],
     'jsx-a11y/anchor-has-content': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'jsx-a11y/no-static-element-interactions': 0,

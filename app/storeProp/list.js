@@ -1,9 +1,9 @@
+import url from 'url'
+import fxios from 'util/fxios'
 import { action, extendObservable, toJS } from 'mobx'
 import upperFirst from 'lodash/upperFirst'
 import castArray from 'lodash/castArray'
 import pluralize from 'pluralize'
-import url from 'url'
-import fxios from 'util/fxios'
 import router from 'store/router'
 import config from 'app/config'
 

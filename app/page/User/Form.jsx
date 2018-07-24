@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Form, Input, Radio, Select } from 'antd'
 import { inject, observer } from 'mobx-react'
-import { GENDER, USER_STATUS } from 'app/constant'
 import debounce from 'lodash/debounce'
+import { GENDER, USER_STATUS } from 'app/constant'
 
 const { Item } = Form
 const { Option } = Select
@@ -125,13 +125,15 @@ export default class FormModal extends React.Component {
             {form.getFieldDecorator('roleId', {
               initialValue: u.roles.map(r => String(r.roleId)),
               rules: [{ required: true, message: '请选择角色' }],
-            })(<Select mode="multiple">
-              {user.ALL_ROLES.map(type => (
-                <Option key={type.value} value={type.value}>
-                  {type.label}
-                </Option>
+            })(
+              <Select mode="multiple">
+                {user.ALL_ROLES.map(type => (
+                  <Option key={type.value} value={type.value}>
+                    {type.label}
+                  </Option>
                 ))}
-            </Select>)}
+              </Select>,
+            )}
           </Item>
           <Item label="状态" {...layout}>
             {form.getFieldDecorator('status', {

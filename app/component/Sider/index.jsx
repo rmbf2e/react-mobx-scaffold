@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu, Layout, Icon } from 'antd'
-import MenuLink from 'component/Menu/Link'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
+import MenuLink from 'component/Menu/Link'
 
 @inject('store')
 @observer

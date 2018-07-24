@@ -1,8 +1,8 @@
-import storeProp from 'app/storeProp'
+import fxios from 'util/fxios'
 import { observable, action } from 'mobx'
+import storeProp from 'app/storeProp'
 import api from 'app/api'
 import { GENDER, USER_STATUS } from 'app/constant'
-import fxios from 'util/fxios'
 
 const defaultUser = {
   erp: '',

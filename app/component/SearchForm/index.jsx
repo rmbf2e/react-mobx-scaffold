@@ -1,12 +1,12 @@
+import url from 'url'
+import { parseMoment, formatMoment } from 'util/moment'
+import isEmptyArray from 'util/isEmptyArray'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Form, Button } from 'antd'
 import { inject, observer } from 'mobx-react'
 import forEach from 'lodash/forEach'
 import reduce from 'lodash/reduce'
-import url from 'url'
-import { parseMoment, formatMoment } from 'util/moment'
-import isEmptyArray from 'util/isEmptyArray'
 import config from 'app/config'
 
 /* 该组件解决的几个问题

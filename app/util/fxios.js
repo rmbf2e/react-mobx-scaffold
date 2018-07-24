@@ -1,6 +1,6 @@
 import { Fxios } from 'fxios'
-import appConfig from 'app/config'
 import isObject from 'lodash/isObject'
+import appConfig from 'app/config'
 // import app from 'store/app'
 
 export const config = {

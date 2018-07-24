@@ -1,8 +1,8 @@
+import url from 'url'
 import React from 'react'
 import { Button, Row, Col } from 'antd'
-import { ROLE_STATUS_MAP } from 'app/constant'
 import { Link } from 'react-router-dom'
-import url from 'url'
+import { ROLE_STATUS_MAP } from 'app/constant'
 
 const showUserForm = (self, role) => {
   const { user } = self.props.store

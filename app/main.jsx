@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { configure } from 'mobx'
-import App from 'component/App'
 import moment from 'moment'
+import App from 'component/App'
 import 'moment/locale/zh-cn'
 import 'style/index.less'
 

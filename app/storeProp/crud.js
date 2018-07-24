@@ -1,7 +1,7 @@
+import fxios from 'util/fxios'
 import { action, extendObservable, observable } from 'mobx'
 import upperFirst from 'lodash/upperFirst'
 import castArray from 'lodash/castArray'
-import fxios from 'util/fxios'
 
 /*
  * 生成以命名为核心的添删改方法与相关的请求状态属性

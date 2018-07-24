@@ -21,11 +21,19 @@
     https://github.com/axios/axios/issues/980
     axios的maxRedirects: 0只在nodejs端有用，浏览器没用
 * SearchForm使用时注意如果里面有Datepicker组件，若为时间格式则需要该表单项以Time结尾，否则不能正确识别为时间格式。
+  [SearchForm](http://git.jd.com/rmb-frontend/react-scaffold/blob/master/app/component/SearchForm/index.jsx)具体使用文档见代码注释。
 * 使用storeProp修饰mobx store，可自动生成一些store属性与方法。
-* 开发模式默认使用3000端口，模拟后端数据的mockServer使用3009端口
+  具体每个修饰方法说明，见代码注释。
+* 开发模式webpack使用3000端口，模拟后端数据的mockServer使用3009端口。
+  webpack配置文件在build/config.js
+  mockServer配置文件在mockServer/config.js
 * 在本地模拟接口数据开发环境中，直接使用请求路径的url在mockServer/fixture文件夹中写入对应的模拟数据即可生成响应。
 * 所有接口都在app/api/index.js中配置，避免接口到处硬编码。
 例如接口配置
+* 项目所用配置文件在app/config.js，详见代码注释。
+* app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组建会映射为/user路由。
+  如需要配置特殊路由，在app/router.template.jsx中单独配置。
+* app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
 
 app/api/index.js
 ```
@@ -43,6 +51,13 @@ app/api/index.js
 ```
 npm start
 ```
+项目默认使用本地nodejs启动express提供后端接口。
+若有后端提供swiagger接口，可修改webpack.config.babel.js中的proxyTargets变量remote属性，指向后端接口域名。
+然后用
+```
+npm run dev:remote
+```
+命令启动开发模式。
 
 * 打包生成测试环境代码，登录环境为http://test.ssa.jd.com/sso/login
 ```

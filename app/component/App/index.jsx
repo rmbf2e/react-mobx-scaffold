@@ -1,15 +1,14 @@
+import fxios from 'util/fxios'
 import React from 'react'
 import { Layout, notification, LocaleProvider } from 'antd'
 import { Provider } from 'mobx-react'
+import { Router } from 'react-router-dom'
+import zhCN from 'antd/lib/locale-provider/zh_CN'
 import store from 'app/store'
 import Header from 'component/Header'
 import Content from 'component/Content'
 import Sider from 'component/Sider'
-import { Router } from 'react-router-dom'
 import { history } from 'store/router'
-import zhCN from 'antd/lib/locale-provider/zh_CN'
-import fxios from 'util/fxios'
-// import s from './style.m.less'
 
 // 监听后端接口错误函数
 const onApiError = error => {
