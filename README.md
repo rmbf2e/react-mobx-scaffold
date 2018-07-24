@@ -31,12 +31,6 @@
 * 在本地模拟接口数据开发环境中，直接使用请求路径的url在mockServer/fixture文件夹中写入对应的模拟数据即可生成响应。
 * 所有接口都在app/api/index.js中配置，避免接口到处硬编码。
 例如接口配置
-* 项目所用配置文件在app/config.js，详见代码注释。
-* app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组建会映射为/user路由。
-  如需要配置特殊路由，在app/router.template.jsx中单独配置。
-* app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
-* 参考[mobx最佳实践](https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140)
-
 app/api/index.js
 ```
 {
@@ -46,6 +40,12 @@ app/api/index.js
 ```
 在本地开发模式中，在mockServer/fixture/user/me.json的结果将自动返回到该接口的请求结果中。
 也可根据逻辑写成mockerServer/fixture/user/me.js，里面的内容可根据请求动态返回。
+
+* 项目所用配置文件在app/config.js，详见代码注释。
+* app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组建会映射为/user路由。
+  如需要配置特殊路由，在app/router.template.jsx中单独配置。
+* app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
+* 参考[mobx最佳实践](https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140)
 
 ### 常用命令
 
