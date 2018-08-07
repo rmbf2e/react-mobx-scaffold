@@ -241,4 +241,6 @@ describe('storeProp/list', () => {
       })
     })
   })
+
+  it('在翻页时，不会调用接口')
 })

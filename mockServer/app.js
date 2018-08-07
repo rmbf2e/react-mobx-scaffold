@@ -1,11 +1,13 @@
-import express from 'express'
 import path from 'path'
-import config from './config'
+import express from 'express'
+import bodyParser from 'body-parser'
 import webpackConfig from '../webpack.config.babel'
+import config from './config'
 import readFixtures from './util/readFixture'
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json())
 
 app.all('*', (req, res, next) => {
   // 设置所有请求允许跨域

@@ -6,6 +6,7 @@ const api = {
   logout: 'user/logout',
 
   users: 'users',
+  userCreate: 'userCreate',
   user: 'user/:id',
 
   // 角色部分api
@@ -15,6 +16,9 @@ const api = {
 
   // 站点部分api
   sites: 'sites',
+  siteCreate: 'siteCreate',
+  siteUpdate: 'siteUpdate',
+  siteDestroy: 'siteDestroy',
   site: 'site/:id',
 }
 

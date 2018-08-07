@@ -1,6 +1,8 @@
 import EventEmitter from 'events'
-import { action } from 'mobx'
-import storeProp from 'app/storeProp'
+import { toJS, action, runInAction } from 'mobx'
+import remove from 'lodash/remove'
+import findIndex from 'lodash/findIndex'
+import storeProp from 'share/storeProp'
 import api from 'app/api'
 
 const defaultSite = {
@@ -15,7 +17,7 @@ const defaultSite = {
     },
   ],
   list: {
-    name: 'site',
+    name: 'sites',
     url: api.sites,
     rowKey: 'siteId',
     rowSelectionKey: 'siteId',
@@ -25,13 +27,13 @@ const defaultSite = {
       name: 'site',
       default: defaultSite,
       create: {
-        url: api.sites,
+        url: api.siteCreate,
       },
       destroy: {
-        url: api.sites,
+        url: api.siteDestroy,
       },
       update: {
-        url: api.site,
+        url: api.siteUpdate,
       },
       fetch: {
         url: api.site,
@@ -50,8 +52,27 @@ class Site extends EventEmitter {
 
 const site = new Site()
 
-site.on('site:changed', () => {
-  site.fetchSites()
+site.on('site:created', res => {
+  runInAction(() => {
+    site.sites.tableProps.dataSource.push(res.data)
+  })
+})
+
+site.on('site:destroyed', res => {
+  runInAction(() => {
+    const list = toJS(site.sites.tableProps.dataSource)
+    remove(list, record => res.data.includes(record.siteId))
+    site.sites.tableProps.dataSource = list
+  })
+})
+
+site.on('site:updated', res => {
+  runInAction(() => {
+    const list = toJS(site.sites.tableProps.dataSource)
+    const index = findIndex(list, r => r.siteId === res.data.siteId)
+    list[index] = res.data
+    site.sites.tableProps.dataSource = list
+  })
 })
 
 export default site

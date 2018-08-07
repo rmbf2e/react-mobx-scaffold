@@ -1,6 +1,6 @@
 import fxios from 'util/fxios'
 import { observable, action } from 'mobx'
-import storeProp from 'app/storeProp'
+import storeProp from 'share/storeProp'
 import api from 'app/api'
 import { GENDER, USER_STATUS } from 'app/constant'
 
@@ -18,7 +18,7 @@ const defaultUser = {
 @storeProp({
   list: [
     {
-      name: 'user',
+      name: 'users',
       url: api.users,
       rowKey: 'userId',
       rowSelectionKey: 'userId',
@@ -37,7 +37,7 @@ const defaultUser = {
       name: 'user',
       default: defaultUser,
       create: {
-        url: api.users,
+        url: api.userCreate,
       },
       update: {
         url: api.user,
@@ -57,7 +57,9 @@ const defaultUser = {
 // axios的maxRedirects: 0只在nodejs端有用，浏览器没用
 class User {
   currentType = null
+
   @observable.shallow ALL_ROLES = []
+
   @observable fetchingRoles = false
 
   logout = () => fxios.get(api.logout)
@@ -97,6 +99,7 @@ class User {
 
   // 批量导入用户
   @observable importingUsers = false
+
   @action
   importUsers = data => {
     this.importingUsers = true

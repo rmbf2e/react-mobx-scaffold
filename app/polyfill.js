@@ -4,6 +4,20 @@ import loadPolyFill from 'load-polyfill'
 
 const getModuleDefault = mod => ('default' in mod ? mod.default : mod)
 
+function polyfillFetch() {
+  if (global.fetch) {
+    const f = global.fetch().catch(() => {})
+    // eslint-disable-next-line
+    if (f.__proto__ && !f.__proto__.finally) {
+      // eslint-disable-next-line
+      f.__proto__.finally = function polyfillFinally(cb) {
+        return this.then(cb).catch(cb)
+      }
+    }
+  }
+}
+polyfillFetch()
+
 export default loadPolyFill([
   [
     'assign' in Object &&
@@ -23,17 +37,7 @@ export default loadPolyFill([
           global.fetch = mod
           // fetch的promise和全局的Promise不同，需要单独打补丁
           // eslint-disable-next-line
-          ;(function() {
-            const f = global.fetch()
-            // eslint-disable-next-line
-            if (f.__proto__ && !f.__proto__.finally) {
-              // eslint-disable-next-line
-              f.__proto__.finally = function(callback) {
-                return this.then(callback).catch(callback)
-              }
-            }
-            f.catch(() => {})
-          })()
+          polyfillFetch()
         }),
   ],
   [

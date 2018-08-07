@@ -1,46 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout } from 'antd'
 import { observer, inject } from 'mobx-react'
-import Menu from 'component/Menu'
+import ShareHeader from 'share/component/Header'
+import Menu from 'share/component/Menu'
 import s from './style.m.less'
 
-const { Header } = Layout
+// const { Option } = Select
 
 @inject('store')
 @observer
 export default class AppHeader extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
-      user: PropTypes.shape({
-        fetchMe: PropTypes.func,
-      }),
-      site: PropTypes.shape({
-        siteOption: PropTypes.object,
-      }),
-      app: PropTypes.shape({
-        site: PropTypes.string,
-        setSite: PropTypes.func,
-      }),
       router: PropTypes.shape({
         location: PropTypes.object,
       }),
     }).isRequired,
   }
 
+  // 通过路由获取当前页面名称
+
   render() {
-    const { user } = this.props.store
+    const { store } = this.props
     return (
-      <Header className={s.header}>
-        <figure className={s.logo}>项目名称</figure>
-        <Menu />
-        <figure className={s.me}>
-          {user.me.name}
-          <a onClick={user.logout} onKeyPress={user.logout}>
-            注销
-          </a>
+      <ShareHeader store={store}>
+        <figure className={s.logo}>
+          <img alt="logo" src="/asset/image/logo.png" />
+          站点标题
         </figure>
-      </Header>
+        <Menu />
+      </ShareHeader>
     )
   }
 }

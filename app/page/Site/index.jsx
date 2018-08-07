@@ -2,7 +2,8 @@ import React from 'react'
 import { toJS } from 'mobx'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
-import { Button, Card, Modal, Table } from 'antd'
+import { Button, Card, Modal } from 'antd'
+import AnimateTable from 'share/component/AnimateTable'
 import FormModal from './Form'
 
 @inject('store')
@@ -23,6 +24,14 @@ export default class Site extends React.Component {
     }).isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    const {
+      store: { site },
+    } = this.props
+    this.store = site
+  }
+
   componentDidMount() {
     // 该页面没有搜索表单，所以手动获取一下列表
     this.search()
@@ -30,9 +39,7 @@ export default class Site extends React.Component {
 
   onEdit = e => {
     const { index } = e.target.dataset
-    const {
-      store: { site },
-    } = this.props
+    const site = this.store
     const data = toJS(site.sites.tableProps.dataSource)[index]
     site.setSite({ data })
     site.showFormModal()
@@ -63,14 +70,13 @@ export default class Site extends React.Component {
   }
 
   search = () => {
-    const {
-      store: { site },
-    } = this.props
-    site.fetchSites()
+    this.store.fetchSites()
   }
 
   showDestroyConfirm = () => {
-    const { site } = this.props.store
+    const {
+      store: { site },
+    } = this.props
     const modal = Modal.confirm({
       title: '确认删除选中的站点？',
       confirmLoading: site.destroyingSite,
@@ -85,13 +91,11 @@ export default class Site extends React.Component {
   }
 
   render() {
-    const {
-      store: { site },
-    } = this.props
+    const site = this.store
     const tableProps = toJS(site.sites.tableProps)
     return (
       <Card
-        title={
+        title={(
           <Button.Group>
             <Button type="primary" onClick={site.showFormModal}>
               新增
@@ -104,9 +108,9 @@ export default class Site extends React.Component {
               删除
             </Button>
           </Button.Group>
-        }
+)}
       >
-        <Table columns={this.columns} {...tableProps} />
+        <AnimateTable columns={this.columns} {...tableProps} />
         <FormModal />
       </Card>
     )

@@ -10,10 +10,10 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
-// 需要统计优化webpack打包文件时，打开该项
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import appConfig from './app/config'
+import appConfig from './share/src/config'
 import serverConfig from './mockServer/config'
+// import serverConfig from './mockServer/config'
 import getThemeConfig from './app/theme'
 import devServerConfig from './build/config'
 
@@ -26,7 +26,6 @@ const resolvePath = relativePath => path.resolve(__dirname, relativePath)
 
 // 是否使用远程swagger接口调试
 const proxyTargets = {
-  // 开发时改为当前项目对应的后端swagger接口域名或ip
   remote: 'http://your.backend',
   local: `http://localhost:${serverConfig.port}`,
 }
@@ -58,14 +57,14 @@ const config = {
     inline: true,
     hot: true,
     disableHostCheck: true,
-    port: 3000,
+    port: 3030,
     contentBase: './public',
     proxy: {
       [appConfig.baseURL]: {
         target: proxyTargets[envProxy],
         pathRewrite: { [`^${appConfig.baseURL}`]: '' },
         secure: false,
-        changeOrigin: true,
+        // changeOrigin: true,
       },
     },
     ...devServerConfig,
@@ -80,10 +79,10 @@ const config = {
       component: resolvePath('./app/component'),
       page: resolvePath('./app/page'),
       store: resolvePath('./app/store'),
-      storeProp: resolvePath('./app/storeProp'),
       style: resolvePath('./app/style'),
       mixin: resolvePath('./app/mixin'),
       app: resolvePath('./app'),
+      share: resolvePath('./share/src'),
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.less'],
   },
@@ -97,6 +96,19 @@ const config = {
             options: {
               cacheDirectory: !isProd,
               compact: isProd,
+              // presets: ['react', 'env', 'stage-0'],
+              // plugins: [
+              //   [
+              //     'import',
+              //     {
+              //       libraryName: 'antd',
+              //       style: true,
+              //     },
+              //     'transform-runtime',
+              //   ],
+              //   'transform-decorators-legacy',
+              // ],
+              // babelrc: false,
             },
           },
           {
@@ -108,6 +120,7 @@ const config = {
           },
         ],
         include: [
+          resolvePath('./share/src'),
           resolvePath('./app'),
           resolvePath('./node_modules/lodash-es'),
         ],
@@ -309,9 +322,14 @@ if (isProd) {
       new OptimizeCSSAssetsPlugin({}),
     ],
   }
-  config.devtool = 'none'
+  // config.devtool = 'none'
 } else {
   config.devtool = 'cheap-module-eval-source-map'
+  // config.plugins.push(
+  //   new webpack.SourceMapDevToolPlugin({
+  //     filename: '[name].map',
+  //   }),
+  // )
 }
 
 export default config

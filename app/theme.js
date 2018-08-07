@@ -29,6 +29,7 @@ export default () => {
     'menu-bg': headerBg,
     // 'layout-header-height': '46px + 1rem',
     'icon-url': '~"/asset/font/iconfont"',
+    'menu-collapsed-width': '50px',
   }
 
   return theme

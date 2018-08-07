@@ -1,5 +1,5 @@
 import { action } from 'mobx'
-import storeProp from 'app/storeProp'
+import storeProp from 'share/storeProp'
 import api from 'app/api'
 import { ROLE_STATUS } from 'app/constant'
 
@@ -35,7 +35,7 @@ const defaultRole = {
     },
   ],
   list: {
-    name: 'role',
+    name: 'roles',
     url: api.roles,
     rowKey: 'roleId',
     rowSelectionKey: 'roleId',

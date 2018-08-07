@@ -1,8 +1,9 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
-import { Card, Button, Modal, Table } from 'antd'
+import { Card, Button, Modal } from 'antd'
 import PropTypes from 'prop-types'
+import AnimateTable from 'share/component/AnimateTable'
 import Form from './Form'
 import Search from './Search'
 import column from './column'
@@ -24,28 +25,32 @@ export default class Role extends React.Component {
     }).isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    const {
+      store: { user },
+    } = this.props
+    this.store = user
+  }
+
   componentWillUnmount() {
-    this.props.store.user.restoreUsers()
+    this.store.restoreUsers()
   }
 
   onEdit = e => {
     this.setUserByDataset(e)
-    this.props.store.user.showFormModal()
+    this.store.showFormModal()
   }
 
   setUserByDataset = e => {
     const { index } = e.target.dataset
-    const {
-      store: { user },
-    } = this.props
+    const user = this.store
     const data = user.users.tableProps.dataSource[index]
     user.setUser({ data })
   }
 
   destroy = () => {
-    const {
-      store: { user },
-    } = this.props
+    const user = this.store
     const modal = Modal.confirm({
       title: '确认删除选中的用户？',
       onOk: () => {
@@ -64,12 +69,12 @@ export default class Role extends React.Component {
   }
 
   render() {
-    const { user } = this.props.store
+    const user = this.store
     const { users } = user
     const tableProps = toJS(users.tableProps)
     return (
       <Card
-        title={
+        title={(
           <Search>
             <Button.Group>
               <Button type="primary" onClick={user.showFormModal}>
@@ -84,9 +89,9 @@ export default class Role extends React.Component {
               </Button>
             </Button.Group>
           </Search>
-        }
+)}
       >
-        <Table columns={column(this)} {...tableProps} />
+        <AnimateTable columns={column(this)} {...tableProps} />
         <Form />
       </Card>
     )

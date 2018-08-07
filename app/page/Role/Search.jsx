@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { Form, Input, Select } from 'antd'
-import SearchForm from 'component/SearchForm'
+import SearchForm from 'share/component/SearchForm'
 import { ROLE_STATUS } from 'app/constant'
 import s from './search.m.less'
 
@@ -45,19 +45,25 @@ export default class Search extends React.Component {
         onSubmit={this.onSubmit}
         layout="inline"
       >
-        <Item className={s.left}>{children}</Item>
-        <Item label="简称">{form.getFieldDecorator('name')(<Input />)}</Item>
+        <Item className={s.left}>
+          {children}
+        </Item>
+        <Item label="简称">
+          {form.getFieldDecorator('name')(<Input />)}
+        </Item>
         <Item label="全称">
           {form.getFieldDecorator('fullName')(<Input />)}
         </Item>
         <Item label="状态">
-          {form.getFieldDecorator('status')(<Select allowClear>
-            {ROLE_STATUS.map(status => (
-              <Option key={status.value} value={status.value}>
-                {status.label}
-              </Option>
+          {form.getFieldDecorator('status')(
+            <Select allowClear>
+              {ROLE_STATUS.map(status => (
+                <Option key={status.value} value={status.value}>
+                  {status.label}
+                </Option>
               ))}
-          </Select>)}
+            </Select>,
+          )}
         </Item>
       </SearchForm>
     )

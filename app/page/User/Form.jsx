@@ -17,6 +17,24 @@ const layout = {
 @inject('store')
 @observer
 export default class FormModal extends React.Component {
+  // 根据account查询对应信息自动填充表单
+  searchByAccount = debounce(() => {
+    const {
+      form,
+      store: { user },
+    } = this.props
+    const account = form.getFieldValue('account')
+    const source = form.getFieldValue('source')
+    if (source) {
+      user.searchByAccount(account, source).then(res => {
+        const { data } = res
+        if (data && (data.mail || data.mobile || data.name)) {
+          form.setFieldsValue(data)
+        }
+      })
+    }
+  }, 800)
+
   static propTypes = {
     store: PropTypes.shape({
       user: PropTypes.shape({
@@ -55,24 +73,6 @@ export default class FormModal extends React.Component {
       }
     })
   }
-
-  // 根据account查询对应信息自动填充表单
-  searchByAccount = debounce(() => {
-    const {
-      form,
-      store: { user },
-    } = this.props
-    const account = form.getFieldValue('account')
-    const source = form.getFieldValue('source')
-    if (source) {
-      user.searchByAccount(account, source).then(res => {
-        const { data } = res
-        if (data && (data.mail || data.mobile || data.name)) {
-          form.setFieldsValue(data)
-        }
-      })
-    }
-  }, 800)
 
   render() {
     const {

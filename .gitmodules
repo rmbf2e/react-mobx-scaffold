@@ -1,0 +1,3 @@
+[submodule "share"]
+	path = share
+	url = git@git.jd.com:rmb-frontend/share.git

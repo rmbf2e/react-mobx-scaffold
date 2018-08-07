@@ -1,8 +1,8 @@
+import url from 'url'
 import React from 'react'
 // import { toJS } from 'mobx'
 import { mount } from 'enzyme'
 import Moment from 'moment'
-import url from 'url'
 import { Input, Form, DatePicker, TimePicker } from 'antd'
 import SearchForm from 'component/SearchForm'
 import router from 'store/router'
@@ -140,19 +140,23 @@ describe('components/SearchForm', () => {
     expect(router.query).toEqual(originValues)
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} withPagination={false} />)
-    expect(form
+    expect(
+      form
         .instance()
         .getForm()
-        .getFieldsValue()).toEqual(originValues)
+        .getFieldsValue(),
+    ).toEqual(originValues)
     originValues.firstName = 'xxxxxxxx'
     originValues.secondName = 'yyyyyyyyyy'
     router.push({
       search: url.format({ query: originValues }),
     })
-    expect(form
+    expect(
+      form
         .instance()
         .getForm()
-        .getFieldsValue()).toEqual(originValues)
+        .getFieldsValue(),
+    ).toEqual(originValues)
   })
 
   it('测试日期类型的表单参数', () => {
@@ -239,4 +243,8 @@ describe('components/SearchForm', () => {
     form2.unmount()
     router.push('/')
   })
+
+  it('搜索表单如果有验证项目，会验证通过后才能提交', () => {})
+
+  it('提交搜索，无论当前在第几页，pageNo回到1', () => {})
 })

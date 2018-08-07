@@ -28,28 +28,32 @@ export default class Role extends React.Component {
     }).isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    const {
+      store: { role },
+    } = this.props
+    this.store = role
+  }
+
   componentWillUnmount() {
-    this.props.store.role.restoreRoles()
+    this.store.restoreRoles()
   }
 
   onEdit = e => {
     this.setRoleByDataset(e)
-    this.props.store.role.showFormModal()
+    this.store.showFormModal()
   }
 
   setRoleByDataset = e => {
     const { index } = e.target.dataset
-    const {
-      store: { role },
-    } = this.props
+    const role = this.store
     const data = role.roles.tableProps.dataSource[index]
     role.setRole({ data })
   }
 
   destroy = () => {
-    const {
-      store: { role },
-    } = this.props
+    const role = this.store
     const modal = Modal.confirm({
       title: '确认删除选中的角色？',
       onOk: () => {
@@ -68,12 +72,12 @@ export default class Role extends React.Component {
   }
 
   render() {
-    const { role } = this.props.store
+    const role = this.store
     const { roles } = role
     const tableProps = toJS(roles.tableProps)
     return (
       <Card
-        title={
+        title={(
           <Search>
             <Button.Group>
               <Button type="primary" onClick={role.showFormModal}>
@@ -88,7 +92,7 @@ export default class Role extends React.Component {
               </Button>
             </Button.Group>
           </Search>
-        }
+)}
       >
         <Table columns={column(this)} {...tableProps} />
         <Form />

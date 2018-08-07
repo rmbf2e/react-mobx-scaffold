@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
-import loading from 'component/Loading'
+import loading from 'share/component/Loading'
 
 // 默认路由页面
 const Home = Loadable({
@@ -10,7 +10,8 @@ const Home = Loadable({
 })
 
 const NoMatch = Loadable({
-  loader: () => import(/* webpackChunkName: "noMatch" */ 'component/NoMatch'),
+  loader: () =>
+    import(/* webpackChunkName: "noMatch" */ 'share/component/NoMatch'),
   loading,
 })
 
