@@ -61,7 +61,7 @@ export default class Site extends React.Component {
         title: '操作',
         key: 'operation',
         render: (_, record, index) => (
-          <Button data-index={index} onClick={this.onEdit}>
+          <Button type="primary" data-index={index} onClick={this.onEdit}>
             编辑
           </Button>
         ),

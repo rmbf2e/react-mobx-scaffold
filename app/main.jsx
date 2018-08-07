@@ -5,6 +5,7 @@ import moment from 'moment'
 import App from 'component/App'
 import 'moment/locale/zh-cn'
 import 'style/index.less'
+import 'style/animate.less'
 
 // 设置moment语言
 moment.locale('zh-cn')

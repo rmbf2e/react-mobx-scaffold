@@ -68,6 +68,7 @@
     "webpack-cli": "^3.0.4"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
     "ant-design-pro": "^2.0.0-beta.2",
     "antd": "^3.7.0",
     "axios": "^0.18.0",

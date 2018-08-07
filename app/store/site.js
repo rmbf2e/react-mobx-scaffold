@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
-import { toJS, action, runInAction } from 'mobx'
-import remove from 'lodash/remove'
-import findIndex from 'lodash/findIndex'
+import { action, runInAction } from 'mobx'
+// import remove from 'lodash/remove'
+// import findIndex from 'lodash/findIndex'
 import storeProp from 'share/storeProp'
 import api from 'app/api'
 
@@ -59,20 +59,31 @@ site.on('site:created', res => {
 })
 
 site.on('site:destroyed', res => {
-  runInAction(() => {
-    const list = toJS(site.sites.tableProps.dataSource)
-    remove(list, record => res.data.includes(record.siteId))
-    site.sites.tableProps.dataSource = list
+  const ids = res.data
+  ids.forEach(id => {
+    const list = site.sites.tableProps.dataSource
+    const record = list.find(r => r.siteId === id)
+    runInAction(() => {
+      list.remove(record)
+    })
   })
 })
 
-site.on('site:updated', res => {
-  runInAction(() => {
-    const list = toJS(site.sites.tableProps.dataSource)
-    const index = findIndex(list, r => r.siteId === res.data.siteId)
-    list[index] = res.data
-    site.sites.tableProps.dataSource = list
-  })
-})
+site.on(
+  'site:updated',
+  action('siteUpdated', res => {
+    const list = site.sites.tableProps.dataSource
+    const index = list.findIndex(r => r.siteId === res.data.siteId)
+    list[index] = {
+      ...res.data,
+      className: 'animated flash',
+    }
+    setTimeout(() => {
+      runInAction(() => {
+        list[index].className = ''
+      })
+    }, 1000)
+  }),
+)
 
 export default site
