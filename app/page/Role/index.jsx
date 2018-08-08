@@ -71,29 +71,33 @@ export default class Role extends React.Component {
     })
   }
 
+  renderTitle() {
+    const role = this.store
+    const { roles } = role
+    return (
+      <Search>
+        <Button.Group>
+          <Button type="primary" onClick={role.showFormModal}>
+            新增
+          </Button>
+          <Button
+            type="danger"
+            disabled={!roles.hasCheckedKeys}
+            onClick={this.destroy}
+          >
+            删除
+          </Button>
+        </Button.Group>
+      </Search>
+    )
+  }
+
   render() {
     const role = this.store
     const { roles } = role
     const tableProps = toJS(roles.tableProps)
     return (
-      <Card
-        title={(
-          <Search>
-            <Button.Group>
-              <Button type="primary" onClick={role.showFormModal}>
-                新增
-              </Button>
-              <Button
-                type="danger"
-                disabled={!roles.hasCheckedKeys}
-                onClick={this.destroy}
-              >
-                删除
-              </Button>
-            </Button.Group>
-          </Search>
-)}
-      >
+      <Card title={this.renderTitle()}>
         <Table columns={column(this)} {...tableProps} />
         <Form />
         <UserForm />
