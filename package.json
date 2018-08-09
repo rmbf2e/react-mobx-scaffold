@@ -1,7 +1,7 @@
 {
   "name": "rmb-scaffold",
   "version": "1.0.0",
-  "description": "rmb rbac frontend",
+  "description": "react mobx react-router scaffold",
   "scripts": {
     "start": "npm run dev:local | npm run server",
     "dev:local": "cross-env NODE_ENV=development LOGIN_HOST=test PROXY=local npx webpack-dev-server --hot --mode=development",
@@ -14,11 +14,11 @@
     "test": "jest",
     "coverage": "jest --coverage"
   },
-  "author": "wangfan15",
+  "author": "superwf@gmail.com",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@git.jd.com:rmb-frontend/react-scaffold.git"
+    "url": "https://github.com/superwf/react-mobx-scaffold.git"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.2",
