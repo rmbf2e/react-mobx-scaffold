@@ -1,0 +1,19 @@
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.svg {
+  path {
+    animation: dash 5s ease-out infinite alternate;
+    stroke-width: 5;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    stroke: black;
+    fill: none;
+  }
+
+  path:nth-of-type(2) {
+    animation-delay: 5s;
+  }
+}

@@ -137,7 +137,7 @@ export default class FormModal extends React.Component {
           </Item>
           <Item label="状态" {...layout}>
             {form.getFieldDecorator('status', {
-              initialValue: u.status,
+              initialValue: String(u.status),
               rules: [{ required: true }],
             })(<Radio.Group options={USER_STATUS} />)}
           </Item>

@@ -13,6 +13,9 @@ const api = {
   roles: 'roles',
   rolesAll: 'roles/all',
   role: 'role/:id',
+  roleDestroy: 'roleDestroy',
+  roleCreate: 'roleCreate',
+  roleUpdate: 'roleUpdate',
 
   // 站点部分api
   sites: 'sites',

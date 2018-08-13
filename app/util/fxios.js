@@ -11,7 +11,7 @@ const processList = data => {
       data: d,
       dataSource: d.entities,
       pagination: {
-        current: Number(d.pageNo) || 1,
+        // current: Number(d.pageNo) || 1,
         total: Number(d.entityCount) || 0,
       },
     }

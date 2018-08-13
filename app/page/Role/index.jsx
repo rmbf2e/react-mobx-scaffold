@@ -1,8 +1,9 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
-import { Card, Button, Modal, Table } from 'antd'
+import { Card, Button, Modal } from 'antd'
 import PropTypes from 'prop-types'
+import AnimateTable from 'share/component/AnimateTable'
 import UserForm from 'page/User/Form'
 import Form from './Form'
 import Search from './Search'
@@ -59,9 +60,9 @@ export default class Role extends React.Component {
       onOk: () => {
         role
           .destroyRole(toJS(role.roles.checkedKeys))
-          .then(() => {
-            role.fetchRoles()
-          })
+          // .then(() => {
+          //   role.fetchRoles()
+          // })
           .finally(() => {
             modal.destroy()
           })
@@ -98,7 +99,7 @@ export default class Role extends React.Component {
     const tableProps = toJS(roles.tableProps)
     return (
       <Card title={this.renderTitle()}>
-        <Table columns={column(this)} {...tableProps} />
+        <AnimateTable columns={column(this)} {...tableProps} />
         <Form />
         <UserForm />
       </Card>

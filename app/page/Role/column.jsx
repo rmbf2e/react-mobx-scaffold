@@ -1,14 +1,7 @@
-import url from 'url'
 import React from 'react'
-import { Button, Row, Col } from 'antd'
-import { Link } from 'react-router-dom'
+import { Button } from 'antd'
+import propertyOf from 'lodash/propertyOf'
 import { ROLE_STATUS_MAP } from 'app/constant'
-
-const showUserForm = (self, role) => {
-  const { user } = self.props.store
-  user.hideForm() // 恢复默认用户数据
-  user.setRoleAndShowFormModal(role)
-}
 
 export default self => [
   {
@@ -22,31 +15,11 @@ export default self => [
   {
     title: '角色名称',
     dataIndex: 'fullName',
-    render: (fullName, role) => (
-      <Row>
-        <Col span={12}>
-          <Link
-            to={url.format({ pathname: '/user', query: { role: role.roleId } })}
-          >
-            {fullName}
-          </Link>
-        </Col>
-        <Col span={12}>
-          <Button type="primary" onClick={() => showUserForm(self, role)}>
-            添加用户
-          </Button>
-        </Col>
-      </Row>
-    ),
   },
   {
     title: '角色状态',
     dataIndex: 'status',
-    render: text => ROLE_STATUS_MAP[text],
-  },
-  {
-    title: '修改时间',
-    dataIndex: 'operateDate',
+    render: propertyOf(ROLE_STATUS_MAP),
   },
   {
     title: '操作',

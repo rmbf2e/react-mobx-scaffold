@@ -45,9 +45,9 @@ export default class FormModal extends React.Component {
           },
         )
           .then(() => {
-            role.fetchRoles()
-            user.fetchAllRoles()
+            // role.fetchRoles()
             // role更新后，更新ALL_ROLES的下拉列表
+            user.fetchAllRoles()
           })
           .finally(role.hideForm)
       }
@@ -84,7 +84,7 @@ export default class FormModal extends React.Component {
           </Item>
           <Item label="状态">
             {form.getFieldDecorator('status', {
-              initialValue: role.role.status,
+              initialValue: String(role.role.status),
               rules: [{ required: true }],
             })(<Radio.Group options={ROLE_STATUS} />)}
           </Item>

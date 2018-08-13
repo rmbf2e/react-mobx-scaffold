@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'antd'
+import propertyOf from 'lodash/propertyOf'
 import { GENDER_MAP } from 'app/constant'
 
 const column = self => [
@@ -23,7 +24,7 @@ const column = self => [
     title: '性别',
     dataIndex: 'sex',
     key: 'sex',
-    render: sex => GENDER_MAP[sex],
+    render: propertyOf(GENDER_MAP),
   },
   {
     title: '邮箱',
@@ -45,14 +46,9 @@ const column = self => [
           <div key={r.roleId}>
             {r.fullName}
           </div>
-))}
+        ))}
       </React.Fragment>
     ),
-  },
-  {
-    title: '修改时间',
-    dataIndex: 'operateDate',
-    key: 'operateDate',
   },
   {
     title: '操作',
