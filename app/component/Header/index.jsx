@@ -23,7 +23,7 @@ export default class AppHeader extends React.Component {
   render() {
     const { store } = this.props
     return (
-      <ShareHeader store={store}>
+      <ShareHeader>
         <figure className={s.logo}>
           <img alt="logo" src="/asset/image/logo.png" />
           站点标题

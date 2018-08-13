@@ -51,6 +51,11 @@ app/api/index.js
 
 ### 常用命令
 
+* 本项目包含子模块，clone时记得加上子模块参数
+```
+git clone https://github.com/superwf/react-mobx-scaffold.git --recurse-submodules
+```
+
 * 本地模拟接口开发模式
 ```
 npm start
