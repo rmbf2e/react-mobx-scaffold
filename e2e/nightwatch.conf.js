@@ -13,6 +13,7 @@ module.exports = {
   custom_commands_path: [
     'e2e/customCommand',
     'node_modules/nightwatch-helpers/commands',
+    'share/nightwatch/command',
   ],
 
   selenium: {

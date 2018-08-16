@@ -2,18 +2,13 @@ const config = require('../config')
 
 module.exports = {
   site: function site(browser) {
-    const siteMenu = '.ant-layout-header .ant-menu-submenu:nth-of-type(2)'
-
     const testSite = {
       name: 'abcdef',
       fullName: '测试网站',
     }
 
     browser
-      .url(config.host)
-      .waitForElementVisible(siteMenu, 8000)
-      .click(siteMenu)
-      .pause(2000)
+      .url(`${config.host}/site`)
       .waitForElementVisible('.ant-layout-content .ant-card-body', 8000)
       .waitForElementVisible(
         '.ant-layout-content .ant-card-head button:nth-of-type(1)',
