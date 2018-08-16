@@ -33,14 +33,7 @@ export default class Search extends React.Component {
     const {
       store: { user, searchForm },
     } = this.props
-    const search = { ...searchForm.query }
-    const { source, account } = search
-    if (source && account) {
-      search.erp = `${source}_${account}`
-    }
-    delete search.source
-    delete search.account
-    user.users.search = search
+    user.users.search = searchForm.query
     user.fetchUsers()
   }
 

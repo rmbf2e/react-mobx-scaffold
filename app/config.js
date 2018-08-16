@@ -1,3 +1,1 @@
-import config from 'share/config'
-
-export default config
+export default from 'share/config'
