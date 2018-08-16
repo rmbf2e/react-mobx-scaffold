@@ -10,7 +10,7 @@
     "build:test": "cross-env NODE_ENV=production LOGIN_HOST=test npx webpack --progress --hide-modules --mode=production",
     "build:production": "cross-env NODE_ENV=production npx webpack --progress --hide-modules --mode=production",
     "production": "npm run build:production",
-    "e2e": "NODE_ENV=production npx babel-node e2e/runner.js",
+    "e2e": "npx babel-node e2e/runner.js",
     "test": "jest",
     "coverage": "jest --coverage"
   },
@@ -53,6 +53,7 @@
     "jest": "^23.1.0",
     "jest-environment-enzyme": "^6.0.0",
     "jest-enzyme": "^6.0.1",
+    "jsinspect": "^0.12.7",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "nodemon": "^1.17.5",
