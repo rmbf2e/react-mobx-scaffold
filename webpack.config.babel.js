@@ -33,6 +33,18 @@ const envProxy = process.env.PROXY || 'local'
 
 cp.fork('./build/generateRouter.js')
 
+// import的路径别名
+const alias = {
+  util: resolvePath('./app/util'),
+  component: resolvePath('./app/component'),
+  page: resolvePath('./app/page'),
+  store: resolvePath('./app/store'),
+  style: resolvePath('./app/style'),
+  mixin: resolvePath('./app/mixin'),
+  app: resolvePath('./app'),
+  share: resolvePath('./share/src'),
+}
+
 const styleLoader = isProd
   ? MiniCssExtractPlugin.loader
   : {
@@ -74,16 +86,7 @@ const config = {
     },
   },
   resolve: {
-    alias: {
-      util: resolvePath('./app/util'),
-      component: resolvePath('./app/component'),
-      page: resolvePath('./app/page'),
-      store: resolvePath('./app/store'),
-      style: resolvePath('./app/style'),
-      mixin: resolvePath('./app/mixin'),
-      app: resolvePath('./app'),
-      share: resolvePath('./share/src'),
-    },
+    alias,
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.less'],
   },
   module: {
@@ -259,6 +262,8 @@ config.plugins = [
 ]
 
 if (isProd) {
+  alias['mobx-react-devtools'] = resolvePath('./app/component/Null.jsx')
+
   rimraf.sync('./dist/*')
   config.plugins.push(
     new CopyWebpackPlugin([
@@ -313,9 +318,14 @@ if (isProd) {
         cache: true,
         parallel: true,
         uglifyOptions: {
-          drop_debugger: true,
-          drop_console: true,
-          dead_code: true,
+          compress: {
+            drop_debugger: true,
+            drop_console: true,
+            dead_code: true,
+          },
+          output: {
+            comments: false,
+          },
         },
         // sourceMap: true, // set to true if you want JS source maps
       }),

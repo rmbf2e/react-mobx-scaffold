@@ -1,11 +1,14 @@
 import React from 'react'
 import { Layout } from 'antd'
+import MobxDevTools from 'mobx-react-devtools'
 import Sider from 'share/component/Sider'
 import ShareApp from 'share/component/App'
 import store from 'app/store'
 import Header from 'component/Header'
 import Content from 'component/Content'
 // import s from './style.m.less'
+
+const devTool = process.env.NODE_ENV !== 'production' ? <MobxDevTools /> : null
 
 class App extends React.PureComponent {
   state = {
@@ -30,6 +33,7 @@ class App extends React.PureComponent {
             <Sider />
             <Content loading={loadingMeta} />
           </Layout>
+          {devTool}
         </Layout>
       </ShareApp>
     )
