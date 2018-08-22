@@ -25,7 +25,7 @@ describe('util/fxios', () => {
       }
       fetchMock.get(`${config.baseURL}${url}`, mockResponse)
       return fxios.get(url).then(res => {
-        expect(res.data).toEqual(mockResponse.data)
+        expect(res.originalData).toEqual(mockResponse.data)
         expect(res.dataSource).toEqual(mockResponse.data.entities)
         expect(res.pagination).toEqual({
           current: 2,
@@ -50,7 +50,7 @@ describe('util/fxios', () => {
       }
       fetchMock.get(`${config.baseURL}${url}`, mockResponse)
       return fxios.get(url).then(res => {
-        expect(res.data).toEqual(mockResponse.data)
+        expect(res.originalData).toEqual(mockResponse.data)
         expect(res.dataSource).toEqual(mockResponse.data.entities)
         expect(res.pagination).toEqual({
           current: 1,

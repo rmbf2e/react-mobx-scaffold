@@ -153,6 +153,7 @@
       "^store/(.+)$": "<rootDir>/app/store/$1",
       "^storeProp/(.+)$": "<rootDir>/app/storeProp/$1",
       "^app/(.+)$": "<rootDir>/app/$1",
+      "^share/(.+)$": "<rootDir>/share/src/$1",
       "history/createBrowserHistory": "<rootDir>/node_modules/history/createMemoryHistory"
     },
     "moduleFileExtensions": [

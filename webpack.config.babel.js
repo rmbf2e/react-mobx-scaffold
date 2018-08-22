@@ -13,7 +13,6 @@ import CompressionPlugin from 'compression-webpack-plugin'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import appConfig from './share/src/config'
 import serverConfig from './mockServer/config'
-// import serverConfig from './mockServer/config'
 import getThemeConfig from './app/theme'
 import devServerConfig from './build/config'
 
@@ -335,11 +334,6 @@ if (isProd) {
   // config.devtool = 'none'
 } else {
   config.devtool = 'cheap-module-eval-source-map'
-  // config.plugins.push(
-  //   new webpack.SourceMapDevToolPlugin({
-  //     filename: '[name].map',
-  //   }),
-  // )
 }
 
 export default config
