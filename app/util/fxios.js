@@ -8,7 +8,7 @@ const processList = data => {
   if (data && data.data && isObject(data.data) && 'entities' in data.data) {
     const d = data.data
     return {
-      data: d,
+      originalData: d,
       dataSource: d.entities,
       pagination: {
         // current: Number(d.pageNo) || 1,
