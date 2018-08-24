@@ -58,9 +58,11 @@ const defaultUser = {
 class User {
   currentType = null
 
-  @observable.shallow ALL_ROLES = []
+  @observable.shallow
+  ALL_ROLES = []
 
-  @observable fetchingRoles = false
+  @observable
+  fetchingRoles = false
 
   logout = () => fxios.get(api.logout)
 
@@ -98,7 +100,8 @@ class User {
   }
 
   // 批量导入用户
-  @observable importingUsers = false
+  @observable
+  importingUsers = false
 
   @action
   importUsers = data => {

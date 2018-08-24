@@ -4,9 +4,9 @@ module.exports = {
     'airbnb',
     'plugin:import/react',
     'plugin:import/recommended',
-    'prettier',
+    'plugin:prettier/recommended',
   ],
-  plugins: ['import'],
+  plugins: ['import', 'prettier'],
   rules: {
     semi: [0, 'never'],
     'import/order': [
