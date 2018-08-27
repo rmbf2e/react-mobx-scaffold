@@ -13,14 +13,16 @@ const routers = fs
     }
     return true
   })
-  .map(router => `<Route
+  .map(
+    router => `<Route
     key="${router}"
     component={Loadable({
       loader: () => import('./page/${router}'),
       loading,
     })}
     path="/${lowerFirst(router)}"
-  />`)
+  />`,
+  )
 const templatePlaceholder = routerTemplate.replace(
   '/* template-placeholder */',
   `${routers.join(',\n  ')},\n

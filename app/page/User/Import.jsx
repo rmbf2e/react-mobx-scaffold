@@ -84,9 +84,11 @@ export default class Import extends React.Component {
                 <Form.Item>
                   {getFieldDecorator('file', {
                     rules: [{ required: true, message: '请添加上传文件' }],
-                  })(<Upload beforeUpload={this.beforeUpload}>
-                    <Button type="primary">上传文件</Button>
-                  </Upload>)}
+                  })(
+                    <Upload beforeUpload={this.beforeUpload}>
+                      <Button type="primary">上传文件</Button>
+                    </Upload>,
+                  )}
                 </Form.Item>
                 <br />
                 <Alert

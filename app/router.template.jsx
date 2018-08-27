@@ -3,16 +3,22 @@ import { Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import loading from 'share/component/Loading'
 
+function RouterLoadable(option) {
+  return Loadable({
+    loading,
+    delay: 200,
+    timeout: 10000,
+    ...option,
+  })
+}
+
 // 默认路由页面
-const Home = Loadable({
+const Home = RouterLoadable({
   loader: () => import(/* webpackChunkName: "home" */ './page/Home'),
-  loading,
 })
 
-const NoMatch = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "noMatch" */ 'share/component/NoMatch'),
-  loading,
+const NoMatch = RouterLoadable({
+  loader: () => import(/* webpackChunkName: "noMatch" */ 'share/component/NoMatch'),
 })
 
 const routers = [

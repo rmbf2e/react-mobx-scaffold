@@ -45,12 +45,8 @@ export default class Search extends React.Component {
         onSubmit={this.onSubmit}
         layout="inline"
       >
-        <Item className={s.left}>
-          {children}
-        </Item>
-        <Item label="简称">
-          {form.getFieldDecorator('name')(<Input />)}
-        </Item>
+        <Item className={s.left}>{children}</Item>
+        <Item label="简称">{form.getFieldDecorator('name')(<Input />)}</Item>
         <Item label="全称">
           {form.getFieldDecorator('fullName')(<Input />)}
         </Item>

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Form, Input, Radio } from 'antd'
+import {
+ Modal, Form, Input, Radio,
+} from 'antd'
 import { inject, observer } from 'mobx-react'
 import { ROLE_STATUS } from 'app/constant'
 

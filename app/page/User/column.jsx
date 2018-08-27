@@ -43,9 +43,7 @@ const column = self => [
     render: roles => (
       <React.Fragment>
         {roles.map(r => (
-          <div key={r.roleId}>
-            {r.fullName}
-          </div>
+          <div key={r.roleId}>{r.fullName}</div>
         ))}
       </React.Fragment>
     ),

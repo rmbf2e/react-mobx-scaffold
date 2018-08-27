@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Form, Input, Radio, Select } from 'antd'
+import {
+ Modal, Form, Input, Radio, Select,
+} from 'antd'
 import { inject, observer } from 'mobx-react'
 import debounce from 'lodash/debounce'
 import { GENDER, USER_STATUS } from 'app/constant'
