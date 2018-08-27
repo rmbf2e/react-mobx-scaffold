@@ -8,7 +8,7 @@ const routers = fs
   .readdirSync('./app/page')
   .filter(file => {
     // Main在模板中已经定义为主路由
-    if (file === 'Main') {
+    if (file === 'Home') {
       return false
     }
     return true
@@ -16,9 +16,8 @@ const routers = fs
   .map(
     router => `<Route
     key="${router}"
-    component={Loadable({
+    component={RouterLoadable({
       loader: () => import('./page/${router}'),
-      loading,
     })}
     path="/${lowerFirst(router)}"
   />`,
