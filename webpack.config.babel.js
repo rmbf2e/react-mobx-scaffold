@@ -113,13 +113,13 @@ const config = {
               // babelrc: false,
             },
           },
-          {
-            loader: 'eslint-loader',
-            options: {
-              enforce: 'pre',
-              exclude: /node_modules/,
-            },
-          },
+          // {
+          //   loader: 'eslint-loader',
+          //   options: {
+          //     enforce: 'pre',
+          //     exclude: /node_modules/,
+          //   },
+          // },
         ],
         include: [
           resolvePath('./share/src'),
