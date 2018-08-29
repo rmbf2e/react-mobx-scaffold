@@ -36,7 +36,6 @@
     "@babel/runtime": "^7.0.0",
     "autoprefixer": "^8.6.2",
     "babel-7-jest": "^21.3.3",
-    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-import": "^1.8.0",
@@ -134,9 +133,6 @@
   },
   "engines": {
     "node": ">=9.8.0"
-  },
-  "resolutions": {
-    "babel-core": "7.0.0-bridge.0"
   },
   "jest": {
     "collectCoverageFrom": [
