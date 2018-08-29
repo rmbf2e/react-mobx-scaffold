@@ -31,10 +31,6 @@ module.exports = {
     'react/jsx-closing-tag-location': 0,
   },
   settings: {
-    'import/resolver': {
-      webpack: {
-        config: 'webpack.config.babel.js',
-      },
-    },
+    'import/resolver': 'webpack',
   },
 }
