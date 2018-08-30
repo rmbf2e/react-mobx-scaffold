@@ -48,6 +48,7 @@ app/api/index.js
 * app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
 * 项目使用app/theme.js中的样式注入全局less环境，因此该文件中定义的less变量可在项目的所有.less或.m.less文件中使用，并覆盖antd的同名变量。缺点在于每次修改该文件后需要重启项目才能生效。参考[antd定制样式](https://ant.design/docs/react/customize-theme-cn)
 * 参考[mobx最佳实践](https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140)
+* 升级bable7，使用babel.config.js作为配置文件，避免与share文件夹内的互相干扰。
 
 ### 常用命令
 
