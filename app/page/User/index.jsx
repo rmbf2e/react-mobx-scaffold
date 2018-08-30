@@ -10,7 +10,7 @@ import column from './column'
 
 @inject('store')
 @observer
-export default class Role extends React.Component {
+class User extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
       user: PropTypes.shape({
@@ -97,3 +97,4 @@ export default class Role extends React.Component {
     )
   }
 }
+export default User

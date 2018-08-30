@@ -8,7 +8,7 @@ import FormModal from './Form'
 
 @inject('store')
 @observer
-export default class Site extends React.Component {
+class Site extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
       site: PropTypes.shape({
@@ -116,3 +116,4 @@ export default class Site extends React.Component {
     )
   }
 }
+export default Site

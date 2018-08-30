@@ -12,7 +12,7 @@ const { Item } = Form
 @Form.create()
 @inject('store')
 @observer
-export default class Search extends React.Component {
+class Search extends React.Component {
   static propTypes = {
     form: PropTypes.shape({
       getFieldDecorator: PropTypes.func,
@@ -65,3 +65,4 @@ export default class Search extends React.Component {
     )
   }
 }
+export default Search

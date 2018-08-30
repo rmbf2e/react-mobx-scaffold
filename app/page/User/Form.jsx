@@ -18,7 +18,7 @@ const layout = {
 @Form.create()
 @inject('store')
 @observer
-export default class FormModal extends React.Component {
+class FormModal extends React.Component {
   // 根据account查询对应信息自动填充表单
   searchByAccount = debounce(() => {
     const {
@@ -148,3 +148,4 @@ export default class FormModal extends React.Component {
     )
   }
 }
+export default FormModal

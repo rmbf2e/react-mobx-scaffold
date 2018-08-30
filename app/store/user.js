@@ -24,7 +24,7 @@ const defaultUser = {
       rowSelectionKey: 'userId',
     },
   ],
-  modal: ['form', 'import', 'batchEdit', 'category'],
+  modal: ['form'],
   rest: [
     {
       name: 'me',

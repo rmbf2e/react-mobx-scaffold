@@ -14,7 +14,7 @@ const { Option } = Select
 @Form.create()
 @inject('store')
 @observer
-export default class Search extends React.Component {
+class Search extends React.Component {
   static propTypes = {
     form: PropTypes.shape({
       getFieldDecorator: PropTypes.func,
@@ -22,7 +22,7 @@ export default class Search extends React.Component {
     store: PropTypes.shape({
       user: PropTypes.shape({
         fetchAllRoles: PropTypes.func,
-        ALL_ROLES: PropTypes.object,
+        ALL_ROLES: PropTypes.array,
       }),
       searchForm: PropTypes.shape({
         query: PropTypes.object,
@@ -80,3 +80,4 @@ export default class Search extends React.Component {
     )
   }
 }
+export default Search

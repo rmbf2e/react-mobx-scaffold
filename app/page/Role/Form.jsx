@@ -11,7 +11,7 @@ const { Item } = Form
 @Form.create()
 @inject('store')
 @observer
-export default class FormModal extends React.Component {
+class FormModal extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
       role: PropTypes.shape({
@@ -95,3 +95,4 @@ export default class FormModal extends React.Component {
     )
   }
 }
+export default FormModal

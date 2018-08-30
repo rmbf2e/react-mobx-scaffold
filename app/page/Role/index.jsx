@@ -11,7 +11,7 @@ import column from './column'
 
 @inject('store')
 @observer
-export default class Role extends React.Component {
+class Role extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
       role: PropTypes.shape({
@@ -106,3 +106,4 @@ export default class Role extends React.Component {
     )
   }
 }
+export default Role
