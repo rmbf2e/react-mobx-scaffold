@@ -11,7 +11,7 @@ import 'style/animate.less'
 moment.locale('zh-cn')
 
 // 设置mobx校验必须通过action更新数据
-configure({ enforceActions: true })
+configure({ enforceActions: 'observed' })
 
 render(<App />, global.document.getElementById('app'))
 
