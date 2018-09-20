@@ -54,7 +54,7 @@ app/api/index.js
 
 * 本项目包含子模块，clone时记得加上子模块参数
 ```
-git clone https://github.com/superwf/react-mobx-scaffold.git --recurse-submodules
+git clone https://github.com/rmbf2e/react-mobx-scaffold.git --recurse-submodules
 ```
 
 * 本地模拟接口开发模式
