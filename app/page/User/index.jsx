@@ -4,6 +4,7 @@ import { toJS } from 'mobx'
 import { Card, Button, Modal } from 'antd'
 import PropTypes from 'prop-types'
 import AnimateTable from 'share/component/AnimateTable'
+import ConfirmButton from 'component/ConfirmButton'
 import Form from './Form'
 import Search from './Search'
 import column from './column'
@@ -51,21 +52,7 @@ class User extends React.Component {
 
   destroy = () => {
     const user = this.store
-    const modal = Modal.confirm({
-      title: '确认删除选中的用户？',
-      onOk: () => {
-        user
-          .destroyUser(toJS(user.users.checkedKeys))
-          .then(() => {
-            user.fetchUsers()
-          })
-          .finally(() => {
-            modal.destroy()
-          })
-      },
-      onCancel: () => modal.destroy(),
-      confirmLoading: user.destroyingRole,
-    })
+    user.destroyUser(toJS(user.users.checkedKeys))
   }
 
   render() {
@@ -80,13 +67,13 @@ class User extends React.Component {
               <Button type="primary" onClick={user.showFormModal}>
                 新增
               </Button>
-              <Button
+              <ConfirmButton
                 type="danger"
                 disabled={!users.hasCheckedKeys}
-                onClick={this.destroy}
+                onConfirm={this.destroy}
               >
                 删除
-              </Button>
+              </ConfirmButton>
             </Button.Group>
           </Search>
 )}

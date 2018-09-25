@@ -46,7 +46,7 @@ const defaultUser = {
         url: api.user,
       },
       destroy: {
-        url: api.user,
+        url: api.users,
       },
     },
   ],

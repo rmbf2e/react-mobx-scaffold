@@ -61,7 +61,7 @@ class Site extends React.Component {
         title: '操作',
         key: 'operation',
         render: (_, record, index) => (
-          <Button type="primary" data-index={index} onClick={this.onEdit}>
+          <Button size="small" data-index={index} onClick={this.onEdit}>
             编辑
           </Button>
         ),

@@ -53,11 +53,9 @@ const column = self => [
     dataIndex: 'operation',
     key: 'operation',
     render: (text, record, index) => (
-      <Button.Group>
-        <Button type="primary" data-index={index} onClick={self.onEdit}>
-          编辑
-        </Button>
-      </Button.Group>
+      <Button size="small" data-index={index} onClick={self.onEdit}>
+        编辑
+      </Button>
     ),
   },
 ]

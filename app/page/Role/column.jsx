@@ -25,16 +25,9 @@ export default self => [
     title: '操作',
     dataIndex: 'handler',
     render: (text, record, index) => (
-      <Button.Group>
-        <Button
-          type="primary"
-          key="edit"
-          data-index={index}
-          onClick={self.onEdit}
-        >
-          编辑
-        </Button>
-      </Button.Group>
+      <Button size="small" key="edit" data-index={index} onClick={self.onEdit}>
+        编辑
+      </Button>
     ),
   },
 ]

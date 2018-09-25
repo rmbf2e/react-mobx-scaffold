@@ -17,6 +17,7 @@ menu.setMenus([
       },
       {
         name: '不存在的路径',
+        icon: 'user',
         to: '/noMatch',
       },
     ],
@@ -28,6 +29,13 @@ menu.setMenus([
         name: '站点管理',
         to: '/site',
         icon: 'html5',
+        children: [
+          {
+            name: '不存在的路径',
+            icon: 'user',
+            to: '/noMatch',
+          },
+        ],
       },
     ],
   },

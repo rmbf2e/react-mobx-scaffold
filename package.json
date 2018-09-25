@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "react mobx react-router scaffold",
   "scripts": {
-    "start": "npm run dev:local | npm run server",
+    "start": "npm run server | npm run dev:local",
     "dev:local": "cross-env NODE_ENV=development LOGIN_HOST=test PROXY=local npx webpack-dev-server --hot --mode=development",
     "dev:remote": "cross-env NODE_ENV=development LOGIN_HOST=test PROXY=remote npx webpack-dev-server --hot --mode=development",
     "server": "cross-env NODE_ENV=development npx nodemon --exec npx babel-node ./mockServer/app.js",
@@ -81,8 +81,8 @@
   "dependencies": {
     "@babel/register": "^7.0.0",
     "animate.css": "^3.7.0",
-    "ant-design-pro": "^1.4.4",
-    "antd": "^3.7.0",
+    "ant-design-pro": "^2.0.0",
+    "antd": "^3.9.3",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
@@ -123,6 +123,7 @@
     "react-dom": "^16.4.0",
     "react-intl": "^2.4.0",
     "react-loadable": "^5.4.0",
+    "react-motion": "^0.5.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-router-transition": "^1.2.1",

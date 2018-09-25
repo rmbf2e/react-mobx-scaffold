@@ -5,6 +5,7 @@ import { Card, Button, Modal } from 'antd'
 import PropTypes from 'prop-types'
 import AnimateTable from 'share/component/AnimateTable'
 import UserForm from 'page/User/Form'
+import ConfirmButton from 'component/ConfirmButton'
 import Form from './Form'
 import Search from './Search'
 import column from './column'
@@ -55,21 +56,7 @@ class Role extends React.Component {
 
   destroy = () => {
     const role = this.store
-    const modal = Modal.confirm({
-      title: '确认删除选中的角色？',
-      onOk: () => {
-        role
-          .destroyRole(toJS(role.roles.checkedKeys))
-          // .then(() => {
-          //   role.fetchRoles()
-          // })
-          .finally(() => {
-            modal.destroy()
-          })
-      },
-      onCancel: () => modal.destroy(),
-      confirmLoading: role.destroyingRole,
-    })
+    role.destroyRole(toJS(role.roles.checkedKeys))
   }
 
   renderTitle() {
@@ -81,13 +68,13 @@ class Role extends React.Component {
           <Button type="primary" onClick={role.showFormModal}>
             新增
           </Button>
-          <Button
+          <ConfirmButton
             type="danger"
             disabled={!roles.hasCheckedKeys}
-            onClick={this.destroy}
+            onConfirm={this.destroy}
           >
             删除
-          </Button>
+          </ConfirmButton>
         </Button.Group>
       </Search>
     )

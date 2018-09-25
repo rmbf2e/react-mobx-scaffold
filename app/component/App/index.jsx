@@ -1,7 +1,6 @@
 import React from 'react'
 import { Layout } from 'antd'
 import MobxDevTools from 'mobx-react-devtools'
-import Sider from 'share/component/Sider'
 import ShareApp from 'share/component/App'
 import store from 'app/store'
 import Header from 'component/Header'
@@ -30,7 +29,6 @@ class App extends React.PureComponent {
         <Layout>
           <Header />
           <Layout>
-            <Sider />
             <Content loading={loadingMeta} />
           </Layout>
           {devTool}

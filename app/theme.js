@@ -24,11 +24,8 @@ export default () => {
     'layout-header-height': '64px',
     'layout-trigger-background': darken(40),
     'layout-body-background': 'transparent',
-    // 'layout-trigger-color': lighten(20),
     'menu-bg': headerBg,
-    // 'layout-header-height': '46px + 1rem',
-    'icon-url': '~"/asset/font/iconfont"',
-    'menu-collapsed-width': '50px',
+    'menu-collapsed-width': '10px',
   }
 
   return theme
