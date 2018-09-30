@@ -6,11 +6,11 @@ import { Switch, Route } from 'react-router-dom'
 import NoMatch from 'component/NoMatch'
 import s from './style.m.less'
 
-const RouteTransition = ({ routers, store: { router } }) => (
+const RouteTransition = ({ routes, store: { router } }) => (
   <TransitionGroup className={s.wrapper}>
     <CSSTransition key={router.location.key} classNames="route" timeout={300}>
       <Switch location={router.location}>
-        {routers.map(r => (
+        {routes.map(r => (
           <Route {...r} />
         ))}
         {/* 没有匹配到的默认路由，放到最后 */}
@@ -21,7 +21,7 @@ const RouteTransition = ({ routers, store: { router } }) => (
 )
 
 RouteTransition.propTypes = {
-  routers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
   store: PropTypes.shape({
     router: PropTypes.object,
   }).isRequired,

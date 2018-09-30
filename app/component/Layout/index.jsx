@@ -1,26 +1,29 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Layout } from 'antd'
 import MobxDevTools from 'mobx-react-devtools'
 import Header from 'component/Header'
-import Content from 'component/Content'
+import TransitionRoute from 'component/TransitionRoute'
 import SoundEffect from 'component/SoundEffect'
-// import { observer, inject } from 'mobx-react'
-
-const devTool = process.env.NODE_ENV !== 'production' ? <MobxDevTools /> : null
 
 /*
  * 项目最外层组件，负责监听事件
  * */
-const AppLayout = () => (
+const AppLayout = ({ routes }) => (
   <Layout>
     <Header />
     <Layout>
-      <Content />
+      <Layout.Content>
+        <TransitionRoute routes={routes} />
+      </Layout.Content>
     </Layout>
-    {devTool}
+    <MobxDevTools />
     <SoundEffect />
   </Layout>
 )
+
+AppLayout.propTypes = {
+  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
 
 export default AppLayout

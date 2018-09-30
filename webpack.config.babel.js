@@ -30,7 +30,7 @@ const proxyTargets = {
 }
 const envProxy = process.env.PROXY || 'local'
 
-cp.fork('./build/generateRouter.js')
+cp.fork('./build/generateRoute.js')
 cp.fork('./build/generateStore.js')
 
 // import的路径别名

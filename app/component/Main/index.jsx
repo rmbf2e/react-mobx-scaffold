@@ -1,12 +1,12 @@
 import React from 'react'
 import zhCN from 'antd/lib/locale-provider/zh_CN'
 import { observer } from 'mobx-react'
+import routes from 'app/route'
 import mainListen, { onPageError } from 'mixin/mainListen'
 import store from 'app/store'
 import Combinator from 'component/Combinator'
 import Loading from 'component/Loading'
 import Layout from 'component/Layout'
-import router from 'app/router'
 
 /*
  * 项目启动器
@@ -33,13 +33,8 @@ class Main extends React.Component {
     return store.app.loading ? (
       <Loading />
     ) : (
-      <Combinator
-        locale={zhCN}
-        store={store}
-        history={store.router.history}
-        router={router}
-      >
-        <Layout />
+      <Combinator locale={zhCN} store={store} history={store.router.history}>
+        <Layout routes={routes} />
       </Combinator>
     )
   }

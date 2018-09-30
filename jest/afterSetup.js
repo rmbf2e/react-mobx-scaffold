@@ -5,8 +5,6 @@ import router from '../app/store/router'
 
 afterEach(() => {
   fetchMock.restore()
-  jest.clearAllMocks()
-  jest.restoreAllMocks()
   router.push('/')
 })
 

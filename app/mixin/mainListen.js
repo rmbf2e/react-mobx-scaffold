@@ -4,7 +4,7 @@ import fxios from 'tool/fxios'
 import { emitter as soundEmitter } from 'component/SoundEffect'
 
 // 监听后端接口错误函数
-const onApiError = error => {
+export const onApiError = error => {
   notification.error({
     message: '接口错误',
     description: error.message || error.toString(),
@@ -14,7 +14,7 @@ const onApiError = error => {
 }
 
 // 监听后端接口成功提示
-const onApiSuccess = (res, req) => {
+export const onApiSuccess = (res, req) => {
   if (req.method !== 'get') {
     notification.success({
       message: '操作成功',
@@ -34,21 +34,23 @@ export const onPageError = error => {
   })
 }
 
+export const onMobxError = error => {
+  notification.error({
+    message: 'mobx错误',
+    description: error.toString(),
+    placement: 'topLeft',
+  })
+  soundEmitter.emit('failure')
+}
+
 const listen = () => {
   fxios.on('error', onApiError)
   fxios.on('success', onApiSuccess)
-  const dispose = onError(error => {
-    notification.error({
-      message: 'mobx错误',
-      description: error.toString(),
-      placement: 'topLeft',
-    })
-    soundEmitter.emit('failure')
-  })
+  const dispose = onError(onMobxError)
   return () => {
     dispose()
     fxios.off('success', onApiSuccess)
-    fxios.off('error', onApiSuccess)
+    fxios.off('error', onApiError)
   }
 }
 

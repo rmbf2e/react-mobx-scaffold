@@ -8,21 +8,26 @@ class SoundEffect extends React.Component {
     super(props)
     this.successAudio = React.createRef()
     this.failureAudio = React.createRef()
+    this.playSuccess = this.play('success')
+    this.playFailure = this.play('failure')
   }
 
   componentDidMount() {
-    emitter.on('success', this.play('success'))
-    emitter.on('failure', this.play('failure'))
+    emitter.on('success', this.playSuccess)
+    emitter.on('failure', this.playFailure)
+  }
+
+  componentWillUnmount() {
+    emitter.off('success', this.playSuccess)
+    emitter.off('failure', this.playFailure)
   }
 
   // 每次播放，重置audio播放状态重新播放
   play = type => () => {
     const audio = this[`${type}Audio`].current
-    if (audio) {
-      audio.pause()
-      audio.currentTime = 0
-      audio.play()
-    }
+    audio.pause()
+    audio.currentTime = 0
+    audio.play()
   }
 
   render() {
