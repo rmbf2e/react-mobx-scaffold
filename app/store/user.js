@@ -1,10 +1,10 @@
-import fxios from 'util/fxios'
-import { observable, action } from 'mobx'
-import storeProp from 'share/storeProp'
+import Events from 'events'
+import { observe } from 'mobx'
+import storeProp from 'app/storeProp'
 import api from 'app/api'
 import { GENDER, USER_STATUS } from 'app/constant'
 
-const defaultUser = {
+const defaultRecord = {
   erp: '',
   name: '',
   sex: GENDER[0].value,
@@ -18,7 +18,7 @@ const defaultUser = {
 @storeProp({
   list: [
     {
-      name: 'users',
+      name: 'list',
       url: api.users,
       rowKey: 'userId',
       rowSelectionKey: 'userId',
@@ -34,8 +34,8 @@ const defaultUser = {
       },
     },
     {
-      name: 'user',
-      default: defaultUser,
+      name: 'record',
+      default: defaultRecord,
       create: {
         url: api.userCreate,
       },
@@ -51,71 +51,15 @@ const defaultUser = {
     },
   ],
 })
-// axios无法处理返回302的redirect状态，所以还是用fetch
-// https://blog.csdn.net/orangleliu/article/details/79862248
-// https://github.com/axios/axios/issues/980
-// axios的maxRedirects: 0只在nodejs端有用，浏览器没用
-class User {
-  currentType = null
+class User extends Events {}
 
-  @observable.shallow
-  ALL_ROLES = []
+const store = new User()
 
-  @observable
-  fetchingRoles = false
-
-  logout = () => fxios.get(api.logout)
-
-  @action
-  fetchAllRoles = () => {
-    this.fetchingRoles = true
-    return fxios
-      .get(api.rolesAll)
-      .then(
-        action('setAllRoles', res => {
-          this.ALL_ROLES = res.data.map(r => ({
-            label: r.fullName,
-            value: String(r.roleId),
-          }))
-        }),
-      )
-      .finally(
-        action('setFetchingRoles', () => {
-          this.fetchingRoles = false
-        }),
-      )
+// 关闭modal且将role还原
+observe(store, 'formModal', ({ newValue }) => {
+  if (!newValue) {
+    store.restoreRecord()
   }
+})
 
-  // 关闭modal且将role还原
-  @action
-  hideForm = () => {
-    this.user = defaultUser
-    this.hideFormModal()
-  }
-
-  @action
-  setRoleAndShowFormModal = role => {
-    this.user.roles = [role]
-    this.showFormModal()
-  }
-
-  // 批量导入用户
-  @observable
-  importingUsers = false
-
-  @action
-  importUsers = data => {
-    this.importingUsers = true
-    return fxios.post(api.userImport, data).finally(
-      action('setImportingUsers', () => {
-        this.importingUsers = false
-      }),
-    )
-  }
-
-  // 根据帐号查询对应信息自动填充表单
-  // searchByAccount = (user, type) =>
-  //   fxios.get(api.userSearchByAccount, { user, type })
-}
-
-export default new User()
+export default store

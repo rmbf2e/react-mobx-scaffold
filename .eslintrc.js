@@ -6,6 +6,7 @@ module.exports = {
     'plugin:import/react',
     'plugin:import/recommended',
     'prettier',
+    'prettier/react',
   ],
   plugins: ['import'],
   rules: {

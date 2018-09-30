@@ -1,9 +1,8 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
-import { Card, Button, Modal } from 'antd'
+import { Card, Table, Button } from 'antd'
 import PropTypes from 'prop-types'
-import AnimateTable from 'share/component/AnimateTable'
 import ConfirmButton from 'component/ConfirmButton'
 import Form from './Form'
 import Search from './Search'
@@ -15,13 +14,13 @@ class User extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
       user: PropTypes.shape({
-        fetchUsers: PropTypes.func,
-        users: PropTypes.shape({
+        fetchList: PropTypes.func,
+        list: PropTypes.shape({
           dataSource: PropTypes.array,
           pagination: PropTypes.object,
         }),
         showFormModal: PropTypes.func,
-        restoreUsers: PropTypes.func,
+        restoreList: PropTypes.func,
       }),
     }).isRequired,
   }
@@ -35,7 +34,7 @@ class User extends React.Component {
   }
 
   componentWillUnmount() {
-    this.store.restoreUsers()
+    this.store.restoreList()
   }
 
   onEdit = e => {
@@ -46,19 +45,19 @@ class User extends React.Component {
   setUserByDataset = e => {
     const { index } = e.target.dataset
     const user = this.store
-    const data = user.users.tableProps.dataSource[index]
+    const data = user.list.tableProps.dataSource[index]
     user.setUser({ data })
   }
 
   destroy = () => {
     const user = this.store
-    user.destroyUser(toJS(user.users.checkedKeys))
+    user.destroyUser(toJS(user.list.checkedKeys))
   }
 
   render() {
     const user = this.store
-    const { users } = user
-    const tableProps = toJS(users.tableProps)
+    const { list } = user
+    const tableProps = toJS(list.tableProps)
     return (
       <Card
         title={(
@@ -69,7 +68,7 @@ class User extends React.Component {
               </Button>
               <ConfirmButton
                 type="danger"
-                disabled={!users.hasCheckedKeys}
+                disabled={!list.hasCheckedKeys}
                 onConfirm={this.destroy}
               >
                 删除
@@ -78,7 +77,7 @@ class User extends React.Component {
           </Search>
 )}
       >
-        <AnimateTable columns={column(this)} {...tableProps} />
+        <Table columns={column(this)} {...tableProps} />
         <Form />
       </Card>
     )

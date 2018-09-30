@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
- Modal, Form, Input, Radio, Select,
-} from 'antd'
+import { toJS } from 'mobx'
+import { Modal, Form, Input, Radio } from 'antd'
 import { inject, observer } from 'mobx-react'
 import debounce from 'lodash/debounce'
 import { GENDER, USER_STATUS } from 'app/constant'
 
 const { Item } = Form
-const { Option } = Select
 
 const layout = {
   labelCol: { span: 5 },
@@ -71,7 +69,7 @@ class FormModal extends React.Component {
           .then(() => {
             user.fetchUsers()
           })
-          .finally(user.hideForm)
+          .finally(user.hideFormModal)
       }
     })
   }
@@ -81,11 +79,11 @@ class FormModal extends React.Component {
       store: { user },
       form,
     } = this.props
-    const u = user.user
-    const isUpdate = !!u.userId
+    const record = toJS(user.record)
+    const isUpdate = !!user.userId
     return (
       <Modal
-        onCancel={user.hideForm}
+        onCancel={user.hideFormModal}
         destroyOnClose
         visible={user.formModal}
         width={600}
@@ -95,51 +93,37 @@ class FormModal extends React.Component {
         <Form onSubmit={this.submit} layout="horizontal">
           <Item label="帐号" {...layout}>
             {form.getFieldDecorator('erp', {
-              initialValue: u.erp,
+              initialValue: record.erp,
               rules: [{ required: true, message: '请填写帐号' }],
             })(<Input />)}
           </Item>
           <Item label="姓名" {...layout}>
             {form.getFieldDecorator('name', {
-              initialValue: u.name,
+              initialValue: record.name,
               rules: [{ required: true, message: '请填写姓名' }],
             })(<Input />)}
           </Item>
           <Item label="邮箱" {...layout}>
             {form.getFieldDecorator('mail', {
-              initialValue: u.mail,
+              initialValue: record.mail,
               rules: [{ required: true, message: '请填写邮箱' }],
             })(<Input />)}
           </Item>
           <Item label="手机" {...layout}>
             {form.getFieldDecorator('mobile', {
-              initialValue: u.mobile,
+              initialValue: record.mobile,
               rules: [{ required: true, message: '请填写手机' }],
             })(<Input />)}
           </Item>
           <Item label="性别" {...layout}>
             {form.getFieldDecorator('sex', {
-              initialValue: u.sex,
+              initialValue: record.sex,
               rules: [{ required: true }],
             })(<Radio.Group options={GENDER} />)}
           </Item>
-          <Item label="角色" {...layout}>
-            {form.getFieldDecorator('roleId', {
-              initialValue: u.roles.map(r => String(r.roleId)),
-              rules: [{ required: true, message: '请选择角色' }],
-            })(
-              <Select mode="multiple">
-                {user.ALL_ROLES.map(type => (
-                  <Option key={type.value} value={type.value}>
-                    {type.label}
-                  </Option>
-                ))}
-              </Select>,
-            )}
-          </Item>
           <Item label="状态" {...layout}>
             {form.getFieldDecorator('status', {
-              initialValue: String(u.status),
+              initialValue: String(record.status),
               rules: [{ required: true }],
             })(<Radio.Group options={USER_STATUS} />)}
           </Item>

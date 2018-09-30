@@ -8,12 +8,6 @@ const column = self => [
     title: '帐号',
     dataIndex: 'erp',
     key: 'erp',
-    render: (_, record) => {
-      if (record.erp.includes('_')) {
-        return record.erp.split('_')[1]
-      }
-      return record.erp
-    },
   },
   {
     title: '姓名',
@@ -35,18 +29,6 @@ const column = self => [
     title: '手机',
     dataIndex: 'mobile',
     key: 'mobile',
-  },
-  {
-    title: '角色',
-    dataIndex: 'roles',
-    key: 'roles',
-    render: roles => (
-      <React.Fragment>
-        {roles.map(r => (
-          <div key={r.roleId}>{r.fullName}</div>
-        ))}
-      </React.Fragment>
-    ),
   },
   {
     title: '操作',

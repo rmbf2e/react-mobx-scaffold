@@ -2,8 +2,7 @@ import React from 'react'
 import { toJS } from 'mobx'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
-import { Button, Card, Modal } from 'antd'
-import AnimateTable from 'share/component/AnimateTable'
+import { Button, Table, Card, Modal } from 'antd'
 import FormModal from './Form'
 
 @inject('store')
@@ -95,7 +94,7 @@ class Site extends React.Component {
     const tableProps = toJS(site.sites.tableProps)
     return (
       <Card
-        title={(
+        title={
           <Button.Group>
             <Button type="primary" onClick={site.showFormModal}>
               新增
@@ -108,9 +107,9 @@ class Site extends React.Component {
               删除
             </Button>
           </Button.Group>
-)}
+        }
       >
-        <AnimateTable columns={this.columns} {...tableProps} />
+        <Table columns={this.columns} {...tableProps} />
         <FormModal />
       </Card>
     )

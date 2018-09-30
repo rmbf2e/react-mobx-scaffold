@@ -1,9 +1,42 @@
+// 路由class猪名称
+// 与本组件jsx中CSSTransition的classNames保持一致
+@className: route;
+
 .wrapper {
   position: relative;
-}
+  :global {
+    [class*='@{className}-'] {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      // 一般router内的第一个元素是Card，本身自带transition样式
+      // transition: all 1s;
+    }
+    .@{className}-appear {
+      transform: translateX(-30px);
+      opacity: 0;
+    }
+    .@{className}-appear.@{className}-active-appear {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .@{className}-enter {
+      z-index: 1;
+      transform: translateX(-30px);
+      opacity: 0;
+    }
+    .@{className}-enter.@{className}-active-enter {
+      transform: translateX(0px);
+      opacity: 1;
+    }
+    .@{className}-exit {
+      transform: translateX(30px);
+      opacity: 0;
+    }
 
-.item {
-  position: absolute;
-  top: 0;
-  width: 100%;
+    // .@{className}-enter-done {
+    //   transform: translateX(0px);
+    //   opacity: 1;
+    // }
+  }
 }

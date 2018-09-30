@@ -1,28 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import { observer, inject } from 'mobx-react'
+// import PropTypes from 'prop-types'
 import { Layout } from 'antd'
-// import { TransitionMotion } from 'react-motion'
-import Loading from 'share/component/Loading'
+// import Loading from 'component/Loading'
 import TransitionRoute from 'component/TransitionRoute'
-// import ShareContent from 'share/component/Content'
 import router from 'app/router'
 
-const { Content } = Layout
-const AppContent = ({ loading }) => {
-  const content = loading ? (
-    <Loading />
-  ) : (
-    <TransitionRoute>{router}</TransitionRoute>
-  )
-  return <Content id="appContent">{content}</Content>
-}
+const Content = () => (
+  <Layout.Content>
+    <TransitionRoute routers={router} />
+  </Layout.Content>
+)
 
-AppContent.propTypes = {
-  loading: PropTypes.bool,
-}
+// Content.propTypes = {
+//   store: PropTypes.shape({
+//     app: PropTypes.shape({
+//       loading: PropTypes.bool,
+//     }),
+//   }).isRequired,
+// }
 
-AppContent.defaultProps = {
-  loading: true,
-}
-
-export default AppContent
+export default Content

@@ -1,4 +1,4 @@
-require('babel-register')
+require('@babel/register')
 // const webpackConfig = require('../webpack.config.babel.js').default
 const config = require('./config')
 
@@ -7,13 +7,12 @@ module.exports = {
   src_folders: ['e2e/spec'],
   output_folder: 'e2e/report',
   custom_assertions_path: [
-    'e2e/customAssertion',
+    'e2e/assertion',
     'node_modules/nightwatch-helpers/assertions',
   ],
   custom_commands_path: [
-    'e2e/customCommand',
     'node_modules/nightwatch-helpers/commands',
-    'share/nightwatch/command',
+    'e2e/command',
   ],
 
   selenium: {

@@ -5,7 +5,7 @@
   "app/storeProp/*.js": { "type": "storeProp" },
   "app/mixin/*": { "type": "mixin" },
   "app/style/*.less": { "type": "style" },
-  "app/util/*.js": { "type": "util" },
+  "app/tool/*.js": { "type": "tool" },
   "__test__/*": { "type": "test" },
   "e2e/spec/*.js": { "type": "spec" },
   "app/router.template.jsx": { "type": "router" }

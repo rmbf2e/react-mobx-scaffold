@@ -1,4 +1,4 @@
-import toMap from 'util/toMap'
+import toMap from 'tool/toMap'
 
 export const ROLE_STATUS = [
   { label: '启用', value: '1' },

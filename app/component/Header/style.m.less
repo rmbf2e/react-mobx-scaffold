@@ -1,24 +1,32 @@
-.form {
-  margin-left: 2em;
+.header {
+  display: flex;
+  // position: fixed;
+  // z-index: 1;
+  align-items: flex-start;
+  height: @layout-header-height + 2px;
+  // width: 100%;
+  // transition: all 0.3s;
+  border-bottom: none;
   :global {
-    .ant-form-item-control,
-    .ant-form-item-label {
-      line-height: @layout-header-height;
+    .ant-menu-horizontal {
+      line-height: inherit;
+    }
+    .ant-form-item {
+      margin-left: 1em;
+      line-height: inherit;
     }
   }
 }
-.site {
-  margin-left: 1em;
-  color: #1890ff;
-  font-size: 1.2em;
-  font-weight: bold;
-  &:before {
-    content: '\E6F1';
-    display: inline;
-    // stylelint-disable-next-line
-    font-family: anticon;
+
+.me {
+  position: absolute;
+  right: 0;
+  margin: 0 2em 0 0;
+  a {
+    margin-left: 1em;
   }
 }
+
 .logo {
   // height: @layout-header-height;
   margin: 0 2em 0 0;

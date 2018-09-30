@@ -1,5 +1,5 @@
 import Loadable from 'react-loadable'
-import loading from 'share/component/Loading'
+import loading from 'component/Loading'
 
 // 默认路由页面
 const Home = Loadable({
@@ -7,29 +7,9 @@ const Home = Loadable({
   loading,
 })
 
-const NoMatch = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "noMatch" */ 'share/component/NoMatch'),
-  loading,
-})
-
 const routers = [
-  {
-    key: 'home',
-    path: '/',
-    exact: true,
-    component: Home,
-  },
+  { key: 'home', path: '/', exact: true, component: Home },
   /* template-placeholder */
 ]
-
-// 这些单独配置的路由必须用unshift
-// 以排在自动加载的路由前面
-
-// 没有匹配到的默认路由，放到最后
-routers.push({
-  key: 'noMatch',
-  component: NoMatch,
-})
 
 export default routers

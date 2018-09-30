@@ -3,7 +3,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import webpackConfig from '../webpack.config.babel'
 import config from './config'
-import readFixtures from './util/readFixture'
+import readFixtures from './tool/readFixture'
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))

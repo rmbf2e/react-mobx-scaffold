@@ -1,6 +1,6 @@
 import EventEmitter from 'events'
 import { action, runInAction } from 'mobx'
-import storeProp from 'share/storeProp'
+import storeProp from 'app/storeProp'
 import api from 'app/api'
 import { ROLE_STATUS } from 'app/constant'
 

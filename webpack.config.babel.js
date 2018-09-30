@@ -11,7 +11,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import appConfig from './share/src/config'
+import appConfig from './app/config'
 import serverConfig from './mockServer/config'
 import getThemeConfig from './app/theme'
 import devServerConfig from './build/config'
@@ -31,17 +31,17 @@ const proxyTargets = {
 const envProxy = process.env.PROXY || 'local'
 
 cp.fork('./build/generateRouter.js')
+cp.fork('./build/generateStore.js')
 
 // import的路径别名
 const alias = {
-  util: resolvePath('./app/util'),
+  tool: resolvePath('./app/tool'),
   component: resolvePath('./app/component'),
   page: resolvePath('./app/page'),
   store: resolvePath('./app/store'),
   style: resolvePath('./app/style'),
   mixin: resolvePath('./app/mixin'),
   app: resolvePath('./app'),
-  share: resolvePath('./share/src'),
 }
 
 const styleLoader = isProd
@@ -98,31 +98,17 @@ const config = {
             options: {
               cacheDirectory: !isProd,
               compact: isProd,
-              // presets: ['react', 'env', 'stage-0'],
-              // plugins: [
-              //   [
-              //     'import',
-              //     {
-              //       libraryName: 'antd',
-              //       style: true,
-              //     },
-              //     'transform-runtime',
-              //   ],
-              //   'transform-decorators-legacy',
-              // ],
-              // babelrc: false,
             },
           },
-          // {
-          //   loader: 'eslint-loader',
-          //   options: {
-          //     enforce: 'pre',
-          //     exclude: /node_modules/,
-          //   },
-          // },
+          {
+            loader: 'eslint-loader',
+            options: {
+              enforce: 'pre',
+              exclude: /node_modules/,
+            },
+          },
         ],
         include: [
-          resolvePath('./share/src'),
           resolvePath('./app'),
           resolvePath('./node_modules/lodash-es'),
         ],
