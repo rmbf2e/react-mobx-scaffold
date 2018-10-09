@@ -1,4 +1,4 @@
-module.exports = function(req, res) {
+module.exports = function users(req, res) {
   if (req.method === 'GET') {
     res.json({
       code: 200,
@@ -11,20 +11,10 @@ module.exports = function(req, res) {
             mobile: '15888888888',
             name: 'bbb',
             orgId: 0,
-            roles: [
-              {
-                fullName: '自营超级管理员',
-                name: 'xx',
-                roleId: 29,
-                roleType: 'C002',
-                siteId: 5,
-                status: 1,
-              },
-            ],
             sex: 1,
             siteId: 5,
             status: 1,
-            userId: 873,
+            id: 1,
           },
           {
             erp: 'erp_aaa',
@@ -33,20 +23,10 @@ module.exports = function(req, res) {
             mobile: '1111',
             name: 'erp_aaa',
             orgId: 0,
-            roles: [
-              {
-                fullName: '自营采销',
-                name: 'aaa',
-                roleId: 47,
-                roleType: '1',
-                siteId: 5,
-                status: 1,
-              },
-            ],
             sex: 1,
             siteId: 5,
             status: 1,
-            userId: 874,
+            id: 2,
           },
         ],
         pageNo: 1,

@@ -78,13 +78,6 @@ class Menus extends React.Component {
       store: { menu },
     } = this.props
     const selectedKeys = toJS(menu.selectedKeys)
-    // const props = {
-    //   selectedKeys,
-    //   // onSelect: menu.setCurrent,
-    //   mode: 'horizontal',
-    //   // onOpenChange: menu.onOpenChange,
-    //   // openKeys: toJS(menu.openKeys),
-    // }
     return (
       <Menu selectedKeys={selectedKeys} mode="horizontal">
         {this.renderMenus()}

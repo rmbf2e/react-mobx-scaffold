@@ -25,7 +25,6 @@ class Search extends React.Component {
         query: PropTypes.object,
       }),
     }).isRequired,
-    children: PropTypes.node.isRequired,
   }
 
   onSubmit = () => {
@@ -37,11 +36,10 @@ class Search extends React.Component {
   }
 
   render() {
-    const { form, children } = this.props
+    const { form } = this.props
     const { getFieldDecorator } = form
     return (
       <SearchForm form={form} onSubmit={this.onSubmit} layout="inline">
-        <Item>{children}</Item>
         <Item label="帐号">{getFieldDecorator('erp')(<Input />)}</Item>
         <Item label="姓名">{getFieldDecorator('name')(<Input />)}</Item>
         <Item label="邮箱">{getFieldDecorator('email')(<Input />)}</Item>

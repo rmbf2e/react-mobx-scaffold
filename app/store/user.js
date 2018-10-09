@@ -20,19 +20,12 @@ const defaultRecord = {
     {
       name: 'list',
       url: api.users,
-      rowKey: 'userId',
-      rowSelectionKey: 'userId',
+      rowKey: 'id',
+      rowSelectionKey: 'id',
     },
   ],
   modal: ['form'],
   rest: [
-    {
-      name: 'me',
-      default: {},
-      fetch: {
-        url: api.me,
-      },
-    },
     {
       name: 'record',
       default: defaultRecord,
