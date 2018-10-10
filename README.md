@@ -2,15 +2,11 @@
 
 ### feature
 
-* follow latest react, react-dom, react-router version。
-* 升级到mobx 最新版本。
-* 使用webpack4最新版本构建。
-* 使用eslint的airbnb为主验证规则。
-* 统一使用less作为默认样式文件。
-* 使用less后项目不依赖node-sass，可以随node版本升级而不需要重新安装node\_modules。
-* 使用stylelint-config-recommended，stylelint-config-property-sort-order-smacss为主css验证规则。
-* 用app取代src文件夹作为源代码主文件夹。
-* 所有子文件夹都使用单数命名方式，减少单复数命名混乱问题。
+* follow latest react, react-dom, react-router mobx webpack version
+* use eslint-config-airbnb
+* use less for style
+* use stylelint-config-recommended，stylelint-config-property-sort-order-smacss
+* use single word for dir and file name
 * build文件夹存放代码构建脚本。
 * 最终发布文件放到dist文件夹。
 * 使用mockServer文件夹存放作为后端服务提供开发伪数据。
@@ -38,16 +34,22 @@ app/api/index.js
   ...
 }
 ```
-在本地开发模式中，在mockServer/fixture/user/me.json的结果将自动返回到该接口的请求结果中。
-也可根据逻辑写成mockerServer/fixture/user/me.js，里面的内容可根据请求动态返回。
+在本地开发模式中，在mockServer/fixture/me.json的结果将自动返回到该接口的请求结果中。
+也可根据逻辑写成mockerServer/fixture/me.js，里面的内容可根据请求动态返回。
 
 * 项目所用配置文件在app/config.js，详见代码注释。
+
 * app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组件会映射为/user路由。
-  如需要配置特殊路由，在app/router.template.jsx中单独配置。
-  app/router.jsx每次启动项目会从app/router.template.jsx文件自动生成覆盖，所以不要编辑它。
+  如需要配置特殊路由，在app/route.template.jsx中单独配置。
+  app/route.js每次启动项目会从app/route.template.jsx文件自动生成覆盖，所以不要编辑它。
+
 * app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
+
 * 项目使用app/theme.js中的样式注入全局less环境，因此该文件中定义的less变量可在项目的所有.less或.m.less文件中使用，并覆盖antd的同名变量。缺点在于每次修改该文件后需要重启项目才能生效。参考[antd定制样式](https://ant.design/docs/react/customize-theme-cn)
+
 * 参考[mobx最佳实践](https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140)
+
+* add commitizen and commitlint for git commit format
 
 ### 常用命令
 
