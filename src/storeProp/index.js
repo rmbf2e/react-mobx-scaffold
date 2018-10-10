@@ -8,7 +8,7 @@ import lazy from './lazy'
 // 自动将storeProp文件夹里的所有文件加载为生成器
 // 例如modal.js文件将被加载到generators.modal属性
 // const generators = {}
-// const generatorsRequire = require.context('app/storeProp', false, /\.js$/)
+// const generatorsRequire = require.context('src/storeProp', false, /\.js$/)
 // generatorsRequire.keys().forEach(key => {
 //   if (key !== './index.js') {
 //     const name = key.replace(/(\.\/|\.js$)/g, '')

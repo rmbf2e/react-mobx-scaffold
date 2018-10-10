@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock'
 import fxios from 'tool/fxios'
-import config from 'app/config'
+import config from 'src/config'
 
 describe('tool/fxios', () => {
   afterEach(() => {

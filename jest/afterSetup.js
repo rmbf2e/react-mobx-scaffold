@@ -1,8 +1,8 @@
 import 'jest-enzyme'
 import noop from 'lodash/noop'
 import fetchMock from 'fetch-mock'
-import searchForm from '../app/store/searchForm'
-import router from '../app/store/router'
+import searchForm from '../src/store/searchForm'
+import router from '../src/store/router'
 
 afterEach(() => {
   fetchMock.restore()

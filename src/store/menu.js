@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx'
-import storeProp from 'app/storeProp'
+import storeProp from 'src/storeProp'
 
 @storeProp({
   // 定义menus属性与setMenus方法

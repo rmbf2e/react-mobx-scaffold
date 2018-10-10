@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
-import storeProp from 'app/storeProp'
+import storeProp from 'src/storeProp'
 import fxios from 'tool/fxios'
-import { base as api } from 'app/api'
+import { base as api } from 'src/api'
 
 @storeProp({
   rest: [

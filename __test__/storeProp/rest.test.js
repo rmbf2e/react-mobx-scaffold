@@ -1,8 +1,8 @@
 import EventEmitter from 'events'
 import { toJS } from 'mobx'
 import fetchMock from 'fetch-mock'
-import rest from 'app/storeProp/rest'
-import config from 'app/config'
+import rest from 'src/storeProp/rest'
+import config from 'src/config'
 import fxios from 'tool/fxios'
 
 describe('storeProp/rest', () => {

@@ -1,6 +1,6 @@
 import router from 'store/router'
-import list from 'app/storeProp/list'
-import config from 'app/config'
+import list from 'src/storeProp/list'
+import config from 'src/config'
 import fxios from 'tool/fxios'
 
 const resolve = any => () => Promise.resolve(any)

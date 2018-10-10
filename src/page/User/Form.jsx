@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { toJS } from 'mobx'
 import { Modal, Form, Input, Radio } from 'antd'
 import { inject, observer } from 'mobx-react'
-import { GENDER } from 'app/constant'
+import { GENDER } from 'src/constant'
 
 const FormItem = Form.Item
 

@@ -1,5 +1,5 @@
 import { toJS } from 'mobx'
-import lazy from 'app/storeProp/lazy'
+import lazy from 'src/storeProp/lazy'
 
 describe('storeProp/lazy', () => {
   class A {

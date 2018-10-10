@@ -5,11 +5,10 @@ import { mount } from 'enzyme'
 import Moment from 'moment'
 import { Input, Form, DatePicker, TimePicker } from 'antd'
 import { Provider } from 'mobx-react'
-import fxios from 'tool/fxios'
 import SearchForm from 'component/SearchForm'
 import router from 'store/router'
 import searchForm from 'store/searchForm'
-import config from 'app/config'
+import config from 'src/config'
 
 const { RangePicker } = DatePicker
 const store = {

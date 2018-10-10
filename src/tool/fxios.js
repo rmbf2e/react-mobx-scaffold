@@ -1,6 +1,6 @@
 import isObject from 'lodash/isObject'
 import { Fxios } from 'fxios'
-import appConfig from 'app/config'
+import appConfig from 'src/config'
 
 export const config = {
   credentials: 'include',

@@ -1,9 +1,9 @@
 import Events from 'events'
 import { observe } from 'mobx'
-import storeProp from 'app/storeProp'
+import storeProp from 'src/storeProp'
 import searchForm from 'store/searchForm'
-import { user as api } from 'app/api'
-import { GENDER } from 'app/constant'
+import { user as api } from 'src/api'
+import { GENDER } from 'src/constant'
 
 const defaultRecord = {
   account: '',

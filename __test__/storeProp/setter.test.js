@@ -1,5 +1,5 @@
 import { reaction, toJS } from 'mobx'
-import setter from 'app/storeProp/setter'
+import setter from 'src/storeProp/setter'
 
 describe('storeProp/setter', () => {
   class A {

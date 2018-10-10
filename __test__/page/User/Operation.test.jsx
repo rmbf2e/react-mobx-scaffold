@@ -4,7 +4,7 @@ import { Button } from 'antd'
 import { mount } from 'enzyme'
 import React from 'react'
 import { Provider } from 'mobx-react'
-import ConfirmButton from 'app/component/ConfirmButton'
+import ConfirmButton from 'src/component/ConfirmButton'
 import Operation from 'page/User/Operation'
 import user from 'store/user'
 

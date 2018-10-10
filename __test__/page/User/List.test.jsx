@@ -6,7 +6,7 @@ import { Provider } from 'mobx-react'
 import listFixture from 'fixture/users.json'
 import user from 'store/user'
 import List from 'page/User/List'
-import { GENDER_MAP } from 'app/constant'
+import { GENDER_MAP } from 'src/constant'
 
 describe('page/User/List', () => {
   const store = {

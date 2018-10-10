@@ -11,9 +11,9 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import appConfig from './app/config'
+import appConfig from './src/config'
 import serverConfig from './mockServer/config'
-import getThemeConfig from './app/theme'
+import getThemeConfig from './src/theme'
 import devServerConfig from './build/config'
 
 // 加载定制antd样式
@@ -35,13 +35,13 @@ cp.fork('./build/generateStore.js')
 
 // import的路径别名
 const alias = {
-  tool: resolvePath('./app/tool'),
-  component: resolvePath('./app/component'),
-  page: resolvePath('./app/page'),
-  store: resolvePath('./app/store'),
-  style: resolvePath('./app/style'),
-  mixin: resolvePath('./app/mixin'),
-  app: resolvePath('./app'),
+  tool: resolvePath('./src/tool'),
+  component: resolvePath('./src/component'),
+  page: resolvePath('./src/page'),
+  store: resolvePath('./src/store'),
+  style: resolvePath('./src/style'),
+  mixin: resolvePath('./src/mixin'),
+  src: resolvePath('./src'),
   fixture: resolvePath('./__test__/fixture'),
 }
 
@@ -56,7 +56,7 @@ const styleLoader = isProd
 
 const config = {
   entry: {
-    index: [resolvePath('./app/index.js')],
+    index: [resolvePath('./src/index.js')],
   },
   output: {
     publicPath: '/',
@@ -110,7 +110,7 @@ const config = {
           },
         ],
         include: [
-          resolvePath('./app'),
+          resolvePath('./src'),
           resolvePath('./node_modules/lodash-es'),
         ],
       },
@@ -206,14 +206,14 @@ const config = {
       //   loader: 'svg-sprite-loader',
       //   include: [
       //     require.resolve('antd-mobile').replace(/warn\.js$/, ''),
-      //     path.resolve(__dirname, 'app/images'),
+      //     path.resolve(__dirname, 'src/images'),
       //   ],
       // },
       // {
       //   test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
       //   exclude: [
       //     require.resolve('antd-mobile').replace(/warn\.js$/, ''),
-      //     path.resolve(__dirname, 'app/images'),
+      //     path.resolve(__dirname, 'src/images'),
       //   ],
       //   loader: 'url-loader',
       //   options: {
@@ -248,7 +248,7 @@ config.plugins = [
 ]
 
 if (isProd) {
-  alias['mobx-react-devtools'] = resolvePath('./app/component/Null.jsx')
+  alias['mobx-react-devtools'] = resolvePath('./src/component/Null.jsx')
 
   rimraf.sync('./dist/*')
   config.plugins.push(

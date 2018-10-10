@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react'
 import forEach from 'lodash/forEach'
 import reduce from 'lodash/reduce'
 import isEmptyQuery from 'tool/isEmptyQuery'
-import config from 'app/config'
+import config from 'src/config'
 import { parseMoment, formatMoment } from 'tool/moment'
 
 /*

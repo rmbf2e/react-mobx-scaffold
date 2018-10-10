@@ -16,18 +16,18 @@
     https://blog.csdn.net/orangleliu/article/details/79862248
     https://github.com/axios/axios/issues/980
     axios的maxRedirects: 0只在nodejs端有用，浏览器没用
-* 当前项目与后端的约定配置，比如返回状态码为200则为成功，返回分页数据格式等，需要在app/tool/fxios中配置。
+* 当前项目与后端的约定配置，比如返回状态码为200则为成功，返回分页数据格式等，需要在src/tool/fxios中配置。
 * SearchForm使用时注意如果里面有Datepicker组件，若为时间格式则需要该表单项以Time结尾，否则不能正确识别为时间格式。
-  [SearchForm](https://github.com/rmbf2e/react-mobx-scaffold/blob/master/app/component/SearchForm/index.jsx)具体使用文档见代码注释。
+  [SearchForm](https://github.com/rmbf2e/react-mobx-scaffold/blob/master/src/component/SearchForm/index.jsx)具体使用文档见代码注释。
 * 使用storeProp修饰mobx store，可自动生成一些store属性与方法。
   具体每个修饰方法说明，见代码注释。
 * 开发模式webpack使用3000端口，模拟后端数据的mockServer使用3009端口。
   webpack配置文件在build/config.js
   mockServer配置文件在mockServer/config.js
 * 在本地模拟接口数据开发环境中，直接使用请求路径的url在mockServer/fixture文件夹中写入对应的模拟数据即可生成响应。
-* 所有接口地址都在app/api/index.js中配置，避免接口到处硬编码。
+* 所有接口地址都在src/api/index.js中配置，避免接口到处硬编码。
 例如接口配置
-app/api/index.js
+src/api/index.js
 ```
 {
   me: 'user/me',
@@ -37,15 +37,15 @@ app/api/index.js
 在本地开发模式中，在mockServer/fixture/me.json的结果将自动返回到该接口的请求结果中。
 也可根据逻辑写成mockerServer/fixture/me.js，里面的内容可根据请求动态返回。
 
-* 项目所用配置文件在app/config.js，详见代码注释。
+* 项目所用配置文件在src/config.js，详见代码注释。
 
-* app/page文件夹内的每个组件都会自动映射为路由。例如app/page/User组件会映射为/user路由。
-  如需要配置特殊路由，在app/route.template.jsx中单独配置。
-  app/route.js每次启动项目会从app/route.template.jsx文件自动生成覆盖，所以不要编辑它。
+* src/page文件夹内的每个组件都会自动映射为路由。例如src/page/User组件会映射为/user路由。
+  如需要配置特殊路由，在src/route.template.jsx中单独配置。
+  src/route.js每次启动项目会从src/route.template.jsx文件自动生成覆盖，所以不要编辑它。
 
-* app/store文件夹中的文件会自动挂载为组件的mobx store。例如app/store/user.js，在组件内即this.props.store.user。
+* src/store文件夹中的文件会自动挂载为组件的mobx store。例如src/store/user.js，在组件内即this.props.store.user。
 
-* 项目使用app/theme.js中的样式注入全局less环境，因此该文件中定义的less变量可在项目的所有.less或.m.less文件中使用，并覆盖antd的同名变量。缺点在于每次修改该文件后需要重启项目才能生效。参考[antd定制样式](https://ant.design/docs/react/customize-theme-cn)
+* 项目使用src/theme.js中的样式注入全局less环境，因此该文件中定义的less变量可在项目的所有.less或.m.less文件中使用，并覆盖antd的同名变量。缺点在于每次修改该文件后需要重启项目才能生效。参考[antd定制样式](https://ant.design/docs/react/customize-theme-cn)
 
 * 参考[mobx最佳实践](https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140)
 

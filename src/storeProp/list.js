@@ -2,7 +2,7 @@ import URL from 'url'
 import { action, extendObservable, toJS } from 'mobx'
 import upperFirst from 'lodash/upperFirst'
 import castArray from 'lodash/castArray'
-import config from 'app/config'
+import config from 'src/config'
 import fxios from 'tool/fxios'
 import router from 'store/router'
 

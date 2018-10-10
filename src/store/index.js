@@ -10,7 +10,7 @@ const store = {
   router,
   searchForm,
   user,
-  /* 本路由文件由app/store.template.js文件生成，不要手动更改 */
+  /* 本路由文件由src/store.template.js文件生成，不要手动更改 */
 }
 
 export default store

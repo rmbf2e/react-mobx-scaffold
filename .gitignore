@@ -1,7 +1,7 @@
 /node_modules
 .idea
 package-lock.json
-app/route.js
+src/route.js
 dist
 *.vim
 *.log

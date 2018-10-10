@@ -1,4 +1,4 @@
-import store from 'app/store'
+import store from 'src/store'
 import app from 'store/app'
 import router from 'store/router'
 import searchForm from 'store/searchForm'

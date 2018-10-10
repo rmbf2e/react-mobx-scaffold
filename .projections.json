@@ -1,12 +1,12 @@
 {
-  "app/component/*": { "type": "component" },
-  "app/page/*": { "type": "page" },
-  "app/store/*.js": { "type": "store" },
-  "app/storeProp/*.js": { "type": "storeProp" },
-  "app/mixin/*": { "type": "mixin" },
-  "app/style/*.less": { "type": "style" },
-  "app/tool/*.js": { "type": "tool" },
+  "src/component/*": { "type": "component" },
+  "src/page/*": { "type": "page" },
+  "src/store/*.js": { "type": "store" },
+  "src/storeProp/*.js": { "type": "storeProp" },
+  "src/mixin/*": { "type": "mixin" },
+  "src/style/*.less": { "type": "style" },
+  "src/tool/*.js": { "type": "tool" },
   "__test__/*": { "type": "test" },
   "e2e/spec/*.js": { "type": "spec" },
-  "app/router.template.jsx": { "type": "router" }
+  "src/router.template.jsx": { "type": "router" }
 }

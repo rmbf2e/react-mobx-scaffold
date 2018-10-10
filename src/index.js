@@ -1,4 +1,4 @@
-import loader from 'app/polyfill'
+import loader from 'src/polyfill'
 
 loader.then(() => {
   import(/* webpackChunkName: "main" */ './main')

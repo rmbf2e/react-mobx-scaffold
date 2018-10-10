@@ -1,10 +1,10 @@
 const fs = require('fs')
 
 const routerTemplate = fs
-  .readFileSync('./app/store.template.js')
+  .readFileSync('./src/store.template.js')
   .toString('utf8')
 const files = fs
-  .readdirSync('./app/store')
+  .readdirSync('./src/store')
   .filter(file => {
     // Main在模板中已经定义为主路由
     if (file === 'index.js') {
@@ -23,6 +23,6 @@ const importsPlaceholder = routerTemplate.replace(
 const storesPlaceholder = importsPlaceholder.replace(
   '/* stores-placeholder */',
   `${files.join(',\n  ')},
-  /* 本路由文件由app/store.template.js文件生成，不要手动更改 */`,
+  /* 本路由文件由src/store.template.js文件生成，不要手动更改 */`,
 )
-fs.writeFileSync('./app/store/index.js', storesPlaceholder)
+fs.writeFileSync('./src/store/index.js', storesPlaceholder)
