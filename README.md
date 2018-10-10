@@ -2,7 +2,7 @@
 
 ### feature
 
-* 升级到react, react-dom, react-router最新版本。
+* follow latest react, react-dom, react-router version。
 * 升级到mobx 最新版本。
 * 使用webpack4最新版本构建。
 * 使用eslint的airbnb为主验证规则。
@@ -64,8 +64,8 @@ yarn start
 yarn dev:remote
 ```
 此时基本不会再用本地模拟接口，可将package.json中的script中的start改为
-    "start": "npm run dev:remote | npm run server",
-继续用 `npm start`来开发项目。
+    "start": "yarn run dev:remote | yarn run server",
+继续用 `yarn start`来开发项目。
 
 * 打包生成测试环境代码，登录环境为http://test.ssa.jd.com/sso/login
 ```
@@ -81,7 +81,7 @@ yarn build:production
 * 单元测试文件夹`__test__`，运行单元测试用例
   参考[jest文档](https://facebook.github.io/jest/)
 ```
-npm test
+yarn test
 ```
 
 * 单元测试代码覆盖率
@@ -97,4 +97,10 @@ yarn e2e
 ```
   nightwatch启动脚本会尝试使用当前的开发环境，如果没有启动则自动打开一个新的webpackDevServer服务，使用webpack.config文件中的端口号，并运行e2e测试用例。
   如果使用域名测试，需要配置本地hosts指向配置的域名后，将域名改为
-  使用了一些额外的[nightwatch-helpers](https://npm.taobao.org/package/nightwatch-helpers)(尤大神作品)增强工具。
+  使用了一些额外的[nightwatch-helpers](https://www.npmjs.com/package/nightwatch-helpers)(尤大神作品)增强工具。
+
+* 使用changelog脚本自动生成CHANGELOG.md
+
+```
+yarn changelog
+```
