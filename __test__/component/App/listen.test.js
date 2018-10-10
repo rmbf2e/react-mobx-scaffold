@@ -1,14 +1,15 @@
 import noop from 'lodash/noop'
 import { notification } from 'antd'
-import mainListen, {
+import listen, {
   onPageError,
   onApiError,
   onApiSuccess,
-} from 'mixin/mainListen'
+  onMobxError,
+} from 'component/App/listen'
 import { emitter as soundEmitter } from 'component/SoundEffect'
 import fxios from 'tool/fxios'
 
-describe('minx/mainListen', () => {
+describe('component/App/listen', () => {
   it('fxios on event', () => {
     const soundEmitterSpy = jest
       .spyOn(soundEmitter, 'emit')
@@ -18,7 +19,7 @@ describe('minx/mainListen', () => {
     expect(fxios.listeners('success')).toHaveLength(0)
     expect(fxios.listeners('error')).toHaveLength(0)
 
-    const dispose = mainListen()
+    const dispose = listen()
     expect(fxios.listeners('success')).toHaveLength(1)
     expect(fxios.listeners('error')).toHaveLength(1)
     expect(fxios.listeners('success')[0]).toBe(onApiSuccess)
@@ -31,7 +32,7 @@ describe('minx/mainListen', () => {
 
   it('fxios success事件，get方法不会调用，其他http方法会调用', () => {
     const spy = jest.spyOn(notification, 'success')
-    const dispose = mainListen()
+    const dispose = listen()
     expect(spy).not.toHaveBeenCalled()
     const soundEmitterSpy = jest
       .spyOn(soundEmitter, 'emit')
@@ -45,7 +46,7 @@ describe('minx/mainListen', () => {
   })
 
   it('fxios error事件', () => {
-    const dispose = mainListen()
+    const dispose = listen()
     const spy = jest.spyOn(notification, 'error')
     const soundEmitterSpy = jest
       .spyOn(soundEmitter, 'emit')
@@ -79,9 +80,17 @@ describe('minx/mainListen', () => {
     const spy = jest.spyOn(notification, 'error').mockImplementation(noop)
     expect(spy).not.toHaveBeenCalled()
     const error = new Error('abc')
-    onPageError(error)
+    onPageError(error, { componentStack: 'xxxx' })
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  it('onMobxError', () => {
+    const spy = jest.spyOn(notification, 'error').mockImplementation(noop)
+    expect(spy).not.toHaveBeenCalled()
+    const error = new Error('abc')
+    onMobxError(error)
     expect(spy).toHaveBeenLastCalledWith({
-      message: '页面错误',
+      message: 'mobx错误',
       description: error.toString(),
       placement: 'topLeft',
     })

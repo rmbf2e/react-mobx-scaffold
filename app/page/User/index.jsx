@@ -6,7 +6,7 @@ import Operation from './Operation'
 import List from './List'
 
 const User = () => (
-  <Card title={<Search />}>
+  <Card bordered={false} title={<Search />}>
     <Operation />
     <List />
     <Form />

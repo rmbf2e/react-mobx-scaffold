@@ -6,7 +6,7 @@ import { computed } from 'mobx'
 // 单例模式，全局只需要一个router即可
 let instance = null
 
-class Router extends RouterStore {
+export class Router extends RouterStore {
   constructor() {
     super()
     if (instance) {

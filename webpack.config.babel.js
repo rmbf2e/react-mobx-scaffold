@@ -42,6 +42,7 @@ const alias = {
   style: resolvePath('./app/style'),
   mixin: resolvePath('./app/mixin'),
   app: resolvePath('./app'),
+  fixture: resolvePath('./__test__/fixture'),
 }
 
 const styleLoader = isProd

@@ -33,6 +33,36 @@ describe('tool/fxios', () => {
       })
     })
 
+    it('测试非分页数据', async () => {
+      const url = '/users'
+      let data = {
+        code: 200,
+        data: null,
+      }
+      fetchMock.get(`${config.baseURL}${url}`, data)
+      let res = await fxios.get(url)
+      expect(res).toEqual(data)
+      fetchMock.restore()
+
+      data = {
+        code: 200,
+        data: {
+          name: 'abc',
+        },
+      }
+      fetchMock.get(`${config.baseURL}${url}`, data)
+      res = await fxios.get(url)
+      expect(res).toEqual(data)
+      fetchMock.restore()
+
+      data = {
+        code: 200,
+      }
+      fetchMock.get(`${config.baseURL}${url}`, data)
+      res = await fxios.get(url)
+      expect(res).toEqual(data)
+    })
+
     test('测试没有分页值，返回默认分页值', () => {
       const url = '/users'
       const mockResponse = {
@@ -112,6 +142,22 @@ describe('tool/fxios', () => {
     return fxios.get(url).catch(err => {
       expect(err).toBeInstanceOf(Error)
     })
+  })
+
+  it('非get请求会发送success事件', async () => {
+    const url = 'user'
+    fetchMock.post(`${config.baseURL}${url}`, {
+      code: 200,
+    })
+    fetchMock.get(`${config.baseURL}${url}`, {
+      code: 200,
+    })
+    const spy = jest.fn()
+    fxios.once('success', spy)
+    await fxios.post(url)
+    expect(spy).toHaveBeenCalledTimes(1)
+    await fxios.get(url)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('测试fxios catch的emit功能', () => {

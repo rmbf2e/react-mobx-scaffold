@@ -1,3 +1,4 @@
+import React from 'react'
 import { notification } from 'antd'
 import { onError } from 'mobx-react'
 import fxios from 'tool/fxios'
@@ -26,12 +27,18 @@ export const onApiSuccess = (res, req) => {
 }
 
 // 监听React组件错误
-export const onPageError = error => {
+export const onPageError = (error, info) => {
   notification.error({
     message: '页面错误',
-    description: error.toString(),
+    description: (
+      <div>
+        <h2>{error.toString()}</h2>
+        <div>{info.componentStack}</div>
+      </div>
+    ),
     placement: 'topLeft',
   })
+  soundEmitter.emit('failure')
 }
 
 export const onMobxError = error => {

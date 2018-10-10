@@ -1,11 +1,15 @@
 import { toJS } from 'mobx'
+import noop from 'lodash/noop'
+import fxios from 'tool/fxios'
 import app from 'store/app'
+import api from 'app/api'
 
 describe('测试appStore', () => {
-  it('测试me的setter方法', () => {
-    expect(app.me).toEqual({})
+  it('测试me的setter方法', async () => {
     const me = { name: 'adadfa' }
-    app.setMe(me)
+    jest.spyOn(fxios, 'get').mockImplementation(() => Promise.resolve(me))
+    expect(app.me).toEqual({})
+    await app.fetchMe()
     expect(toJS(app.me)).toEqual(me)
     app.restoreMe()
     expect(app.me).toEqual({})
@@ -20,6 +24,8 @@ describe('测试appStore', () => {
   })
 
   it('测试继承必须实现的方法', () => {
-    expect(() => app.logout()).toThrow()
+    const spy = jest.spyOn(fxios, 'get').mockImplementation(noop)
+    app.logout()
+    expect(spy).toHaveBeenLastCalledWith(api.logout)
   })
 })

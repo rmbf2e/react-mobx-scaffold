@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react'
 import getFirstPathname from 'tool/getFirstPathname'
 import Link from './Link'
 
-// 用解构赋值jest --coverage时说Menu is not defined
+// 用解构赋值jest --coverage会Menu is not defined
 // eslint-disable-next-line
 const SubMenu = Menu.SubMenu
 

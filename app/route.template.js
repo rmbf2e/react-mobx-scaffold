@@ -7,9 +7,9 @@ const Home = Loadable({
   loading,
 })
 
-const routers = [
+const routes = [
   { key: 'home', path: '/', exact: true, component: Home },
   /* template-placeholder */
 ]
 
-export default routers
+export default routes

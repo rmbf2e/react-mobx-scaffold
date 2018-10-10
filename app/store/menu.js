@@ -24,7 +24,7 @@ class Menu {
 const menu = new Menu()
 menu.setMenus([
   {
-    name: '权限管理',
+    name: '系统管理',
     children: [
       {
         name: '用户管理',

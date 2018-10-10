@@ -25,11 +25,13 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^component/(.+)$': '<rootDir>/app/component/$1',
+    '^page/(.+)$': '<rootDir>/app/page/$1',
     '^tool/(.+)$': '<rootDir>/app/tool/$1',
     '^mixin/(.+)$': '<rootDir>/app/mixin/$1',
     '^store/(.+)$': '<rootDir>/app/store/$1',
     '^storeProp/(.+)$': '<rootDir>/app/storeProp/$1',
     '^app/(.+)$': '<rootDir>/app/$1',
+    '^fixture/(.+)$': '<rootDir>/__test__/fixture/$1',
     'history/createBrowserHistory':
       '<rootDir>/node_modules/history/createMemoryHistory',
   },

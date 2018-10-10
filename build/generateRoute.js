@@ -7,7 +7,7 @@ const routeTemplate = fs
 const routes = fs
   .readdirSync('./app/page')
   .filter(file => {
-    // Main在模板中已经定义为主路由
+    // Home在模板中已经定义为主路由
     if (file === 'Home') {
       return false
     }

@@ -12,7 +12,6 @@ class List extends React.Component {
   static propTypes = {
     store: PropTypes.shape({
       user: PropTypes.shape({
-        fetchList: PropTypes.func,
         list: PropTypes.shape({
           dataSource: PropTypes.array,
           pagination: PropTypes.object,
@@ -40,8 +39,8 @@ class List extends React.Component {
     return [
       {
         title: '帐号',
-        dataIndex: 'erp',
-        key: 'erp',
+        dataIndex: 'account',
+        key: 'account',
       },
       {
         title: '姓名',
@@ -78,20 +77,11 @@ class List extends React.Component {
   }
 
   onEdit = e => {
-    this.setUserByDataset(e)
-    this.store.showFormModal()
-  }
-
-  setUserByDataset = e => {
     const { index } = e.target.dataset
     const user = this.store
     const data = user.list.tableProps.dataSource[index]
     user.setRecord({ data })
-  }
-
-  destroy = () => {
-    const user = this.store
-    user.destroyUser(toJS(user.list.checkedKeys))
+    this.store.showFormModal()
   }
 
   render() {

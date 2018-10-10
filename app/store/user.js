@@ -1,25 +1,23 @@
 import Events from 'events'
 import { observe } from 'mobx'
 import storeProp from 'app/storeProp'
-import api from 'app/api'
-import { GENDER, USER_STATUS } from 'app/constant'
+import searchForm from 'store/searchForm'
+import { user as api } from 'app/api'
+import { GENDER } from 'app/constant'
 
 const defaultRecord = {
-  erp: '',
+  account: '',
   name: '',
   sex: GENDER[0].value,
   mail: '',
   mobile: '',
-  status: USER_STATUS[0].value,
-  roles: [],
-  userType: '',
 }
 
 @storeProp({
   list: [
     {
       name: 'list',
-      url: api.users,
+      url: api.list,
       rowKey: 'id',
       rowSelectionKey: 'id',
     },
@@ -30,16 +28,16 @@ const defaultRecord = {
       name: 'record',
       default: defaultRecord,
       create: {
-        url: api.userCreate,
+        url: api.create,
       },
       update: {
-        url: api.user,
+        url: api.detail,
       },
       fetch: {
-        url: api.user,
+        url: api.detail,
       },
       destroy: {
-        url: api.users,
+        url: api.list,
       },
     },
   ],
@@ -48,11 +46,16 @@ class User extends Events {}
 
 const store = new User()
 
-// 关闭modal且将role还原
+// 关闭modal且将record还原
 observe(store, 'formModal', ({ newValue }) => {
   if (!newValue) {
     store.restoreRecord()
   }
+})
+
+store.on('record:changed', () => {
+  store.list.search = searchForm.query
+  store.fetchList()
 })
 
 export default store

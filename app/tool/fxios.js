@@ -31,11 +31,11 @@ const processList = data => {
 
 fxios.interceptor.response.push((res, req) => {
   // 未登录跳转
-  if (res.type === 'opaqueredirect') {
-    const { location } = global
-    location.href = appConfig.loginHost
-    return null
-  }
+  // if (res.type === 'opaqueredirect') {
+  //   const { location } = global
+  //   location.href = appConfig.loginHost
+  //   return null
+  // }
   if (!res.ok) {
     const error = new Error(res.statusText)
     error.response = res
@@ -45,7 +45,7 @@ fxios.interceptor.response.push((res, req) => {
     // 成功判断
     if (data.code === 200) {
       res.message = data.message
-      if (req.method !== 'GET') {
+      if (req.method.toUpperCase() !== 'GET') {
         fxios.emit('success', res, req)
       }
       data = processList(data)

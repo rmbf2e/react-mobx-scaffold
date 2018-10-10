@@ -8,7 +8,7 @@ module.exports = {
     'prettier',
     'prettier/react',
   ],
-  plugins: ['import'],
+  plugins: ['import', 'react-native'],
   rules: {
     semi: [0, 'never'],
     'valid-jsdoc': 2,
@@ -36,6 +36,7 @@ module.exports = {
     'template-curly-spacing': 0,
     // 该规则与prettier的规则冲突，缩进交给prettier即可
     'react/jsx-closing-tag-location': 0,
+    'react-native/no-inline-styles': 2,
   },
   settings: {
     'import/resolver': {

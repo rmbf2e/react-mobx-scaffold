@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import { toJS } from 'mobx'
 import { Modal, Form, Input, Radio } from 'antd'
 import { inject, observer } from 'mobx-react'
-import debounce from 'lodash/debounce'
-import { GENDER, USER_STATUS } from 'app/constant'
+import { GENDER } from 'app/constant'
 
-const { Item } = Form
+const FormItem = Form.Item
 
 const layout = {
   labelCol: { span: 5 },
@@ -17,24 +16,6 @@ const layout = {
 @inject('store')
 @observer
 class FormModal extends React.Component {
-  // 根据account查询对应信息自动填充表单
-  searchByAccount = debounce(() => {
-    const {
-      form,
-      store: { user },
-    } = this.props
-    const account = form.getFieldValue('account')
-    const source = form.getFieldValue('source')
-    if (source) {
-      user.searchByAccount(account, source).then(res => {
-        const { data } = res
-        if (data && (data.mail || data.mobile || data.name)) {
-          form.setFieldsValue(data)
-        }
-      })
-    }
-  }, 800)
-
   static propTypes = {
     store: PropTypes.shape({
       user: PropTypes.shape({
@@ -48,28 +29,26 @@ class FormModal extends React.Component {
   }
 
   submit = e => {
-    e.preventDefault()
+    if (e) {
+      e.preventDefault()
+    }
     const { form } = this.props
-    form.validateFieldsAndScroll((err, values) => {
+    form.validateFields((err, values) => {
       if (!err) {
         const {
           store: { user },
         } = this.props
-        const isUpdate = !!user.user.userId
+        const isUpdate = !!user.record.id
         if (isUpdate) {
-          values.userId = user.user.userId
+          values.id = user.record.id
         }
-        user[`${isUpdate ? 'update' : 'create'}User`](
+        user[`${isUpdate ? 'update' : 'create'}Record`](
           values,
           {},
           {
-            id: values.userId,
+            id: values.id,
           },
-        )
-          .then(() => {
-            user.fetchUsers()
-          })
-          .finally(user.hideFormModal)
+        ).finally(user.hideFormModal)
       }
     })
   }
@@ -80,7 +59,7 @@ class FormModal extends React.Component {
       form,
     } = this.props
     const record = toJS(user.record)
-    const isUpdate = !!user.userId
+    const isUpdate = !!record.id
     return (
       <Modal
         onCancel={user.hideFormModal}
@@ -91,42 +70,36 @@ class FormModal extends React.Component {
         onOk={this.submit}
       >
         <Form onSubmit={this.submit} layout="horizontal">
-          <Item label="帐号" {...layout}>
-            {form.getFieldDecorator('erp', {
-              initialValue: record.erp,
+          <FormItem label="帐号" {...layout}>
+            {form.getFieldDecorator('account', {
+              initialValue: record.account,
               rules: [{ required: true, message: '请填写帐号' }],
             })(<Input />)}
-          </Item>
-          <Item label="姓名" {...layout}>
+          </FormItem>
+          <FormItem label="姓名" {...layout}>
             {form.getFieldDecorator('name', {
               initialValue: record.name,
               rules: [{ required: true, message: '请填写姓名' }],
             })(<Input />)}
-          </Item>
-          <Item label="邮箱" {...layout}>
+          </FormItem>
+          <FormItem label="邮箱" {...layout}>
             {form.getFieldDecorator('mail', {
               initialValue: record.mail,
               rules: [{ required: true, message: '请填写邮箱' }],
             })(<Input />)}
-          </Item>
-          <Item label="手机" {...layout}>
+          </FormItem>
+          <FormItem label="手机" {...layout}>
             {form.getFieldDecorator('mobile', {
               initialValue: record.mobile,
               rules: [{ required: true, message: '请填写手机' }],
             })(<Input />)}
-          </Item>
-          <Item label="性别" {...layout}>
+          </FormItem>
+          <FormItem label="性别" {...layout}>
             {form.getFieldDecorator('sex', {
               initialValue: record.sex,
               rules: [{ required: true }],
             })(<Radio.Group options={GENDER} />)}
-          </Item>
-          <Item label="状态" {...layout}>
-            {form.getFieldDecorator('status', {
-              initialValue: String(record.status),
-              rules: [{ required: true }],
-            })(<Radio.Group options={USER_STATUS} />)}
-          </Item>
+          </FormItem>
         </Form>
       </Modal>
     )
