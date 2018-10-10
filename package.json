@@ -11,6 +11,8 @@
     "build:production": "cross-env NODE_ENV=production npx webpack --progress --hide-modules --mode=production",
     "production": "npm run build:production",
     "e2e": "npx babel-node e2e/runner.js",
+    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r 10",
+    "zip": "cd dist && zip -r dist ./* && cd -",
     "test": "jest",
     "coverage": "jest --coverage && node jest/openCoverage.js"
   },
@@ -43,6 +45,7 @@
     "browserslist": "^4.0.1",
     "commitizen": "^3.0.2",
     "compression-webpack-plugin": "^1.1.11",
+    "conventional-changelog-cli": "^2.0.5",
     "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.6",
     "css-loader": "^0.28.11",

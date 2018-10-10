@@ -7,4 +7,4 @@ dist
 *.log
 e2e/report/*
 coverage
-yarn.lock
+CHANGELOG.md
