@@ -37,6 +37,9 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-stage-0": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "@commitlint/config-conventional": "^7.1.2",
+    "@commitlint/prompt": "^7.2.0",
+    "@commitlint/prompt-cli": "^7.2.0",
     "autoprefixer": "^8.6.2",
     "babel-7-jest": "^21.3.3",
     "babel-eslint": "^9.0.0",
@@ -44,6 +47,7 @@
     "babel-plugin-import": "^1.8.0",
     "browserslist": "^4.0.1",
     "commitizen": "^3.0.2",
+    "commitlint": "^7.2.0",
     "compression-webpack-plugin": "^1.1.11",
     "conventional-changelog-cli": "^2.0.5",
     "copy-webpack-plugin": "^4.5.1",
@@ -146,7 +150,7 @@
     "node": ">=9.8.0"
   },
   "gitHooks": {
-    "commit-msg": "node ./git/verify-commit-message.js",
+    "commit-msg": "npx commitlint -E GIT_PARAMS",
     "pre-commit": "yarn test"
   }
 }
