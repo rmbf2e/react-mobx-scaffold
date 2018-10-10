@@ -1,7 +1,8 @@
 import path from 'path'
+import URL from 'url'
 import express from 'express'
 import bodyParser from 'body-parser'
-import webpackConfig from '../webpack.config.babel'
+import webpackConfig from '../build/config'
 import config from './config'
 import readFixtures from './tool/readFixture'
 
@@ -11,9 +12,14 @@ app.use(bodyParser.json())
 
 app.all('*', (req, res, next) => {
   // 设置所有请求允许跨域
+  let { port } = webpackConfig
+  const reqUrl = req.headers.referer
+  if (reqUrl) {
+    port = URL.parse(reqUrl).port || 3000
+  }
   res.header(
     'Access-Control-Allow-Origin',
-    `${req.protocol}://${req.hostname}:${webpackConfig.devServer.port}`,
+    `${req.protocol}://${req.hostname}:${port}`,
   )
   res.header(
     'Access-Control-Allow-Headers',
