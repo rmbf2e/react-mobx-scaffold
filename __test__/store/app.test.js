@@ -2,7 +2,7 @@ import { toJS } from 'mobx'
 import noop from 'lodash/noop'
 import fxios from 'tool/fxios'
 import app from 'store/app'
-import api from 'app/api'
+import { base as api } from 'app/api'
 
 describe('测试appStore', () => {
   it('测试me的setter方法', async () => {
