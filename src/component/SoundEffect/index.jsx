@@ -18,8 +18,8 @@ class SoundEffect extends React.Component {
   }
 
   componentWillUnmount() {
-    emitter.off('success', this.playSuccess)
-    emitter.off('failure', this.playFailure)
+    emitter.removeListener('success', this.playSuccess)
+    emitter.removeListener('failure', this.playFailure)
   }
 
   // 每次播放，重置audio播放状态重新播放

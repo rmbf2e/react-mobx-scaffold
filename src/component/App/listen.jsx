@@ -56,8 +56,8 @@ const listen = () => {
   const dispose = onError(onMobxError)
   return () => {
     dispose()
-    fxios.off('success', onApiSuccess)
-    fxios.off('error', onApiError)
+    fxios.removeListener('success', onApiSuccess)
+    fxios.removeListener('error', onApiError)
   }
 }
 

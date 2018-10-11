@@ -9,6 +9,7 @@ import store from 'src/store'
 import 'moment/locale/zh-cn'
 import 'style/index.less'
 import 'style/animate.less'
+import registerServiceWorker from 'src/registerServiceWorker'
 
 // 设置moment语言
 moment.locale('zh-cn')
@@ -25,6 +26,7 @@ render(
   />,
   global.document.getElementById('app'),
 )
+registerServiceWorker()
 
 if (module.hot) {
   module.hot.accept()

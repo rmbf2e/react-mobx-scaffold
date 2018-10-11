@@ -51,6 +51,23 @@ src/api/index.js
 
 * add commitizen and commitlint for git commit format
 
+* add serviceWorker support, copy code from create-react-app example.
+  in development env, you can generate self signed certificates
+  https://stackoverflow.com/questions/9519707/can-nodejs-generate-ssl-certificates
+  ```
+  openssl genrsa -out server-key.pem 1024
+  openssl req -new -key server-key.pem -out server-csr.pem
+  openssl x509 -req -in server-csr.pem -signkey server-key.pem -out server-cert.pem
+  ```
+
+  and add ssl support to your local nginx conf file, see [nginx conf example](https://github.com/rmbf2e/react-mobx-scaffold/blob/master/nginx/default.conf)
+
+  then start chrome in command line with ignore ignore certificates error param.
+  ```
+  google-chrome --unsafely-treat-insecure-origin-as-secure=https://dist.jd.m --ignore-certificate-errors
+  ```
+  see [https://localhost] to test your serviceWorker.
+
 ### 常用命令
 
 * 本地模拟接口开发模式
