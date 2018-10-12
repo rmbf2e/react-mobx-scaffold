@@ -3,16 +3,16 @@ import { mount } from 'enzyme'
 import noop from 'lodash/noop'
 import React from 'react'
 import { Provider } from 'mobx-react'
-import SearchForm from 'component/SearchForm'
+import queryForm from 'store/queryForm'
+import QueryForm from 'component/QueryForm'
 import Search from 'page/User/Search'
 import user from 'store/user'
-import searchForm from 'store/searchForm'
 import router from 'store/router'
 
 describe('page/User/Search', () => {
   const store = {
     user,
-    searchForm,
+    queryForm,
     router,
   }
 
@@ -51,7 +51,7 @@ describe('page/User/Search', () => {
   it('测试提交搜索', () => {
     const app = wrapper()
     const { form } = formRef.props
-    const searchFormInstance = app.find(SearchForm).first()
+    const queryFormInstance = app.find(QueryForm).first()
     fetchListSpy.mockReset()
     expect(fetchListSpy).not.toHaveBeenCalled()
     expect(user.list.search).toEqual({})
@@ -63,8 +63,8 @@ describe('page/User/Search', () => {
       mobile: '123',
     }
     form.setFieldsValue(query)
-    searchForm.query = query
-    searchFormInstance.prop('onSubmit')()
+    queryForm.query = query
+    queryFormInstance.prop('onSubmit')()
     expect(user.list.search).toEqual(query)
     expect(fetchListSpy).toHaveBeenCalled()
 

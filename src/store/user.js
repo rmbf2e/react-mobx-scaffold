@@ -1,7 +1,7 @@
 import Events from 'events'
 import { observe } from 'mobx'
 import storeProp from 'src/storeProp'
-import searchForm from 'store/searchForm'
+import queryForm from 'store/queryForm'
 import { user as api } from 'src/api'
 import { GENDER } from 'src/constant'
 
@@ -54,7 +54,7 @@ observe(store, 'formModal', ({ newValue }) => {
 })
 
 store.on('record:changed', () => {
-  store.setListSearch(searchForm.query)
+  store.setListSearch(queryForm.query)
   store.fetchList()
 })
 

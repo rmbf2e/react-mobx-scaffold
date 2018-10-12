@@ -17,8 +17,8 @@
     https://github.com/axios/axios/issues/980
     axios的maxRedirects: 0只在nodejs端有用，浏览器没用
 * 当前项目与后端的约定配置，比如返回状态码为200则为成功，返回分页数据格式等，需要在src/tool/fxios中配置。
-* SearchForm使用时注意如果里面有Datepicker组件，若为时间格式则需要该表单项以Time结尾，否则不能正确识别为时间格式。
-  [SearchForm](https://github.com/rmbf2e/react-mobx-scaffold/blob/master/src/component/SearchForm/index.jsx)具体使用文档见代码注释。
+* QueryForm使用时注意如果里面有Datepicker组件，若为时间格式则需要该表单项以Time结尾，否则不能正确识别为时间格式。
+  [QueryForm](https://github.com/rmbf2e/react-mobx-scaffold/blob/master/src/component/QueryForm/index.jsx)具体使用文档见代码注释。
 * 使用storeProp修饰mobx store，可自动生成一些store属性与方法。
   具体每个修饰方法说明，见代码注释。
 * 开发模式webpack使用3000端口，模拟后端数据的mockServer使用3009端口。

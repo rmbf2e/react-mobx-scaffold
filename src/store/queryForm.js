@@ -1,6 +1,6 @@
 // import { observable, action } from 'mobx'
 
-class SearchForm {
+class QueryForm {
   query = {}
   // @observable.shallow query = {}
 
@@ -10,4 +10,4 @@ class SearchForm {
   // }
 }
 
-export default new SearchForm()
+export default new QueryForm()

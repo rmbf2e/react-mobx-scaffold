@@ -17,14 +17,14 @@ import { parseMoment, formatMoment } from 'tool/moment'
  * 4、在提交时自动过滤掉空值
  *
  * 使用方法：
- * 在组件中使用SearchForm代替antd的Form
- * 将应用组件使用antd的Form.create()修饰，然后将props.form传递给SearchForm的prop
+ * 在组件中使用QueryForm代替antd的Form
+ * 将应用组件使用antd的Form.create()修饰，然后将props.form传递给QueryForm的prop
  * 默认提交时会带page参数为1，可通过prop withPagination={false}取消该行为
- * 提交表单时，表单项name以Time结尾的被格式化为时间格式
+ * 提交表单时，表单项name以Time结尾的被格式化为时间格式字符串
  */
 @inject('store')
 @observer
-class SearchForm extends React.Component {
+class QueryForm extends React.Component {
   // 标记此次history push是否由submit引起，避免submit引起的history变更调用两次props.onSubmit
   pushedBySubmit = false
 
@@ -38,7 +38,7 @@ class SearchForm extends React.Component {
     }).isRequired,
     store: PropTypes.shape({
       router: PropTypes.object,
-      searchForm: PropTypes.object,
+      queryForm: PropTypes.object,
     }).isRequired,
     children: PropTypes.node.isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -66,7 +66,7 @@ class SearchForm extends React.Component {
             query,
             location: { pathname },
           },
-          searchForm,
+          queryForm,
         },
         onSubmit,
       } = this.props
@@ -85,8 +85,8 @@ class SearchForm extends React.Component {
         {},
       )
       // 将表单value与store中的query同步
-      searchForm.query = this.compactFormValues(formValues)
-      // searchForm.setQuery(this.compactFormValues(formValues))
+      queryForm.query = this.compactFormValues(formValues)
+      // queryForm.setQuery(this.compactFormValues(formValues))
       if (!this.pushedBySubmit) {
         form.setFieldsValue(formValues)
       }
@@ -177,4 +177,4 @@ class SearchForm extends React.Component {
     )
   }
 }
-export default SearchForm
+export default QueryForm

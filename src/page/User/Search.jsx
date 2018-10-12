@@ -2,7 +2,7 @@ import { Form, Input } from 'antd'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
-import SearchForm from 'component/SearchForm'
+import QueryForm from 'component/QueryForm'
 
 const FormItem = Form.Item
 
@@ -18,7 +18,7 @@ class Search extends React.Component {
       user: PropTypes.shape({
         fetchList: PropTypes.func,
       }),
-      searchForm: PropTypes.shape({
+      queryForm: PropTypes.shape({
         query: PropTypes.object,
       }),
     }).isRequired,
@@ -26,9 +26,9 @@ class Search extends React.Component {
 
   onSubmit = () => {
     const {
-      store: { user, searchForm },
+      store: { user, queryForm },
     } = this.props
-    user.setListSearch(searchForm.query)
+    user.setListSearch(queryForm.query)
     user.fetchList()
   }
 
@@ -36,7 +36,7 @@ class Search extends React.Component {
     const { form } = this.props
     const { getFieldDecorator } = form
     return (
-      <SearchForm form={form} onSubmit={this.onSubmit} layout="inline">
+      <QueryForm form={form} onSubmit={this.onSubmit} layout="inline">
         <FormItem label="帐号">
           {getFieldDecorator('account')(<Input />)}
         </FormItem>
@@ -46,7 +46,7 @@ class Search extends React.Component {
         <FormItem label="手机">
           {getFieldDecorator('mobile')(<Input />)}
         </FormItem>
-      </SearchForm>
+      </QueryForm>
     )
   }
 }

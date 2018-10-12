@@ -5,22 +5,22 @@ import { mount } from 'enzyme'
 import Moment from 'moment'
 import { Input, Form, DatePicker, TimePicker } from 'antd'
 import { Provider } from 'mobx-react'
-import SearchForm from 'component/SearchForm'
+import queryForm from 'store/queryForm'
+import QueryForm from 'component/QueryForm'
 import router from 'store/router'
-import searchForm from 'store/searchForm'
 import config from 'src/config'
 
 const { RangePicker } = DatePicker
 const store = {
   router,
-  searchForm,
+  queryForm,
 }
 
 const Comp = props => {
   const { form } = props
   return (
     <Provider store={store}>
-      <SearchForm {...props}>
+      <QueryForm {...props}>
         {form.getFieldDecorator('firstName')(<Input />)}
         {form.getFieldDecorator('secondName')(<Input />)}
         {form.getFieldDecorator('firstDate')(<DatePicker />)}
@@ -28,13 +28,13 @@ const Comp = props => {
         {form.getFieldDecorator('rangeDate')(<RangePicker />)}
         {form.getFieldDecorator('firstTime')(<TimePicker />)}
         {form.getFieldDecorator('secondTime')(<TimePicker />)}
-      </SearchForm>
+      </QueryForm>
     </Provider>
   )
 }
 const WrappedForm = Form.create()(Comp)
 
-describe('components/SearchForm', () => {
+describe('components/QueryForm', () => {
   it('test onSubmit', () => {
     const hash = '#abc'
     router.push(hash)
@@ -173,12 +173,12 @@ describe('components/SearchForm', () => {
     })
     const f = form.find('form')
     f.simulate('submit')
-    expect(searchForm.query).toEqual({ firstDate })
+    expect(queryForm.query).toEqual({ firstDate })
     const secondDate = '2016-12-09'
     router.push({
       search: url.format({ query: { secondDate } }),
     })
-    expect(searchForm.query).toEqual({ secondDate })
+    expect(queryForm.query).toEqual({ secondDate })
   })
 
   it('测试时间类型的表单参数', () => {
@@ -194,12 +194,12 @@ describe('components/SearchForm', () => {
     })
     const f = form.find('form')
     f.simulate('submit')
-    expect(searchForm.query).toEqual({ firstTime })
+    expect(queryForm.query).toEqual({ firstTime })
     const secondTime = '2016-12-09 12:32:43'
     router.push({
       search: url.format({ query: { secondTime } }),
     })
-    expect(searchForm.query).toEqual({ secondTime })
+    expect(queryForm.query).toEqual({ secondTime })
   })
 
   it('测试区间日期类型的表单参数', () => {
@@ -216,15 +216,15 @@ describe('components/SearchForm', () => {
     const f = form.find('form')
     f.simulate('submit')
     const otherDate = '2017-02-20'
-    expect(searchForm.query).toEqual({ rangeDate: [rangeDate, ''] })
+    expect(queryForm.query).toEqual({ rangeDate: [rangeDate, ''] })
     router.push({
       search: url.format({ query: { rangeDate: [otherDate, ''] } }),
     })
-    expect(searchForm.query).toEqual({ rangeDate: [otherDate, ''] })
+    expect(queryForm.query).toEqual({ rangeDate: [otherDate, ''] })
     router.push({
       search: url.format({ query: { rangeDate: [otherDate, otherDate] } }),
     })
-    expect(searchForm.query).toEqual({ rangeDate: [otherDate, otherDate] })
+    expect(queryForm.query).toEqual({ rangeDate: [otherDate, otherDate] })
     router.push('/')
   })
 
