@@ -2,8 +2,8 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { Tabs as AntTabs } from 'antd'
 import Tabs from 'component/Tabs'
+import router from 'store/router'
 
-const router = global.routerStore
 const store = { router }
 
 const { TabPane } = Tabs

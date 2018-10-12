@@ -15,7 +15,7 @@ import registerServiceWorker from 'src/registerServiceWorker'
 moment.locale('zh-cn')
 
 // 设置mobx校验必须通过action更新数据
-configure({ enforceActions: 'observed' })
+configure({ enforceActions: 'always' })
 
 render(
   <App

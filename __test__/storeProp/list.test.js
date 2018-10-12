@@ -122,7 +122,7 @@ describe('storeProp/list', () => {
         expect(pagination.total).toBe(data.pagination.total)
 
         const search = { name: 'abc' }
-        a.promotions.search = search
+        a.setPromotionsSearch(search)
         expect(a.promotions.search).toEqual(search)
         a.restorePromotions()
         expect(a.promotions.search).toEqual({})
@@ -158,7 +158,7 @@ describe('storeProp/list', () => {
 
         // restore后选择的数据应为空
         const search = { name: 'abc' }
-        b.promotions.search = search
+        b.setPromotionsSearch(search)
         expect(b.promotions.search).toEqual(search)
         b.restorePromotions()
         expect(b.promotions.search).toEqual({})
@@ -176,7 +176,7 @@ describe('storeProp/list', () => {
     it('测试搜索对象中有数组的情况，数组的条件也必须导入到url中', () => {
       const search = { name: ['a', 'b'] }
       const spy = jest.spyOn(fxios, 'get').mockImplementation(resolve(data))
-      b.promotions.search = search
+      b.setPromotionsSearch(search)
       return b.fetchPromotions().then(() => {
         expect(spy).toHaveBeenLastCalledWith(option.url, {
           name: ['a', 'b'],

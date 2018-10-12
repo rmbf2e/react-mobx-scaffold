@@ -1,11 +1,12 @@
 import Enzyme from 'enzyme'
+import { configure } from 'mobx'
 import Adapter from 'enzyme-adapter-react-16'
 import { JSDOM } from 'jsdom'
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
-import createMemoryHistory from 'history/createMemoryHistory'
 import 'core-js/shim'
 import 'isomorphic-fetch'
 import 'localstorage-polyfill'
+
+configure({ enforceActions: 'always' })
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>')
 const { window } = jsdom
@@ -30,9 +31,3 @@ global.navigator = {
 copyProps(window, global)
 
 Enzyme.configure({ adapter: new Adapter() })
-
-// make history
-const routerStore = new RouterStore()
-const appHistory = createMemoryHistory()
-syncHistoryWithStore(appHistory, routerStore)
-global.routerStore = routerStore

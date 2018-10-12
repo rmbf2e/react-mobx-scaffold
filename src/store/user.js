@@ -54,7 +54,7 @@ observe(store, 'formModal', ({ newValue }) => {
 })
 
 store.on('record:changed', () => {
-  store.list.search = searchForm.query
+  store.setListSearch(searchForm.query)
   store.fetchList()
 })
 

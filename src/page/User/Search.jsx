@@ -28,7 +28,7 @@ class Search extends React.Component {
     const {
       store: { user, searchForm },
     } = this.props
-    user.list.search = searchForm.query
+    user.setListSearch(searchForm.query)
     user.fetchList()
   }
 
