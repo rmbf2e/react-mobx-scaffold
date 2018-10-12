@@ -40,7 +40,6 @@ class List extends React.Component {
       {
         title: '帐号',
         dataIndex: 'account',
-        key: 'account',
       },
       {
         title: '姓名',
@@ -50,18 +49,15 @@ class List extends React.Component {
       {
         title: '性别',
         dataIndex: 'sex',
-        key: 'sex',
         render: propertyOf(GENDER_MAP),
       },
       {
         title: '邮箱',
         dataIndex: 'mail',
-        key: 'mail',
       },
       {
         title: '手机',
         dataIndex: 'mobile',
-        key: 'mobile',
       },
       {
         title: '操作',

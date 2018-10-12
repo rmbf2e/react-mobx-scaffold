@@ -7,7 +7,7 @@ module.exports = function users(req, res) {
           {
             account: 'aaa',
             mail: 'aaa@test.com',
-            mobile: '15888888888',
+            mobile: 15888888888,
             name: 'AAA',
             sex: 1,
             id: 1,
@@ -15,7 +15,7 @@ module.exports = function users(req, res) {
           {
             account: 'bbb',
             mail: 'bbb@test.com',
-            mobile: '1111',
+            mobile: 1111,
             name: 'BBB',
             sex: 0,
             id: 2,
