@@ -52,7 +52,6 @@
     "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.6",
     "css-loader": "^0.28.11",
-    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.0.1",
@@ -152,6 +151,6 @@
   },
   "gitHooks": {
     "commit-msg": "npx commitlint -E GIT_PARAMS",
-    "pre-commit": "yarn test"
+    "pre-push": "yarn test"
   }
 }
