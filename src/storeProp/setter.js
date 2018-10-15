@@ -17,10 +17,11 @@ import castArray from 'lodash/castArray'
  * */
 function generateSetter(options) {
   castArray(options).forEach(option => {
-    const { name } = option
+    const { name, shallow } = option
     const upperFirstName = upperFirst(name)
     const setMethod = `set${upperFirstName}`
     const restoreMethod = `restore${upperFirstName}`
+    const extendOption = shallow ? { deep: false } : undefined
     extendObservable(
       this,
       {
@@ -36,6 +37,7 @@ function generateSetter(options) {
         [setMethod]: action,
         [restoreMethod]: action,
       },
+      extendOption,
     )
   })
 }

@@ -5,17 +5,6 @@ import rest from './rest'
 import setter from './setter'
 import lazy from './lazy'
 
-// 自动将storeProp文件夹里的所有文件加载为生成器
-// 例如modal.js文件将被加载到generators.modal属性
-// const generators = {}
-// const generatorsRequire = require.context('src/storeProp', false, /\.js$/)
-// generatorsRequire.keys().forEach(key => {
-//   if (key !== './index.js') {
-//     const name = key.replace(/(\.\/|\.js$)/g, '')
-//     generators[name] = generatorsRequire(key).default
-//   }
-// })
-
 const generators = {
   modal,
   list,
@@ -24,11 +13,11 @@ const generators = {
   lazy,
 }
 
-/*
+/**
  * 通过传入一系列option，批量生成被定义Class的属性和方法
  * option的每个键与storeProp里的某个文件名对应
  *
- * @param {Object} option
+ * @param {Object} option 各种配置选项
  * @return {Class} 继承后的新class
  * */
 const storeProp = option => Class =>

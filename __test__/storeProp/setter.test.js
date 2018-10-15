@@ -1,4 +1,4 @@
-import { reaction, toJS } from 'mobx'
+import { reaction, runInAction, toJS } from 'mobx'
 import setter from 'src/storeProp/setter'
 
 describe('storeProp/setter', () => {
@@ -50,5 +50,39 @@ describe('storeProp/setter', () => {
     expect(a.user).toEqual(u)
     a.restoreUser()
     expect(a.user).toEqual({})
+  })
+
+  describe('测试shallow', () => {
+    it('默认shallow为false', () => {
+      a.setUser({ name: 'abc' })
+      const spy = jest.fn()
+      reaction(() => a.user.name, spy)
+      runInAction(() => {
+        a.user.name = 'def'
+      })
+      expect(spy).toHaveBeenCalled()
+    })
+
+    class B {
+      constructor() {
+        setter.call(this, [
+          {
+            name: 'user',
+            default: {},
+            shallow: true,
+          },
+        ])
+      }
+    }
+    it('shallow为true', () => {
+      const b = new B()
+      b.setUser({ name: 'abc' })
+      const spy = jest.fn()
+      reaction(() => b.user.name, spy)
+      runInAction(() => {
+        b.user.name = 'def'
+      })
+      expect(spy).not.toHaveBeenCalled()
+    })
   })
 })
