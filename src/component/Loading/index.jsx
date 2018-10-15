@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Alert } from 'antd'
 import classnames from 'classnames'
+import locale from 'store/locale'
 import style from './style.m.less'
 
 const Loading = ({ text, error }) => {
@@ -26,7 +27,7 @@ Loading.propTypes = {
 }
 Loading.defaultProps = {
   error: null,
-  text: '加载中 ...',
+  text: locale.lang.Loading.loading,
 }
 
 export default Loading

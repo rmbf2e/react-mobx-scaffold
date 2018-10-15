@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import Loading from 'component/Loading'
 import SoundEffect from 'component/SoundEffect'
 import Layout from 'component/Layout'
+import locale from 'store/locale'
 import listen, { onPageError } from './listen'
 
 /*
@@ -21,9 +22,6 @@ class App extends React.Component {
       app: PropTypes.shape({
         load: PropTypes.func,
       }),
-    }).isRequired,
-    locale: PropTypes.shape({
-      locale: PropTypes.string,
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func,
@@ -45,13 +43,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { store, routes, locale, history } = this.props
+    const { store, routes, history } = this.props
     return store.app.loading ? (
       <Loading />
     ) : (
       <React.Fragment>
         <Provider store={store}>
-          <LocaleProvider locale={locale}>
+          <LocaleProvider locale={locale.lang}>
             <Router history={history}>
               <Layout routes={routes} />
             </Router>

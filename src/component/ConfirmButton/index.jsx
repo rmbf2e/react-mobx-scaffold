@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import reduce from 'lodash/reduce'
 import { Button, Popover } from 'antd'
+import locale from 'store/locale'
 import s from './style.m.less'
 
 /**
@@ -16,7 +17,7 @@ class ConfirmButton extends React.PureComponent {
   }
 
   static defaultProps = {
-    onConfirmText: '确认？',
+    onConfirmText: locale.lang.ConfirmButton.confirm,
   }
 
   render() {
@@ -42,11 +43,11 @@ class ConfirmButton extends React.PureComponent {
       <Popover
         overlayClassName={s.wrapper}
         mouseLeaveDelay={0.3}
-        content={(
+        content={
           <Button icon="warning" {...datasetProps} onClick={onConfirm}>
             {onConfirmText}
           </Button>
-)}
+        }
       >
         <Button {...props}>{children}</Button>
       </Popover>

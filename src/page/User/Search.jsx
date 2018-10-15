@@ -42,7 +42,6 @@ class Search extends React.Component {
         </FormItem>
         <FormItem label="姓名">{getFieldDecorator('name')(<Input />)}</FormItem>
         <FormItem label="邮箱">{getFieldDecorator('mail')(<Input />)}</FormItem>
-        ,
         <FormItem label="手机">
           {getFieldDecorator('mobile')(<Input />)}
         </FormItem>

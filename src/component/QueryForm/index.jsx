@@ -1,13 +1,15 @@
 import URL from 'url'
+import { Button, Form } from 'antd'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Button } from 'antd'
 import { inject, observer } from 'mobx-react'
 import forEach from 'lodash/forEach'
 import reduce from 'lodash/reduce'
+// import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver'
 import isEmptyQuery from 'tool/isEmptyQuery'
 import config from 'src/config'
 import { parseMoment, formatMoment } from 'tool/moment'
+// import translate from 'mixin/translate'
 
 /*
  * 该组件解决的几个问题
@@ -157,6 +159,9 @@ class QueryForm extends React.Component {
 
   render() {
     const {
+      store: { locale },
+    } = this.props
+    const {
       store,
       form,
       onSubmit,
@@ -170,7 +175,7 @@ class QueryForm extends React.Component {
         <input type="submit" className="hidden" />
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            搜索
+            {locale.lang.QueryForm.search}
           </Button>
         </Form.Item>
       </Form>

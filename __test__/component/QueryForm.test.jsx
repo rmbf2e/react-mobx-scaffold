@@ -8,12 +8,14 @@ import { Provider } from 'mobx-react'
 import queryForm from 'store/queryForm'
 import QueryForm from 'component/QueryForm'
 import router from 'store/router'
+import locale from 'store/locale'
 import config from 'src/config'
 
 const { RangePicker } = DatePicker
 const store = {
   router,
   queryForm,
+  locale,
 }
 
 const Comp = props => {

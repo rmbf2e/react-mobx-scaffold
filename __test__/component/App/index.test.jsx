@@ -9,6 +9,7 @@ import router from 'store/router'
 import fxios from 'tool/fxios'
 import app from 'store/app'
 import menu from 'store/menu'
+import locale from 'store/locale'
 import App from 'component/App'
 import { emitter as soundEmitter } from 'component/SoundEffect'
 
@@ -19,7 +20,7 @@ const routes = [
   /* template-placeholder */
 ]
 
-const store = { router, menu, app }
+const store = { router, menu, app, locale }
 
 const wrapper = route => {
   let appRoutes = routes

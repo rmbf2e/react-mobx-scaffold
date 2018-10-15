@@ -1,4 +1,5 @@
 import app from 'store/app'
+import locale from 'store/locale'
 import menu from 'store/menu'
 import queryForm from 'store/queryForm'
 import router from 'store/router'
@@ -6,6 +7,7 @@ import user from 'store/user'
 
 const store = {
   app,
+  locale,
   menu,
   queryForm,
   router,

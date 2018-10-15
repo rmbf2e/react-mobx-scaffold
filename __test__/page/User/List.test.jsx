@@ -51,7 +51,7 @@ describe('page/User/List', () => {
     const row = listFixture.data.entities[0]
     expect(td.at(1).text()).toBe(row.account)
     expect(td.at(2).text()).toBe(row.name)
-    expect(td.at(3).text()).toBe(GENDER_MAP[row.sex])
+    expect(td.at(3).text()).toBe(GENDER_MAP[row.gender])
     expect(td.at(4).text()).toBe(row.mail)
     expect(td.at(5).text()).toBe(row.mobile)
     expect(td.at(6).text()).toBe('编 辑')

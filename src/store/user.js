@@ -8,7 +8,7 @@ import { GENDER } from 'src/constant'
 const defaultRecord = {
   account: '',
   name: '',
-  sex: GENDER[0].value,
+  gender: GENDER[0].value,
   mail: '',
   mobile: '',
 }

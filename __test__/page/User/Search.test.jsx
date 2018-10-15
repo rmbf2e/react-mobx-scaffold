@@ -8,12 +8,14 @@ import QueryForm from 'component/QueryForm'
 import Search from 'page/User/Search'
 import user from 'store/user'
 import router from 'store/router'
+import locale from 'store/locale'
 
 describe('page/User/Search', () => {
   const store = {
     user,
     queryForm,
     router,
+    locale,
   }
 
   let formRef

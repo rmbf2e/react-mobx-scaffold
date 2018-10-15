@@ -95,8 +95,8 @@ class FormModal extends React.Component {
             })(<Input />)}
           </FormItem>
           <FormItem label="性别" {...layout}>
-            {form.getFieldDecorator('sex', {
-              initialValue: record.sex,
+            {form.getFieldDecorator('gender', {
+              initialValue: record.gender,
               rules: [{ required: true }],
             })(<Radio.Group options={GENDER} />)}
           </FormItem>

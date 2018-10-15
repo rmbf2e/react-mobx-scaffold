@@ -1,10 +1,10 @@
+import { Layout } from 'antd'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import { mount } from 'enzyme'
-
-import { Layout, Card } from 'antd'
 import AppHeader from 'component/Header'
 import router from 'store/router'
+import locale from 'store/locale'
 import menu from 'store/menu'
 
 const { Header } = Layout
@@ -13,6 +13,7 @@ const logout = jest.fn()
 const store = {
   router,
   menu,
+  locale,
   app: {
     me: {
       name: 'ddd',

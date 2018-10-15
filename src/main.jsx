@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { configure } from 'mobx'
-import zhCN from 'antd/lib/locale-provider/zh_CN'
 import moment from 'moment'
 import routes from 'src/route'
 import App from 'component/App'
@@ -18,12 +17,7 @@ moment.locale('zh-cn')
 configure({ enforceActions: 'always' })
 
 render(
-  <App
-    store={store}
-    locale={zhCN}
-    history={store.router.history}
-    routes={routes}
-  />,
+  <App store={store} history={store.router.history} routes={routes} />,
   global.document.getElementById('app'),
 )
 registerServiceWorker()

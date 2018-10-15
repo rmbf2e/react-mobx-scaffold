@@ -48,7 +48,7 @@ class List extends React.Component {
       },
       {
         title: '性别',
-        dataIndex: 'sex',
+        dataIndex: 'gender',
         render: propertyOf(GENDER_MAP),
       },
       {
@@ -74,10 +74,10 @@ class List extends React.Component {
 
   onEdit = e => {
     const { index } = e.target.dataset
-    const user = this.store
-    const data = user.list.tableProps.dataSource[index]
-    user.setRecord({ data })
-    this.store.showFormModal()
+    const { store } = this
+    const data = store.list.tableProps.dataSource[index]
+    store.setRecord({ data })
+    store.showFormModal()
   }
 
   render() {

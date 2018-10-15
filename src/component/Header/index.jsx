@@ -26,20 +26,23 @@ class AppHeader extends React.Component {
 
   render() {
     const {
-      store: { app },
+      store: {
+        app,
+        locale: { lang },
+      },
       className,
     } = this.props
     return (
       <Header className={`${s.header} ${className}`}>
         <figure className={s.logo}>
           <img alt="logo" src="/asset/image/logo.png" />
-          站点标题
+          {lang.Header.title}
         </figure>
         <Menu />
         <figure className={s.me}>
           {app.me.name}
           <a onClick={app.logout} onKeyPress={app.logout}>
-            注销
+            {lang.Header.logout}
           </a>
         </figure>
       </Header>

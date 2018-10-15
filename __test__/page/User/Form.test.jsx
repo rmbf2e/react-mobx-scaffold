@@ -69,7 +69,7 @@ describe('page/User/Form', () => {
         name: 'abc',
         mail: 'abc',
         mobile: '123',
-        sex: '1',
+        gender: '1',
       })
       submit()
       expect(spy).toHaveBeenCalled()
