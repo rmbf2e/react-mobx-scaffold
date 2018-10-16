@@ -1,7 +1,7 @@
+import { Icon, Menu } from 'antd'
 import React from 'react'
 import { toJS } from 'mobx'
 import PropTypes from 'prop-types'
-import { Menu } from 'antd'
 import { inject, observer } from 'mobx-react'
 import getFirstPathname from 'tool/getFirstPathname'
 import Link from './Link'
@@ -57,7 +57,10 @@ class Menus extends React.Component {
                 <SubMenu key={m.name} title={m.name}>
                   {m.children.map(c => (
                     <Menu.Item key={c.to}>
-                      <Link to={c.to}>{c.name}</Link>
+                      <Link to={c.to}>
+                        {c.icon ? <Icon type={c.icon} /> : null}
+                        {c.name}
+                      </Link>
                     </Menu.Item>
                   ))}
                 </SubMenu>
@@ -65,7 +68,10 @@ class Menus extends React.Component {
             }
             return (
               <Menu.Item key={m.to}>
-                <Link to={m.to}>{m.name}</Link>
+                <Link to={m.to}>
+                  {m.icon ? <Icon type={m.icon} /> : null}
+                  {m.name}
+                </Link>
               </Menu.Item>
             )
           })}

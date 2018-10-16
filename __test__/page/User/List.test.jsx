@@ -21,7 +21,7 @@ describe('page/User/List', () => {
 
   beforeEach(() => {
     runInAction(() => {
-      user.list.tableProps.dataSource = listFixture.data.entities
+      user.list.tableProps.dataSource = listFixture.list
     })
   })
 
@@ -48,7 +48,7 @@ describe('page/User/List', () => {
   it('测试数据', () => {
     const app = wrapper()
     const td = app.find('td')
-    const row = listFixture.data.entities[0]
+    const row = listFixture.list[0]
     expect(td.at(1).text()).toBe(row.account)
     expect(td.at(2).text()).toBe(row.name)
     expect(td.at(3).text()).toBe(GENDER_MAP[row.gender])
@@ -61,7 +61,7 @@ describe('page/User/List', () => {
     const app = wrapper()
     const button = app.find(Button).first()
     expect(user.formModal).toBe(false)
-    const record = listFixture.data.entities[0]
+    const record = listFixture.list[0]
     expect(toJS(user.record)).not.toEqual(record)
 
     const onClick = button.prop('onClick')

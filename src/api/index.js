@@ -5,6 +5,6 @@ export const base = {
 
 export const user = {
   list: 'users',
-  create: 'user/reate',
+  create: 'user/create',
   detail: 'user/:id',
 }
