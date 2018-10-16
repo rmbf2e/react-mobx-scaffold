@@ -27,17 +27,22 @@ menu.setMenus([
     name: '系统管理',
     children: [
       {
+        name: '首页',
+        to: '/',
+        icon: 'home',
+      },
+      {
         name: '用户管理',
         to: '/user',
         icon: 'user',
       },
       {
         name: '不存在的路径',
-        icon: 'user',
+        icon: 'close',
         children: [
           {
             name: '不存在的路径',
-            icon: 'user',
+            icon: 'close',
             to: '/noMatch',
           },
         ],
