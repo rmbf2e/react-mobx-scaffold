@@ -16,10 +16,12 @@ const getPage = () => {
 }
 
 /*
- * 生成被修饰Class的 name的名词复数化属性
- * 与`fetch${upperFirst(name的名词复数化)}`方法
- * 与`restore${upperFirst(name的名词复数化)}`方法
+ * 生成被修饰Class的[name]属性
+ * 与`fetch${upperFirst(name)}`方法
+ * 与`restore${upperFirst(name)}`方法
  * 针对列表与分页处理使用
+ * 使用page字段作为query中的分页数
+ * 使用pageSize字段作为query中的每页显示数
  *
  * 例如options为
     [{
@@ -31,9 +33,11 @@ const getPage = () => {
       processResponse: func // 可选，在列表数组不符合要求时，可对其进行预处理
       request: (url, query) => Promise // func, 通常使用fxios.get
     }]
- * 则生成属性 groups，具体数据结构参考下面的list局部变量
- * 生成方法 fetchGroups，调用request属性函数并返回
- * 生成方法 setGroupsSearch方法，设置store.groups.search属性
+ * 则生成属性 list，具体数据结构参考下面的list局部变量
+ * 生成方法 fetchList，调用request属性函数并返回
+ * 生成方法 setList方法，设置store.list.dataSource与pagination属性
+ * 生成方法 setListLoading方法，设置store.list.tableProps.loading属性
+ * 生成方法 setListSearch方法，设置store.list.search属性
  * 生成方法 restoreGroups，将列表数据恢复为初始状态
  *
  * @param {Array} options
@@ -125,11 +129,9 @@ function generateList(options) {
             ...search,
           })
             .then(this[setMethod])
-            .finally(
-              action('stopFetchListLoading', () => {
-                this[setLoading](false)
-              }),
-            )
+            .finally(() => {
+              this[setLoading](false)
+            })
         },
         [restoreMethod]: () => {
           const observedList = this[name]

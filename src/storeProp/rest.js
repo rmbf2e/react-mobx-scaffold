@@ -24,7 +24,10 @@ const isValidArguments = arg => {
  *     url: '/groups/create', // required
  *     request: fxios.post, // 可以不指定，默认按restfull接口规则
  *     interceptor: {
- *       request: (data) => {..}, // 预处理发送data
+ *       request: (...args) => {
+ *         ...
+ *         return args
+ *       }, // 预处理发送data
  *       response: (data) => {..}, // 处理接口返回data
  *     },
  *   },
@@ -38,7 +41,7 @@ const isValidArguments = arg => {
  * update, fetch, destroy方法与create相同
  *
  * create, update, destroy方法成功后，如果该class继承自events，有emit方法，则会emit `${name}:changed`事件，无emit参数
- * 同时emit `${name}:${created}`事件，emit参数为请求的response，与请求的数据对象{ body, query }，body为请求体，query为url query
+ * 同时emit `${name}:${created|updated|destroyed}`事件，emit参数为请求的response，与请求的数据对象{ body, query, param }，body为请求体，query为url query，param为url参数
  *
  * @param {Array} options
  * @return void
@@ -129,7 +132,7 @@ function rest(options) {
         }
         this[fetching] = true
         const fetchObj = option.fetch
-        const setAction = action(setMethod, res => {
+        const setResponseAction = action(setMethod, res => {
           if (fetchObj.interceptor && fetchObj.interceptor.response) {
             res = fetchObj.interceptor.response(res)
           }
@@ -141,7 +144,7 @@ function rest(options) {
         }
         const request = option.fetch.request || fxios.get
         const promise = request({ url: fetchObj.url, param }, query).then(
-          setAction,
+          setResponseAction,
         )
         promise.finally(
           action(fetchMethod, () => {
