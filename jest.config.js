@@ -28,6 +28,7 @@ module.exports = {
     '^page/(.+)$': '<rootDir>/src/page/$1',
     '^tool/(.+)$': '<rootDir>/src/tool/$1',
     '^mixin/(.+)$': '<rootDir>/src/mixin/$1',
+    '^locale/(.+)$': '<rootDir>/src/locale/$1',
     '^store/(.+)$': '<rootDir>/src/store/$1',
     '^storeProp/(.+)$': '<rootDir>/src/storeProp/$1',
     '^src/(.+)$': '<rootDir>/src/$1',

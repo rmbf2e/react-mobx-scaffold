@@ -42,6 +42,7 @@ const alias = {
   store: resolvePath('./src/store'),
   style: resolvePath('./src/style'),
   mixin: resolvePath('./src/mixin'),
+  locale: resolvePath('./src/locale'),
   src: resolvePath('./src'),
   fixture: resolvePath('./__test__/fixture'),
 }

@@ -3,6 +3,7 @@ import noop from 'lodash/noop'
 import fetchMock from 'fetch-mock'
 import queryForm from '../src/store/queryForm'
 import router from '../src/store/router'
+import './extend/isStructureEqual'
 
 afterEach(() => {
   fetchMock.restore()

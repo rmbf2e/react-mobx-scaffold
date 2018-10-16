@@ -1,3 +1,4 @@
+import { Select } from 'antd'
 import React from 'react'
 import PropTypes from 'prop-types'
 import Layout from 'antd/lib/layout'
@@ -6,6 +7,7 @@ import Menu from 'component/Menu'
 import s from './style.m.less'
 
 const { Header } = Layout
+const { Option } = Select
 
 @inject('store')
 @observer
@@ -24,11 +26,18 @@ class AppHeader extends React.Component {
     className: '',
   }
 
+  onLangSwitch = localeCode => {
+    const {
+      store: { locale },
+    } = this.props
+    locale.setLang(locale.langs[localeCode])
+  }
+
   render() {
     const {
       store: {
         app,
-        locale: { lang },
+        locale: { lang, langs },
       },
       className,
     } = this.props
@@ -40,6 +49,17 @@ class AppHeader extends React.Component {
         </figure>
         <Menu />
         <figure className={s.me}>
+          <Select
+            className={s.lang}
+            defaultValue="zhCN"
+            onChange={this.onLangSwitch}
+          >
+            {Object.keys(langs).map(l => (
+              <Option key={l} value={l}>
+                {l}
+              </Option>
+            ))}
+          </Select>
           {app.me.name}
           <a onClick={app.logout} onKeyPress={app.logout}>
             {lang.Header.logout}
