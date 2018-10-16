@@ -8,7 +8,11 @@ import s from './style.m.less'
 
 const RouteTransition = ({ routes, store: { router } }) => (
   <TransitionGroup className={s.wrapper}>
-    <CSSTransition key={router.location.key} classNames="route" timeout={300}>
+    <CSSTransition
+      key={router.location.pathname}
+      classNames="route"
+      timeout={300}
+    >
       <Switch location={router.location}>
         {routes.map(r => (
           <Route {...r} />

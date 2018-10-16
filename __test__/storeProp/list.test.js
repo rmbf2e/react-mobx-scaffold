@@ -33,7 +33,7 @@ describe('storeProp/list', () => {
   const b = new B()
 
   beforeEach(() => {
-    config.pageSize = 20
+    config.pageSize = 10
   })
 
   it('没有rowSelection时的生成的属性与方法', () => {
@@ -181,7 +181,7 @@ describe('storeProp/list', () => {
         expect(spy).toHaveBeenLastCalledWith(option.url, {
           name: ['a', 'b'],
           page: 1,
-          pageSize: 20,
+          pageSize: config.pageSize,
         })
       })
     })
@@ -193,7 +193,7 @@ describe('storeProp/list', () => {
       expect(router.query.page).toBe('2')
       a.promotions.tableProps.pagination.onShowSizeChange(null, 29)
       expect(router.query.pageSize).toBe('29')
-      expect(config.pageSize).toBe(20)
+      expect(config.pageSize).toBe(config.pageSize)
       expect(router.query.page).toBe('1')
       expect(a.promotions.tableProps.pagination.showTotal(123)).toBe(
         '共123条记录',
