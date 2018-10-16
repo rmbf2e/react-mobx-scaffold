@@ -10,25 +10,22 @@ describe('tool/fxios', () => {
     test('测试有分页值', () => {
       const url = '/users'
       const mockResponse = {
-        code: 200,
-        data: {
-          entities: [
-            { name: 'aaaa', id: 1 },
-            {
-              name: 'bbb',
-              id: 2,
-            },
-          ],
-          pageNo: 2,
-          entityCount: 2,
-        },
+        list: [
+          { name: 'aaaa', id: 1 },
+          {
+            name: 'bbb',
+            id: 2,
+          },
+        ],
+        pageNo: 2,
+        count: 10,
       }
       fetchMock.get(`${config.baseURL}${url}`, mockResponse)
       return fxios.get(url).then(res => {
-        expect(res.originalData).toEqual(mockResponse.data)
-        expect(res.dataSource).toEqual(mockResponse.data.entities)
+        expect(res.originalData).toEqual(mockResponse)
+        expect(res.dataSource).toEqual(mockResponse.list)
         expect(res.pagination).toEqual({
-          total: 2,
+          total: 10,
         })
       })
     })
@@ -66,23 +63,21 @@ describe('tool/fxios', () => {
     test('测试没有分页值，返回默认分页值', () => {
       const url = '/users'
       const mockResponse = {
-        code: 200,
-        data: {
-          entities: [
-            { name: 'aaaa', id: 1 },
-            {
-              name: 'bbb',
-              id: 2,
-            },
-          ],
-        },
+        list: [
+          { name: 'aaaa', id: 1 },
+          {
+            name: 'bbb',
+            id: 2,
+          },
+        ],
+        count: 10,
       }
       fetchMock.get(`${config.baseURL}${url}`, mockResponse)
       return fxios.get(url).then(res => {
-        expect(res.originalData).toEqual(mockResponse.data)
-        expect(res.dataSource).toEqual(mockResponse.data.entities)
+        expect(res.originalData).toEqual(mockResponse)
+        expect(res.dataSource).toEqual(mockResponse.list)
         expect(res.pagination).toEqual({
-          total: 0,
+          total: 10,
         })
       })
     })

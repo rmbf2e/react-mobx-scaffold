@@ -12,7 +12,7 @@ const isValidArguments = arg => {
   if (typeof arg !== 'object') {
     return false
   }
-  return Object.keys(arg).every(key => ['data', 'query', 'param'].includes(key))
+  return Object.keys(arg).every(key => ['body', 'query', 'param'].includes(key))
 }
 
 /*
@@ -38,7 +38,7 @@ const isValidArguments = arg => {
  * update, fetch, destroy方法与create相同
  *
  * create, update, destroy方法成功后，如果该class继承自events，有emit方法，则会emit `${name}:changed`事件，无emit参数
- * 同时emit `${name}:${created}`事件，emit参数为请求的response，与请求的数据对象{ data, query }，data为请求体，query为url query
+ * 同时emit `${name}:${created}`事件，emit参数为请求的response，与请求的数据对象{ body, query }，body为请求体，query为url query
  *
  * @param {Array} options
  * @return void
@@ -51,7 +51,7 @@ function rest(options) {
     const decoratorObject = {}
     const setMethod = `set${upperName}`
     extendObject[setMethod] = res => {
-      this[option.name] = res.data ? res.data : res
+      this[option.name] = res
     }
     const restoreMethod = `restore${upperName}`
     extendObject[restoreMethod] = () => {
@@ -70,29 +70,31 @@ function rest(options) {
         const requestMethod = `${method}${upperName}`
         extendObject[ing] = false
         extendObject[requestMethod] = (...args) => {
-          let data = args[0]
+          const { [method]: methodOption } = option
+          if (methodOption.interceptor && methodOption.interceptor.request) {
+            args = methodOption.interceptor.request(args)
+          }
+          const data = args[0]
+          let body
           let query
           let param
           if (isValidArguments(data) && args[1] === undefined) {
-            ;({ data, query, param } = data)
+            ;({ body, query, param } = data)
           } else {
+            body = data
             ;[query, param] = args.slice(1)
           }
           this[ing] = true
-          const { [method]: methodOption } = option
-          if (methodOption.interceptor && methodOption.interceptor.request) {
-            data = methodOption.interceptor.request(data)
-          }
           const request = option[method].request || fxios[httpMethods[index]]
           const promise = request(
             { url: methodOption.url, param },
-            data,
+            body,
             query,
           ).then(res => {
             if (this.emit) {
               this.emit(`${name}:changed`)
               this.emit(`${name}:${pastWords[index]}`, res, {
-                data,
+                body,
                 query,
                 param,
               })

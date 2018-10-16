@@ -76,7 +76,7 @@ class List extends React.Component {
     const { index } = e.target.dataset
     const { store } = this
     const data = store.list.tableProps.dataSource[index]
-    store.setRecord({ data })
+    store.setRecord(data)
     store.showFormModal()
   }
 

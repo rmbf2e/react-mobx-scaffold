@@ -76,7 +76,7 @@ describe('page/User/Form', () => {
     })
 
     it('当user有id时，表单提交更新数据', () => {
-      const record = listFixture.data.entities[0]
+      const record = listFixture.list[0]
       user.setRecord(record)
       const app = wrapper()
       const modal = app.find(Modal).first()

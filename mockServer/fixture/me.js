@@ -1,5 +1,3 @@
 module.exports = {
-  data: {
-    name: 'admin',
-  },
+  name: 'admin',
 }

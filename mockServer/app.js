@@ -42,19 +42,10 @@ app.all('*', (req, res, next) => {
     if (typeof fixture === 'function') {
       result = fixture(req, res)
     }
-    res.json({
-      code: 200,
-      ...result,
-    })
+    res.json(result)
   } catch (e) {
     next()
   }
-})
-
-app.use('/user/:id', (req, res) => {
-  res.json({
-    code: 200,
-  })
 })
 
 app.listen(config.port)

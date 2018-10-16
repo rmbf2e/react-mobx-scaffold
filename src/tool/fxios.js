@@ -15,14 +15,13 @@ const fxios = new Fxios(config)
 // 处理列表与分页
 // 处理后的数据可直接用于antd的Table
 const processList = data => {
-  if (data && data.data && isObject(data.data) && 'entities' in data.data) {
-    const d = data.data
+  if (isObject(data) && 'list' in data) {
+    const d = data
     return {
       originalData: d,
-      dataSource: d.entities,
+      dataSource: d.list,
       pagination: {
-        // current: Number(d.pageNo) || 1,
-        total: Number(d.entityCount) || 0,
+        total: Number(d.count) || 0,
       },
     }
   }
@@ -30,32 +29,18 @@ const processList = data => {
 }
 
 fxios.interceptor.response.push((res, req) => {
-  // 未登录跳转
-  // if (res.type === 'opaqueredirect') {
-  //   const { location } = global
-  //   location.href = appConfig.loginHost
-  //   return null
-  // }
   if (!res.ok) {
     const error = new Error(res.statusText)
     error.response = res
     throw error
   }
   return res.json().then(data => {
-    // 成功判断
-    if (data.code === 200) {
-      res.message = data.message
-      if (req.method.toUpperCase() !== 'GET') {
-        fxios.emit('success', res, req)
-      }
-      data = processList(data)
-      return data
+    res.message = data.message
+    if (req.method.toUpperCase() !== 'GET') {
+      fxios.emit('success', res, req)
     }
-    // 未登录跳转
-    const error = new Error(data.message)
-    error.code = data.code
-    error.response = res
-    throw error
+    data = processList(data)
+    return data
   })
 })
 

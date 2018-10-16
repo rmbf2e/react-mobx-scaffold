@@ -4,8 +4,9 @@ const { times } = lodash
 
 module.exports = function users(req, res) {
   if (req.method === 'GET') {
-    const entities = times(20, i => ({
-      account: 'aaa',
+    const page = req.query.page || 1
+    const list = times(20, i => ({
+      account: `user${i + page * 10}`,
       mail: 'aaa@test.com',
       mobile: 15888888888,
       name: 'AAA',
@@ -13,16 +14,11 @@ module.exports = function users(req, res) {
       id: Number(i),
     }))
     res.json({
-      code: 200,
-      data: {
-        entities,
-        pageNo: req.query.page || 1,
-        pageSize: 20,
-      },
+      list,
+      page,
+      pageSize: 10,
     })
   } else {
-    res.json({
-      code: 200,
-    })
+    res.json({})
   }
 }

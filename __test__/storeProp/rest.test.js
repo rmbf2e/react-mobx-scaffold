@@ -42,9 +42,7 @@ describe('storeProp/rest', () => {
   })
 
   it('测试create的数据与返回数据', () => {
-    const mockRes = {
-      data: { name: 'abc' },
-    }
+    const mockRes = { name: 'abc' }
     const spy = jest.spyOn(fxios, 'post').mockImplementation(resolve(mockRes))
     const createData = { name: 'newUser' }
     const p = a.createUser(createData)
@@ -63,24 +61,25 @@ describe('storeProp/rest', () => {
   const methods = ['create', 'update', 'destroy']
   methods.forEach(method => {
     it(`测试${method}的添加interceptor处理request数据与response数据`, () => {
-      const mockRes = {
-        data: { name: 'abc' },
-      }
+      const mockRes = { name: 'abc' }
       const Boption = {
         name: 'user',
         [method]: {
           url: 'user/create',
           interceptor: {
-            request: d => ({
-              ...d,
-              name: `pre_${d.name}`,
-            }),
+            request: (...args) => {
+              const d = args[0]
+              return [
+                {
+                  ...d,
+                  name: `pre_${d.name}`,
+                },
+                ...args.slice(1),
+              ]
+            },
             response: res => ({
               ...res,
-              data: {
-                ...res.data,
-                name: `${res.data.name}_post`,
-              },
+              name: `${res.name}_post`,
             }),
           },
         },
@@ -121,7 +120,7 @@ describe('storeProp/rest', () => {
 
   it('测试fetch的interceptor处理request数据与response数据', () => {
     const mockRes = {
-      data: { name: 'abc' },
+      name: 'abc',
     }
     const Boption = {
       name: 'user',
@@ -134,10 +133,7 @@ describe('storeProp/rest', () => {
           }),
           response: res => ({
             ...res,
-            data: {
-              ...res.data,
-              name: `${res.data.name}_post`,
-            },
+            name: `${res.name}_post`,
           }),
         },
       },
@@ -195,26 +191,14 @@ describe('storeProp/rest', () => {
       expect(a.user).toEqual(data)
 
       const otherData = { xxx: '111' }
-      a.setUser({ data: otherData })
+      a.setUser(otherData)
       expect(toJS(a.user)).toEqual(otherData)
-    })
-  })
-
-  it('测试fetch返回数据中没有data的情况，则使用res赋值', () => {
-    expect(a.fetchingUser).toBe(false)
-    const res = { data: 'abc' }
-    jest.spyOn(fxios, 'get').mockImplementation(resolve(res))
-    const p = a.fetchUser({})
-    expect(a.fetchingUser).toBe(true)
-    return p.then(() => {
-      expect(a.fetchingUser).toBe(false)
-      expect(a.user).toEqual(res.data)
     })
   })
 
   it('fetch 指定其他method', () => {
     const mockRes = {
-      data: { name: 'abc' },
+      name: 'abc',
     }
     jest.spyOn(fxios, 'post').mockImplementation(resolve(mockRes))
     const Boption = {
@@ -251,9 +235,7 @@ describe('storeProp/rest', () => {
         url: 'user',
       },
     }
-    const mockRes = {
-      data: { name: 'abc' },
-    }
+    const mockRes = { name: 'abc' }
     // const url = `${config.baseURL}${Boption.create.url}`
     jest.spyOn(fxios, 'post').mockImplementation(resolve(mockRes))
     jest.spyOn(fxios, 'put').mockImplementation(resolve(mockRes))
@@ -326,7 +308,7 @@ describe('storeProp/rest', () => {
       .mockImplementation(resolve(createdUser))
     return b
       .createUser({
-        data: { a: 1 },
+        body: { a: 1 },
         query: { b: 2 },
         param: { id: 3 },
       })
@@ -383,7 +365,7 @@ describe('storeProp/rest', () => {
       return e.createUser({ a: 2 }, { a: 1 }).then(() => {
         expect(fn.mock.calls).toHaveLength(2)
         expect(fn).toHaveBeenCalledWith(createdUser, {
-          data: { a: 2 },
+          body: { a: 2 },
           query: { a: 1 },
         })
       })
@@ -399,7 +381,7 @@ describe('storeProp/rest', () => {
       return e.updateUser().then(() => {
         expect(fn.mock.calls).toHaveLength(2)
         expect(fn).toHaveBeenCalledWith(updatedUser, {
-          data: undefined,
+          body: undefined,
           query: undefined,
         })
       })
