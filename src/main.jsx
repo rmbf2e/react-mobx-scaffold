@@ -2,9 +2,9 @@ import React from 'react'
 import { render } from 'react-dom'
 import { configure } from 'mobx'
 import moment from 'moment'
-import routes from 'src/route'
 import App from 'component/App'
 import store from 'src/store'
+import routes from 'src/route'
 import 'moment/locale/zh-cn'
 import 'style/index.less'
 import 'style/animate.less'
@@ -20,8 +20,10 @@ render(
   <App store={store} history={store.router.history} routes={routes} />,
   global.document.getElementById('app'),
 )
-registerServiceWorker()
 
 if (module.hot) {
   module.hot.accept()
+} else {
+  // production env
+  registerServiceWorker()
 }
