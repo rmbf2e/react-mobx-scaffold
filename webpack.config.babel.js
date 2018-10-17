@@ -16,6 +16,7 @@ import appConfig from './src/config'
 import serverConfig from './mockServer/config'
 import getThemeConfig from './src/theme'
 import devServerConfig from './build/config'
+import webpackResolve from './build/webpackResolve'
 
 // 加载定制antd样式
 const theme = getThemeConfig()
@@ -33,19 +34,6 @@ const envProxy = process.env.PROXY || 'local'
 
 cp.fork('./build/generateRoute.js')
 cp.fork('./build/generateStore.js')
-
-// import的路径别名
-const alias = {
-  tool: resolvePath('./src/tool'),
-  component: resolvePath('./src/component'),
-  page: resolvePath('./src/page'),
-  store: resolvePath('./src/store'),
-  style: resolvePath('./src/style'),
-  mixin: resolvePath('./src/mixin'),
-  locale: resolvePath('./src/locale'),
-  src: resolvePath('./src'),
-  fixture: resolvePath('./__test__/fixture'),
-}
 
 const styleLoader = isProd
   ? MiniCssExtractPlugin.loader
@@ -87,10 +75,7 @@ const config = {
       opn(`${protocal}://localhost:${devServerConfig.port}`)
     },
   },
-  resolve: {
-    alias,
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.less'],
-  },
+  resolve: webpackResolve,
   module: {
     rules: [
       {

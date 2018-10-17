@@ -1,3 +1,5 @@
+const webpackResolve = require('./build/webpackResolve')
+
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -41,7 +43,9 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: './webpack.config.babel.js',
+        config: {
+          resolve: webpackResolve,
+        },
       },
     },
   },
