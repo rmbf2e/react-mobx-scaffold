@@ -20,8 +20,10 @@ render(
   <App store={store} history={store.router.history} routes={routes} />,
   global.document.getElementById('app'),
 )
-registerServiceWorker()
 
 if (module.hot) {
   module.hot.accept()
+} else {
+  // production env
+  registerServiceWorker()
 }
