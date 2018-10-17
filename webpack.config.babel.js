@@ -235,7 +235,9 @@ config.plugins = [
 ]
 
 if (isProd) {
-  alias['mobx-react-devtools'] = resolvePath('./src/component/Null.jsx')
+  webpackResolve.alias['mobx-react-devtools'] = resolvePath(
+    './src/component/Null.jsx',
+  )
 
   rimraf.sync('./dist/*')
   config.plugins.push(
