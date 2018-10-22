@@ -11,6 +11,7 @@ export default {
   },
   Header: {
     title: 'site title',
+    language: 'Language',
     logout: 'logout',
   },
 }

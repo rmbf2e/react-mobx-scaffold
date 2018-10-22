@@ -1,4 +1,5 @@
-import { Layout } from 'antd'
+import { Layout, Select } from 'antd'
+import noop from 'lodash/noop'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import { mount } from 'enzyme'
@@ -29,17 +30,29 @@ describe('component/Header', () => {
         <AppHeader />
       </Provider>,
     )
-  it('测试包含antd Header', () => {
+  it('test include antd Header', () => {
     const app = wrapper()
     expect(app.find(Header)).toHaveLength(1)
   })
 
-  it('测试logout', () => {
+  it('test logout', () => {
     const com = wrapper()
     expect(logout).not.toHaveBeenCalled()
     const a = com.find('a')
     a.simulate('click')
     expect(logout).toHaveBeenCalled()
     logout.mockRestore()
+  })
+
+  it('test onLangSwitch', () => {
+    const langCodes = Object.keys(locale.langs)
+    const spy = jest.spyOn(locale, 'setLang').mockImplementation(noop)
+    const com = wrapper()
+    const select = com.find(Select).first()
+    const onLangSwitch = select.prop('onChange')
+    onLangSwitch(langCodes[0])
+    expect(spy).toHaveBeenLastCalledWith(locale.langs[langCodes[0]])
+    onLangSwitch(langCodes[1])
+    expect(spy).toHaveBeenLastCalledWith(locale.langs[langCodes[1]])
   })
 })

@@ -4,6 +4,7 @@ import appZhCN from 'locale/zh_CN'
 import appEnUS from 'locale/en_US'
 import storeProp from 'src/storeProp'
 
+// merge antd language with app language
 Object.assign(zhCN, appZhCN)
 Object.assign(enUS, appEnUS)
 
@@ -11,12 +12,22 @@ Object.assign(enUS, appEnUS)
   setter: [
     {
       name: 'lang',
-      default: zhCN,
+      default: enUS,
       shallow: true,
     },
   ],
 })
 class Locale {
+  constructor() {
+    const languageName = global.navigator.language.replace('-', '')
+    const lang = { zhCN, enUS }[languageName]
+    if (lang) {
+      setTimeout(() => {
+        this.setLang(lang)
+      })
+    }
+  }
+
   langs = {
     zhCN,
     enUS,
@@ -24,5 +35,7 @@ class Locale {
 }
 
 const store = new Locale()
+
+export { Locale }
 
 export default store
