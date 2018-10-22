@@ -7,7 +7,6 @@ import Menu from 'component/Menu'
 import s from './style.m.less'
 
 const { Header } = Layout
-const { Option } = Select
 
 @inject('store')
 @observer
@@ -49,15 +48,16 @@ class AppHeader extends React.Component {
         </figure>
         <Menu />
         <figure className={s.me}>
+          <div className="ant-form-item-label">{lang.Header.language}:</div>
           <Select
             className={s.lang}
             defaultValue="zhCN"
             onChange={this.onLangSwitch}
           >
             {Object.keys(langs).map(l => (
-              <Option key={l} value={l}>
+              <Select.Option key={l} value={l}>
                 {l}
-              </Option>
+              </Select.Option>
             ))}
           </Select>
           {app.me.name}

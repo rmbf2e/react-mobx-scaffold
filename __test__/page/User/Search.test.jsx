@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import noop from 'lodash/noop'
 import React from 'react'
 import { Provider } from 'mobx-react'
+import { Form } from 'antd'
 import queryForm from 'store/queryForm'
 import QueryForm from 'component/QueryForm'
 import Search from 'page/User/Search'
@@ -74,5 +75,21 @@ describe('page/User/Search', () => {
     runInAction(() => {
       user.list.search = {}
     })
+  })
+
+  it('手机号格式验证不通过则不提交搜索', async () => {
+    const app = wrapper()
+    const { form } = formRef.props
+    form.setFieldsValue({ mobile: 'abc' })
+    const formInstance = app.find(Form).first()
+    try {
+      await formInstance.prop('onSubmit')({ preventDefault: noop })
+    } catch (e) {}
+    expect(router.query.mobile).toBeFalsy()
+    form.setFieldsValue({ mobile: '123' })
+    try {
+      await formInstance.prop('onSubmit')({ preventDefault: noop })
+    } catch (e) {}
+    expect(router.query.mobile).toBe('123')
   })
 })

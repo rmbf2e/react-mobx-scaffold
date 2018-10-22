@@ -23,6 +23,8 @@ import { parseMoment, formatMoment } from 'tool/moment'
  * 将应用组件使用antd的Form.create()修饰，然后将props.form传递给QueryForm的prop
  * 默认提交时会带page参数为1，可通过prop withPagination={false}取消该行为
  * 提交表单时，表单项name以Time结尾的被格式化为时间格式字符串
+ *
+ * beforeSubmit属性：应返回promise的函数，当promise reject时则阻止本次提交
  */
 @inject('store')
 @observer
@@ -44,12 +46,14 @@ class QueryForm extends React.Component {
     }).isRequired,
     children: PropTypes.node.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    beforeSubmit: PropTypes.func,
     withPagination: PropTypes.bool,
   }
 
   // 默认提交时带分页参数
   static defaultProps = {
     withPagination: true,
+    beforeSubmit: null,
   }
 
   // 从querystring上取值并回填回表单
@@ -103,17 +107,20 @@ class QueryForm extends React.Component {
     this.stopSubscribeHistory()
   }
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault()
     this.pushedBySubmit = true
     const {
       form,
-      // onSubmit,
+      beforeSubmit,
       store: {
         router: { push, location, query },
       },
       withPagination,
     } = this.props
+    if (beforeSubmit) {
+      await beforeSubmit()
+    }
     const formValues = form.getFieldsValue()
     // 若当前页面取消了某项搜索条件，则删除在query中对应的键
     forEach(
@@ -165,6 +172,7 @@ class QueryForm extends React.Component {
       store,
       form,
       onSubmit,
+      beforeSubmit,
       children,
       withPagination,
       ...props

@@ -15,7 +15,7 @@ const SubMenu = Menu.SubMenu
  * */
 @inject('store')
 @observer
-class Menus extends React.Component {
+class AppMenu extends React.Component {
   stopSubscribeHistory = null
 
   static propTypes = {
@@ -91,4 +91,4 @@ class Menus extends React.Component {
     )
   }
 }
-export default Menus
+export default AppMenu

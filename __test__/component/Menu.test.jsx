@@ -1,8 +1,8 @@
+import { Menu as AntMenu, Icon } from 'antd'
 import React from 'react'
 import { mount } from 'enzyme'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { toJS } from 'mobx'
-import { Menu as AntMenu } from 'antd'
 // import { render, unmountComponentAtNode } from 'react-dom'
 import { Router } from 'react-router-dom'
 import { Provider } from 'mobx-react'
@@ -18,49 +18,57 @@ const store = {
   menu,
 }
 
-menu.setMenus([
-  {
-    name: 'parent1',
-    children: [
+const wrapper = () =>
+  mount(
+    <Provider store={store}>
+      <Menu />
+    </Provider>,
+  )
+
+describe('Menu', () => {
+  beforeEach(() => {
+    menu.setMenus([
       {
-        name: 'child1',
-        to: '/child1',
+        name: 'parent1',
         icon: 'usergroup-add',
-      },
-    ],
-  },
-  {
-    name: 'parent2',
-    children: [
-      {
-        name: 'child2',
-        to: '/child2',
-        icon: 'html5',
         children: [
           {
-            name: 'child4',
-            to: '/child4',
-            icon: 'html5',
+            name: 'child1',
+            to: '/child1',
+            icon: 'usergroup-add',
           },
         ],
       },
-    ],
-  },
-  {
-    name: 'parent3',
-  },
-])
-menu.setCurrent({ key: 'child1' })
+      {
+        name: 'parent2',
+        children: [
+          {
+            name: 'child2',
+            to: '/child2',
+            icon: 'html5',
+            children: [
+              {
+                name: 'child4',
+                to: '/child4',
+                icon: 'html5',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'parent3',
+      },
+    ])
+    menu.setCurrent({ key: 'child1' })
+  })
 
-const Wrapper = () => (
-  <Provider store={store}>
-    <Menu />
-  </Provider>
-)
+  afterEach(() => {
+    menu.restoreMenus()
+  })
 
-describe('Menu', () => {
   it('挂载之后开始监听history', done => {
-    const com = mount(<Wrapper />)
+    const com = wrapper()
     const text = com.text()
     expect(text.includes('parent1')).toBe(true)
     expect(text.includes('parent2')).toBe(true)
@@ -108,5 +116,59 @@ describe('Menu', () => {
 
     unmountComponentAtNode(div)
     document.body.removeChild(div)
+  })
+
+  it('should has Icon', () => {
+    const com = wrapper()
+    let antMenu = com.find(AntMenu).first()
+
+    expect(
+      antMenu.props().children[0].props.children[0].props.children.props
+        .children[0].props.type,
+    ).toBe('usergroup-add')
+    expect(
+      antMenu.props().children[1].props.children[0].props.children[0].props
+        .children.props.children[0].props.type,
+    ).toBe('html5')
+    menu.setMenus([
+      {
+        name: 'parent1',
+        children: [
+          {
+            name: 'child1',
+            to: '/child1',
+          },
+        ],
+      },
+      {
+        name: 'parent2',
+        children: [
+          {
+            name: 'child2',
+            to: '/child2',
+            children: [
+              {
+                name: 'child4',
+                to: '/child4',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'parent3',
+      },
+    ])
+    // menu.setCurrent({ key: 'child1' })
+    com.update()
+    antMenu = com.find(AntMenu).first()
+    expect(
+      antMenu.props().children[0].props.children[0].props.children.props
+        .children[0],
+    ).toBe(null)
+    expect(
+      antMenu.props().children[1].props.children[0].props.children[0].props
+        .children.props.children[0],
+    ).toBe(null)
   })
 })

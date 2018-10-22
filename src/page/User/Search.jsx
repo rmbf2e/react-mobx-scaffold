@@ -32,18 +32,42 @@ class Search extends React.Component {
     user.fetchList()
   }
 
+  beforeSubmit = () =>
+    new Promise((resolve, reject) => {
+      const { form } = this.props
+      form.validateFields(err => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve()
+        }
+      })
+    })
+
   render() {
     const { form } = this.props
     const { getFieldDecorator } = form
     return (
-      <QueryForm form={form} onSubmit={this.onSubmit} layout="inline">
+      <QueryForm
+        form={form}
+        onSubmit={this.onSubmit}
+        layout="inline"
+        beforeSubmit={this.beforeSubmit}
+      >
         <FormItem label="帐号">
           {getFieldDecorator('account')(<Input />)}
         </FormItem>
         <FormItem label="姓名">{getFieldDecorator('name')(<Input />)}</FormItem>
         <FormItem label="邮箱">{getFieldDecorator('mail')(<Input />)}</FormItem>
         <FormItem label="手机">
-          {getFieldDecorator('mobile')(<Input />)}
+          {getFieldDecorator('mobile', {
+            rules: [
+              {
+                pattern: /^\d+$/,
+                message: '请输入数字格式手机号',
+              },
+            ],
+          })(<Input />)}
         </FormItem>
       </QueryForm>
     )

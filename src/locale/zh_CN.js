@@ -11,6 +11,7 @@ export default {
   },
   Header: {
     title: '站点标题',
+    language: '语言',
     logout: '注销',
   },
 }

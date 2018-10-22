@@ -70,40 +70,17 @@ describe('tool/fxios', () => {
             id: 2,
           },
         ],
-        count: 10,
       }
       fetchMock.get(`${config.baseURL}${url}`, mockResponse)
       return fxios.get(url).then(res => {
         expect(res.originalData).toEqual(mockResponse)
         expect(res.dataSource).toEqual(mockResponse.list)
         expect(res.pagination).toEqual({
-          total: 10,
+          total: 0,
         })
       })
     })
   })
-
-  // test('测试未登录跳转', () => {
-  //   const url = 'user/me'
-  //   global.location.href = '/'
-  //   expect(global.location.href).not.toEqual(config.loginHost)
-  //   const res = new global.Response(
-  //     {},
-  //     {
-  //       url: config.loginHost,
-  //       type: 'opaqueredirect',
-  //       redirected: false,
-  //       status: 0,
-  //       ok: false,
-  //     },
-  //   )
-  //   res.type = 'opaqueredirect'
-  //   fetchMock.get(`${config.baseURL}${url}`, res)
-  //   return fxios.get(url).then(result => {
-  //     // expect(global.location.href).toEqual(config.loginHost)
-  //     expect(result).toBe(null)
-  //   })
-  // })
 
   test('测试失败的请求', () => {
     const url = 'user/me'
@@ -128,15 +105,19 @@ describe('tool/fxios', () => {
     })
   })
 
-  test('测试请求成功，但返回失败状态码', () => {
+  it('fxios will emit error when error occur', done => {
     const url = 'user/me'
-    fetchMock.get(`${config.baseURL}${url}`, {
-      code: 400,
-      message: 'error',
+    fetchMock.get(
+      `${config.baseURL}${url}`,
+      new global.Response({ status: 404, ok: false }),
+    )
+    const spy = jest.fn()
+    fxios.on('error', spy)
+    fxios.on('error', () => {
+      expect(spy).toHaveBeenCalledTimes(1)
+      done()
     })
-    return fxios.get(url).catch(err => {
-      expect(err).toBeInstanceOf(Error)
-    })
+    fxios.get(url)
   })
 
   it('非get请求会发送success事件', async () => {
