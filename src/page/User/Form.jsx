@@ -34,16 +34,17 @@ class FormModal extends React.Component {
     }
     const { form } = this.props
     form.validateFields((err, values) => {
+      const body = { ...values }
       if (!err) {
         const {
           store: { user },
         } = this.props
         const isUpdate = !!user.record.id
         if (isUpdate) {
-          values.id = user.record.id
+          body.id = user.record.id
         }
         user[`${isUpdate ? 'update' : 'create'}Record`](
-          values,
+          body,
           {},
           {
             id: values.id,

@@ -20,17 +20,18 @@ polyfillFetch()
 
 export default loadPolyFill([
   [
-    'assign' in Object
-      && 'find' in Array.prototype
-      && 'Map' in global
-      && 'Set' in global
-      && 'finally' in Promise.prototype
-      && 'startsWith' in String.prototype,
+    'assign' in Object &&
+      'find' in Array.prototype &&
+      'Map' in global &&
+      'Set' in global &&
+      'finally' in Promise.prototype &&
+      'startsWith' in String.prototype,
     () => import(/* webpackChunkName: "polyfill" */ 'core-js/shim'),
   ],
   [
     'fetch' in global,
-    () => import(/* webpackChunkName: "fetch" */ 'isomorphic-fetch')
+    () =>
+      import(/* webpackChunkName: "fetch" */ 'isomorphic-fetch')
         .then(getModuleDefault)
         .then(mod => {
           global.fetch = mod

@@ -3,42 +3,22 @@ const webpackResolve = require('./build/webpackResolve')
 module.exports = {
   root: true,
   parser: 'babel-eslint',
-  extends: [
-    'airbnb',
-    'plugin:import/react',
-    'plugin:import/recommended',
-    'prettier',
-    'prettier/react',
-  ],
-  plugins: ['import', 'react-native'],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
+  plugins: ['react-native', 'prettier'],
   rules: {
-    semi: [0, 'never'],
+    'prettier/prettier': 'error',
+    semi: [2, 'never'],
     'valid-jsdoc': 2,
-    'import/order': [
+    'no-debugger': 0,
+    'react-native/no-inline-styles': 2,
+    'import/no-extraneous-dependencies': [
       'error',
       {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-        ],
+        devDependencies: true,
+        optionalDependencies: false,
+        peerDependencies: false,
       },
     ],
-    'jsx-a11y/anchor-has-content': 0,
-    'jsx-a11y/anchor-is-valid': 0,
-    'jsx-a11y/no-static-element-interactions': 0,
-    'no-param-reassign': 0,
-    'arrow-parens': [2, 'as-needed'],
-    'no-debugger': 0,
-    // 禁用下面两条规则是因为babel-eslint的bug
-    indent: 0,
-    'template-curly-spacing': 0,
-    // 该规则与prettier的规则冲突，缩进交给prettier即可
-    'react/jsx-closing-tag-location': 0,
-    'react-native/no-inline-styles': 2,
   },
   settings: {
     'import/resolver': {

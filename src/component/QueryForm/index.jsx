@@ -9,7 +9,6 @@ import reduce from 'lodash/reduce'
 import isEmptyQuery from 'tool/isEmptyQuery'
 import config from 'src/config'
 import { parseMoment, formatMoment } from 'tool/moment'
-// import translate from 'mixin/translate'
 
 /*
  * 该组件解决的几个问题
@@ -78,16 +77,13 @@ class QueryForm extends React.Component {
       } = this.props
       const formValues = reduce(
         form.getFieldsValue(),
-        (r, v, k) => {
-          if (k in query) {
-            r[k] = parseMoment(query[k])
-          } else {
-            // 当query中没有表单对应的项时
-            // 设置为undefined才能将表单中的值清空
-            r[k] = undefined
-          }
-          return r
-        },
+        (r, v, k) =>
+          // 当query中没有表单对应的项时
+          // 设置为undefined才能将表单中的值清空
+          ({
+            ...r,
+            [k]: k in query ? parseMoment(query[k]) : undefined,
+          }),
         {},
       )
       // 将表单value与store中的query同步
@@ -155,7 +151,10 @@ class QueryForm extends React.Component {
         if (!isEmptyQuery(v)) {
           // 根据搜索条件是否以Time结尾判断是否应该格式化成时间
           // 默认格式化为日期
-          r[k] = formatMoment(v, k.endsWith('Time'))
+          return {
+            ...r,
+            [k]: formatMoment(v, k.endsWith('Time')),
+          }
         }
         return r
       },

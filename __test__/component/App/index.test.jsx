@@ -75,7 +75,11 @@ describe('测试App', () => {
           throw new Error('error page')
         }
         return (
-          <button type="button" onClick={() => this.setState({ error: true })}>
+          <button
+            className="errorButton"
+            type="button"
+            onClick={() => this.setState({ error: true })}
+          >
             generate error
           </button>
         )
@@ -103,7 +107,7 @@ describe('测试App', () => {
       .spyOn(global._virtualConsole, 'emit')
       .mockImplementation(noop)
     jest.spyOn(console, 'error').mockImplementation(noop)
-    const button = com.find('button').first()
+    const button = com.find('.errorButton').first()
     expect(button.text()).toBe('generate error')
     button.simulate('click')
     expect(spy).toHaveBeenCalled()

@@ -1,4 +1,5 @@
 export default {
+  language: 'English',
   locale: 'en-us',
   QueryForm: {
     search: 'Search',
@@ -10,7 +11,7 @@ export default {
     loading: 'loading ...',
   },
   Header: {
-    title: 'site title',
+    title: 'Site Title',
     language: 'Language',
     logout: 'logout',
   },

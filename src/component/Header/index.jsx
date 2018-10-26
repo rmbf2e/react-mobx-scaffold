@@ -48,22 +48,26 @@ class AppHeader extends React.Component {
         </figure>
         <Menu />
         <figure className={s.me}>
-          <div className="ant-form-item-label">{lang.Header.language}:</div>
           <Select
-            className={s.lang}
+            className={s.langSelect}
             defaultValue="zhCN"
             onChange={this.onLangSwitch}
           >
             {Object.keys(langs).map(l => (
               <Select.Option key={l} value={l}>
-                {l}
+                {langs[l].language}
               </Select.Option>
             ))}
           </Select>
           {app.me.name}
-          <a onClick={app.logout} onKeyPress={app.logout}>
-            {lang.Header.logout}
-          </a>
+          <button
+            type="button"
+            className="link-button"
+            onClick={app.logout}
+            onKeyPress={app.logout}
+          >
+            [{lang.Header.logout}]
+          </button>
         </figure>
       </Header>
     )

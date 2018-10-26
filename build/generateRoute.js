@@ -20,7 +20,7 @@ const routes = fs
       loader: () => import('./page/${route}'),
       loading,
     }),
-    path: '/${lowerFirst(route)}'
+    path: '/${lowerFirst(route)}',
   }`,
   )
 const templatePlaceholder = routeTemplate.replace(

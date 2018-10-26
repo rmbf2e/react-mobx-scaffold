@@ -36,7 +36,7 @@ const isValidArguments = arg => {
  * 会生成 creatingGroup 属性
  * 会生成 createGroup 方法
  * 如果没有create，则不会生成上面这两项
- * 会生成 restoreGroup 方法，将group恢复成默认值
+ * 会生成 restoreGroup 方法，将group恢复成option中制定的default值
  *
  * update, fetch, destroy方法与create相同
  *
@@ -74,18 +74,19 @@ function rest(options) {
         extendObject[ing] = false
         extendObject[requestMethod] = (...args) => {
           const { [method]: methodOption } = option
+          let reqArgs = [...args]
           if (methodOption.interceptor && methodOption.interceptor.request) {
-            args = methodOption.interceptor.request(args)
+            reqArgs = methodOption.interceptor.request(args)
           }
-          const data = args[0]
+          const data = reqArgs[0]
           let body
           let query
           let param
-          if (isValidArguments(data) && args[1] === undefined) {
+          if (isValidArguments(data) && reqArgs[1] === undefined) {
             ;({ body, query, param } = data)
           } else {
             body = data
-            ;[query, param] = args.slice(1)
+            ;[query, param] = reqArgs.slice(1)
           }
           this[ing] = true
           const request = option[method].request || fxios[httpMethods[index]]
@@ -133,11 +134,12 @@ function rest(options) {
         this[fetching] = true
         const fetchObj = option.fetch
         const setResponseAction = action(setMethod, res => {
+          let response = { ...res }
           if (fetchObj.interceptor && fetchObj.interceptor.response) {
-            res = fetchObj.interceptor.response(res)
+            response = fetchObj.interceptor.response(res)
           }
-          extendObject[setMethod](res)
-          return res
+          extendObject[setMethod](response)
+          return response
         })
         if (fetchObj.interceptor && fetchObj.interceptor.request) {
           query = fetchObj.interceptor.request(query)

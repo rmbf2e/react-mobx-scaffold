@@ -1,8 +1,8 @@
 import { Form, Input } from 'antd'
-import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import QueryForm from 'component/QueryForm'
+import React from 'react'
 
 const FormItem = Form.Item
 

@@ -15,7 +15,7 @@ const routes = [
       loader: () => import('./page/User'),
       loading,
     }),
-    path: '/user'
+    path: '/user',
   },
 
   /* 本路由文件由src/route.template.js文件生成，不要手动更改 */
