@@ -146,15 +146,16 @@ function generateList(options) {
           }
         },
         [setMethod]: data => {
+          let newData = data
           if (option.processResponse) {
-            data = option.processResponse(data)
+            newData = option.processResponse(data)
           }
           const observedList = this[name]
           Object.assign(observedList.tableProps, {
-            dataSource: data.dataSource,
+            dataSource: newData.dataSource,
             pagination: {
               ...observedList.tableProps.pagination,
-              ...data.pagination,
+              ...newData.pagination,
             },
           })
           if (option.rowSelectionKey) {
@@ -162,7 +163,7 @@ function generateList(options) {
             observedList.checkedKeys = []
             observedList.checkedRecords = []
           }
-          return data
+          return newData
         },
         [setLoading]: loading => {
           this[name].tableProps.loading = loading

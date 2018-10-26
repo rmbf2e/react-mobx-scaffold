@@ -26,7 +26,10 @@ class ConfirmButton extends React.PureComponent {
       props,
       (r, v, k) => {
         if (k.startsWith('data-')) {
-          r[k] = v
+          return {
+            ...r,
+            [k]: v,
+          }
         }
         return r
       },

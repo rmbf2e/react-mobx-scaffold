@@ -20,9 +20,7 @@ module.exports = {
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js',
     '^(?!.*\\.(js|jsx|mjs|css|json)$)': '<rootDir>/jest/fileTransform.js',
   },
-  transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!lodash-es/).+(js|jsx|mjs)$',
-  ],
+  transformIgnorePatterns: ['<rootDir>/node_modules/.+(js|jsx|mjs)$'],
   moduleNameMapper: {
     '^component/(.+)$': '<rootDir>/src/component/$1',
     '^page/(.+)$': '<rootDir>/src/page/$1',

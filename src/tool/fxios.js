@@ -39,8 +39,7 @@ fxios.interceptor.response.push((res, req) => {
     if (req.method.toUpperCase() !== 'GET') {
       fxios.emit('success', res, req)
     }
-    data = processList(data)
-    return data
+    return processList(data)
   })
 })
 

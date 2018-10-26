@@ -82,7 +82,7 @@ describe('tool/fxios', () => {
     })
   })
 
-  test('测试失败的请求', () => {
+  it('测试失败的请求', () => {
     const url = 'user/me'
     global.location.href = '/'
     expect(global.location.href).not.toEqual(config.loginHost)

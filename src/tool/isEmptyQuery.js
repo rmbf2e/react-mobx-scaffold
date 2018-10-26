@@ -9,9 +9,9 @@ const emptyValues = ['', null, undefined]
  * */
 const isEmptyQuery = v => {
   if (Array.isArray(v)) {
-    v = [...v]
-    pullAll(v, emptyValues)
-    return v.length === 0
+    const result = [...v]
+    pullAll(result, emptyValues)
+    return result.length === 0
   }
   return emptyValues.includes(v)
 }

@@ -8,13 +8,13 @@ export default function removeEmptyParentKey(
   checkedKeys,
   keyName = 'key',
 ) {
-  checkedKeys = [...checkedKeys]
+  const resultKeys = [...checkedKeys]
   if (
     node.parent &&
-    intersection(getDescendantKeys(node.parent), checkedKeys).length === 0
+    intersection(getDescendantKeys(node.parent), resultKeys).length === 0
   ) {
-    pull(checkedKeys, node.parent[keyName])
-    return removeEmptyParentKey(node.parent, checkedKeys, keyName)
+    pull(resultKeys, node.parent[keyName])
+    return removeEmptyParentKey(node.parent, resultKeys, keyName)
   }
-  return checkedKeys
+  return resultKeys
 }

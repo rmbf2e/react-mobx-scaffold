@@ -1,6 +1,6 @@
 import { LocaleProvider } from 'antd'
 import { Router } from 'react-router-dom'
-import MobxDevTools from 'mobx-react-devtools'
+// import MobxDevTools from 'mobx-react-devtools'
 import { Provider, observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -47,7 +47,7 @@ class App extends React.Component {
     return store.app.loading ? (
       <Loading />
     ) : (
-      <React.Fragment>
+      <>
         <Provider store={store}>
           <LocaleProvider locale={locale.lang}>
             <Router history={history}>
@@ -56,8 +56,7 @@ class App extends React.Component {
           </LocaleProvider>
         </Provider>
         <SoundEffect />
-        <MobxDevTools />
-      </React.Fragment>
+      </>
     )
   }
 }

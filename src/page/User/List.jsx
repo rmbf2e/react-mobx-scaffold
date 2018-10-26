@@ -1,5 +1,5 @@
 import { Button, Table } from 'antd'
-import { propertyOf } from 'lodash-es'
+import propertyOf from 'lodash/propertyOf'
 import { computed, toJS } from 'mobx'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
