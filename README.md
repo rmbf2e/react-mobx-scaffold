@@ -1,5 +1,11 @@
 ## react项目前端脚手架
 
+### TODO
+
+* use typescript rewrite this scaffold.
+* use puppeteer replace nightwatch.
+* refector storeProp part.
+
 ### feature
 
 * follow latest react, react-dom, react-router mobx webpack version
