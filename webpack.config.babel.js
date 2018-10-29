@@ -28,7 +28,7 @@ const resolvePath = relativePath => path.resolve(__dirname, relativePath)
 // 是否使用远程swagger接口调试
 const proxyTargets = {
   remote: 'http://your.backend',
-  local: `http://localhost:${serverConfig.port}`,
+  local: `http://${devServerConfig.host}:${serverConfig.port}`,
 }
 const envProxy = process.env.PROXY || 'local'
 
@@ -44,6 +44,7 @@ const styleLoader = isProd
       },
     }
 
+const { protocal, host, port } = devServerConfig
 const config = {
   entry: {
     index: [resolvePath('./src/index.js')],
@@ -59,7 +60,6 @@ const config = {
     inline: true,
     hot: true,
     disableHostCheck: true,
-    port: 3030,
     contentBase: './public',
     proxy: {
       [appConfig.baseURL]: {
@@ -69,10 +69,10 @@ const config = {
         // changeOrigin: true,
       },
     },
-    ...devServerConfig,
+    port,
+    https: protocal === 'https',
     after: () => {
-      const protocal = devServerConfig.https ? 'https' : 'http'
-      opn(`${protocal}://localhost:${devServerConfig.port}`)
+      opn(`${protocal}://${host}:${port}`)
     },
   },
   resolve: webpackResolve,

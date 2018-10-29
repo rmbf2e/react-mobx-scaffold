@@ -12,7 +12,6 @@ module.exports = {
   setupFiles: ['<rootDir>/jest/setup.js'],
   testMatch: ['<rootDir>/__test__/**/?(*.)(spec|test).{js,jsx,mjs}'],
   setupTestFrameworkScriptFile: '<rootDir>/jest/afterSetup.js',
-  // watchPlugins: ['<rootDir>/jest/debounceWatch.js'],
   testEnvironment: 'enzyme',
   testURL: 'http://localhost',
   transform: {
