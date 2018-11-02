@@ -6,7 +6,8 @@ const funcs = less.functions.functionRegistry._data
 
 const headerBg = '#EEE'
 
-const darken = number => funcs
+const darken = number =>
+  funcs
     .darken(new less.tree.Color(headerBg.slice(1)), { value: number })
     .toRGB()
 // const lighten = number =>

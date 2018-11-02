@@ -1,4 +1,5 @@
 module.exports = {
+  preset: 'jest-puppeteer',
   clearMocks: true,
   restoreMocks: true,
   testMatch: ['<rootDir>/e2e/**/?(*.)test.{js,jsx}'],
@@ -7,5 +8,8 @@ module.exports = {
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js',
     '^(?!.*\\.(js|jsx|mjs|css|json)$)': '<rootDir>/jest/fileTransform.js',
   },
-  preset: 'jest-puppeteer',
+  testEnvironment: 'jest-environment-puppeteer',
+
+  globalSetup: './puppeteer/setup.js',
+  globalTeardown: './puppeteer/teardown.js',
 }
