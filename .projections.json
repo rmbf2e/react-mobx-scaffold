@@ -1,6 +1,6 @@
 {
   "src/component/*": { "type": "component" },
-  "src/page/*.{js,jsx}": { "type": "page" },
+  "src/page/*": { "type": "page" },
   "src/store/*.js": { "type": "store" },
   "src/storeProp/*.js": { "type": "storeProp" },
   "src/mixin/*.js": { "type": "mixin" },
@@ -8,6 +8,5 @@
   "src/style/*.less": { "type": "style" },
   "src/tool/*.js": { "type": "tool" },
   "__test__/*": { "type": "test" },
-  "e2e/spec/*.js": { "type": "spec" },
-  "src/router.template.jsx": { "type": "router" }
+  "e2e/spec/*.js": { "type": "spec" }
 }

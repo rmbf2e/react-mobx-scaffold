@@ -246,23 +246,17 @@ if (isProd) {
         from: './public/manifest.json',
         to: path.join(__dirname, '/dist'),
       },
-    ]),
-    new CopyWebpackPlugin([
       {
         from: './public/asset',
         to: path.join(__dirname, '/dist/asset'),
       },
-    ]),
-    new CopyWebpackPlugin([
-      {
-        from: './public/bin',
-        to: path.join(__dirname, '/dist/bin'),
-      },
-    ]),
-    new CopyWebpackPlugin([
       {
         from: './public/browser.html',
         to: path.join(__dirname, '/dist'),
+      },
+      {
+        from: './public/bin',
+        to: path.join(__dirname, '/dist/bin'),
       },
     ]),
     // 只压缩大于2k的js css html文件
