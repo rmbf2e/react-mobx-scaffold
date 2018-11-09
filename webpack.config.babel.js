@@ -216,6 +216,14 @@ config.plugins = [
   new HtmlWebpackPlugin({
     template: './public/index.html',
     inject: true,
+    minify: isProd
+      ? {
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          collapseInlineTagWhitespace: true,
+          minifyJS: true,
+        }
+      : false,
   }),
   new webpack.NamedModulesPlugin(),
   new webpack.DefinePlugin({
