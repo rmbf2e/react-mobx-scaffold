@@ -14,12 +14,12 @@ import CompressionPlugin from 'compression-webpack-plugin'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import appConfig from './src/config'
 import serverConfig from './mockServer/config'
-import getThemeConfig from './src/theme'
+// import getThemeConfig from './src/theme'
 import devServerConfig from './build/config'
 import webpackResolve from './build/webpackResolve'
 
 // 加载定制antd样式
-const theme = getThemeConfig()
+// const theme = getThemeConfig()
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -28,7 +28,7 @@ const resolvePath = relativePath => path.resolve(__dirname, relativePath)
 // 是否使用远程swagger接口调试
 const proxyTargets = {
   remote: 'http://your.backend',
-  local: `http://localhost:${serverConfig.port}`,
+  local: `http://${devServerConfig.host}:${serverConfig.port}`,
 }
 const envProxy = process.env.PROXY || 'local'
 
@@ -44,6 +44,7 @@ const styleLoader = isProd
       },
     }
 
+const { protocal, host, port } = devServerConfig
 const config = {
   entry: {
     index: [resolvePath('./src/index.js')],
@@ -59,7 +60,6 @@ const config = {
     inline: true,
     hot: true,
     disableHostCheck: true,
-    port: 3030,
     contentBase: './public',
     proxy: {
       [appConfig.baseURL]: {
@@ -69,10 +69,10 @@ const config = {
         // changeOrigin: true,
       },
     },
-    ...devServerConfig,
+    port,
+    https: protocal === 'https',
     after: () => {
-      const protocal = devServerConfig.https ? 'https' : 'http'
-      opn(`${protocal}://localhost:${devServerConfig.port}`)
+      opn(`${protocal}://${host}:${port}`)
     },
   },
   resolve: webpackResolve,
@@ -124,7 +124,40 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
-              modifyVars: theme,
+              // modifyVars: theme,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.theme\.less$/,
+        use: [
+          {
+            loader: 'style-loader/useable',
+            options: {
+              sourceMap: !isProd,
+              hmr: !isProd,
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: !isProd,
+              localIdentName: '[name]__[local]-[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: !isProd,
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: !isProd,
+              javascriptEnabled: true,
+              // modifyVars: theme,
             },
           },
         ],
@@ -151,11 +184,11 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
-              modifyVars: theme,
+              // modifyVars: theme,
             },
           },
         ],
-        exclude: /\.m\.less$/,
+        exclude: [/\.m\.less$/, /\.theme\.less$/],
       },
       {
         test: /\.css$/,
@@ -216,6 +249,14 @@ config.plugins = [
   new HtmlWebpackPlugin({
     template: './public/index.html',
     inject: true,
+    minify: isProd
+      ? {
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          collapseInlineTagWhitespace: true,
+          minifyJS: true,
+        }
+      : false,
   }),
   new webpack.NamedModulesPlugin(),
   new webpack.DefinePlugin({
@@ -246,23 +287,17 @@ if (isProd) {
         from: './public/manifest.json',
         to: path.join(__dirname, '/dist'),
       },
-    ]),
-    new CopyWebpackPlugin([
       {
         from: './public/asset',
         to: path.join(__dirname, '/dist/asset'),
       },
-    ]),
-    new CopyWebpackPlugin([
-      {
-        from: './public/bin',
-        to: path.join(__dirname, '/dist/bin'),
-      },
-    ]),
-    new CopyWebpackPlugin([
       {
         from: './public/browser.html',
         to: path.join(__dirname, '/dist'),
+      },
+      {
+        from: './public/bin',
+        to: path.join(__dirname, '/dist/bin'),
       },
     ]),
     // 只压缩大于2k的js css html文件

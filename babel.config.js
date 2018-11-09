@@ -5,7 +5,7 @@ module.exports = {
       'import',
       {
         libraryName: 'antd',
-        style: true,
+        // style: true,
       },
     ],
     '@babel/plugin-transform-runtime',
@@ -25,5 +25,6 @@ module.exports = {
         loose: true,
       },
     ],
+    '@babel/plugin-proposal-optional-chaining',
   ],
 }

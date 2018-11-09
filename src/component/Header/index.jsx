@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Layout from 'antd/lib/layout'
 import { observer, inject } from 'mobx-react'
 import Menu from 'component/Menu'
+import Theme from 'component/Theme'
 import s from './style.m.less'
 
 const { Header } = Layout
@@ -48,6 +49,7 @@ class AppHeader extends React.Component {
         </figure>
         <Menu />
         <figure className={s.me}>
+          <Theme />
           <Select
             className={s.langSelect}
             defaultValue="zhCN"

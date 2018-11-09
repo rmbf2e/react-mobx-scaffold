@@ -9,6 +9,7 @@ import reduce from 'lodash/reduce'
 import isEmptyQuery from 'tool/isEmptyQuery'
 import config from 'src/config'
 import { parseMoment, formatMoment } from 'tool/moment'
+import promisify from 'tool/promisify'
 
 /*
  * 该组件解决的几个问题
@@ -82,7 +83,9 @@ class QueryForm extends React.Component {
           // 设置为undefined才能将表单中的值清空
           ({
             ...r,
-            [k]: k in query ? parseMoment(query[k]) : undefined,
+            [k]: Object.prototype.hasOwnProperty.call(query, k)
+              ? parseMoment(query[k])
+              : undefined,
           }),
         {},
       )
@@ -103,6 +106,11 @@ class QueryForm extends React.Component {
     this.stopSubscribeHistory()
   }
 
+  beforeSubmit = () => {
+    const { form } = this.props
+    return promisify(form.validateFields)()
+  }
+
   onSubmit = async e => {
     e.preventDefault()
     this.pushedBySubmit = true
@@ -114,8 +122,18 @@ class QueryForm extends React.Component {
       },
       withPagination,
     } = this.props
-    if (beforeSubmit) {
-      await beforeSubmit()
+    let isFormValid = true
+    try {
+      if (beforeSubmit) {
+        await beforeSubmit()
+      } else {
+        await this.beforeSubmit()
+      }
+    } catch {
+      isFormValid = false
+    }
+    if (!isFormValid) {
+      return
     }
     const formValues = form.getFieldsValue()
     // 若当前页面取消了某项搜索条件，则删除在query中对应的键
@@ -123,7 +141,7 @@ class QueryForm extends React.Component {
       query,
       (v, k) => {
         if (
-          k in formValues &&
+          Object.prototype.hasOwnProperty.call(formValues, k) &&
           (!formValues[k] || isEmptyQuery(formValues[k])) &&
           k in query
         ) {

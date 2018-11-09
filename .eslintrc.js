@@ -5,6 +5,10 @@ module.exports = {
   parser: 'babel-eslint',
   extends: ['airbnb', 'prettier', 'prettier/react'],
   plugins: ['react-native', 'prettier'],
+  env: {
+    browser: true,
+    node: true,
+  },
   rules: {
     'prettier/prettier': 'error',
     semi: [2, 'never'],

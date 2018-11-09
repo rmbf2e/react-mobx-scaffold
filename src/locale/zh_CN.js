@@ -15,4 +15,8 @@ export default {
     language: '语言',
     logout: '注销',
   },
+  Theme: {
+    turnOn: '开灯',
+    turnOff: '关灯',
+  },
 }

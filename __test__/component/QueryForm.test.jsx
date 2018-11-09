@@ -1,4 +1,5 @@
 import url from 'url'
+import noop from 'lodash/noop'
 import React from 'react'
 // import { toJS } from 'mobx'
 import { mount } from 'enzyme'
@@ -37,20 +38,21 @@ const Comp = props => {
 const WrappedForm = Form.create()(Comp)
 
 describe('components/QueryForm', () => {
-  it('test onSubmit', () => {
+  it('test onSubmit', async () => {
     const hash = '#abc'
     router.push(hash)
     expect(router.location.hash).toBe(hash)
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} />)
-    const f = form.find('form')
+    const f = form.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
     form
       .instance()
       .getForm()
       .setFieldsValue({
         firstName: 'first',
       })
-    f.simulate('submit')
+    await formInstance.onSubmit({ preventDefault: noop })
     expect(submit.mock.calls).toHaveLength(2)
     expect(router.query).toEqual({
       firstName: 'first',
@@ -61,31 +63,29 @@ describe('components/QueryForm', () => {
     // expect(form).toHaveText('搜索')
     expect(form.find('input.hidden[type="submit"]')).toExist()
     expect(form.find('button[type="submit"]')).toExist()
-    // 将url状态复位
-    router.push('/')
   })
 
-  it('withPagination is false', () => {
+  it('withPagination is false', async () => {
     const hash = '#def'
     router.push(hash)
     expect(router.location.hash).toBe(hash)
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} withPagination={false} />)
-    const f = form.find('form')
+    const f = form.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
     form
       .instance()
       .getForm()
       .setFieldsValue({
         firstName: 'last',
       })
-    f.simulate('submit')
+    await formInstance.onSubmit({ preventDefault: noop })
     expect(submit.mock.calls).toHaveLength(2)
     expect(router.query).toEqual({ firstName: 'last' })
     expect(router.location.hash).toBe(hash)
-    router.push('/')
   })
 
-  it('测试url中已有的，且与表单中内容不相关的query，不能在提交时不能被删除', () => {
+  it('测试url中已有的，且与表单中内容不相关的query，不能在提交时不能被删除', async () => {
     const originQuery = { nnn: 'ccc' }
     router.push({
       search: url.format({ query: originQuery }),
@@ -93,7 +93,8 @@ describe('components/QueryForm', () => {
     expect(router.query).toEqual(originQuery)
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} withPagination={false} />)
-    const f = form.find('form')
+    const f = form.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
     const values = {
       firstName: 'last',
     }
@@ -101,12 +102,12 @@ describe('components/QueryForm', () => {
       .instance()
       .getForm()
       .setFieldsValue(values)
-    f.simulate('submit')
+    await formInstance.onSubmit({ preventDefault: noop })
     expect(submit.mock.calls).toHaveLength(2)
     expect(router.query).toEqual({ ...values, ...originQuery })
   })
 
-  it('当删除表单中的搜索条件后提交，url query中对应的项也会被删除', () => {
+  it('当删除表单中的搜索条件后提交，url query中对应的项也会被删除', async () => {
     const values = {
       firstName: 'last',
       secondName: 'bbbb',
@@ -117,7 +118,8 @@ describe('components/QueryForm', () => {
     expect(router.query).toEqual(values)
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} withPagination={false} />)
-    const f = form.find('form')
+    const f = form.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
     form
       .instance()
       .getForm()
@@ -125,14 +127,14 @@ describe('components/QueryForm', () => {
         firstName: undefined,
         secondName: values.secondName,
       })
-    f.simulate('submit')
+    await formInstance.onSubmit({ preventDefault: noop })
     expect(submit.mock.calls).toHaveLength(2)
     expect(router.query).toEqual({
       secondName: values.secondName,
     })
   })
 
-  it('当url变化时，表单中的对应项目也一同变化', () => {
+  it('当url变化时，表单中的对应项目也一同变化', async () => {
     const originValues = {
       firstName: 'last',
       secondName: 'bbbb',
@@ -162,10 +164,7 @@ describe('components/QueryForm', () => {
     ).toEqual(originValues)
   })
 
-  it('测试日期类型的表单参数', () => {
-    router.push({
-      search: '',
-    })
+  it('测试日期类型的表单参数', async () => {
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} withPagination={false} />)
     const firstDate = '2018-03-03'
@@ -173,8 +172,9 @@ describe('components/QueryForm', () => {
     antFormInstance.setFieldsValue({
       firstDate: Moment(firstDate),
     })
-    const f = form.find('form')
-    f.simulate('submit')
+    const f = form.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
+    await formInstance.onSubmit({ preventDefault: noop })
     expect(queryForm.query).toEqual({ firstDate })
     const secondDate = '2016-12-09'
     router.push({
@@ -183,10 +183,7 @@ describe('components/QueryForm', () => {
     expect(queryForm.query).toEqual({ secondDate })
   })
 
-  it('测试时间类型的表单参数', () => {
-    router.push({
-      search: '',
-    })
+  it('测试时间类型的表单参数', async () => {
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} withPagination={false} />)
     const firstTime = '2018-03-03 05:03:02'
@@ -194,8 +191,9 @@ describe('components/QueryForm', () => {
     antFormInstance.setFieldsValue({
       firstTime: Moment(firstTime),
     })
-    const f = form.find('form')
-    f.simulate('submit')
+    const f = form.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
+    await formInstance.onSubmit({ preventDefault: noop })
     expect(queryForm.query).toEqual({ firstTime })
     const secondTime = '2016-12-09 12:32:43'
     router.push({
@@ -204,10 +202,7 @@ describe('components/QueryForm', () => {
     expect(queryForm.query).toEqual({ secondTime })
   })
 
-  it('测试区间日期类型的表单参数', () => {
-    router.push({
-      search: '',
-    })
+  it('测试区间日期类型的表单参数', async () => {
     const submit = jest.fn(() => Promise.resolve())
     const form = mount(<WrappedForm onSubmit={submit} withPagination={false} />)
     const rangeDate = '2018-03-03'
@@ -215,8 +210,9 @@ describe('components/QueryForm', () => {
     antFormInstance.setFieldsValue({
       rangeDate: [Moment(rangeDate), undefined],
     })
-    const f = form.find('form')
-    f.simulate('submit')
+    const f = form.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
+    await formInstance.onSubmit({ preventDefault: noop })
     const otherDate = '2017-02-20'
     expect(queryForm.query).toEqual({ rangeDate: [rangeDate, ''] })
     router.push({
@@ -227,7 +223,6 @@ describe('components/QueryForm', () => {
       search: url.format({ query: { rangeDate: [otherDate, otherDate] } }),
     })
     expect(queryForm.query).toEqual({ rangeDate: [otherDate, otherDate] })
-    router.push('/')
   })
 
   it('当路由切换时引起的history变化，不应再执行props.onSubmit', () => {
@@ -244,6 +239,42 @@ describe('components/QueryForm', () => {
     expect(submit1.mock.calls).toHaveLength(1)
     expect(submit2.mock.calls).toHaveLength(1)
     form2.unmount()
-    router.push('/')
+  })
+
+  it('测试有表单验证时QueryForm的beforeSubmit', async () => {
+    const VForm = props => {
+      const { form } = props
+      return (
+        <Provider store={store}>
+          <QueryForm {...props}>
+            {form.getFieldDecorator('name', {
+              rules: [
+                {
+                  required: true,
+                },
+              ],
+            })(<Input />)}
+          </QueryForm>
+        </Provider>
+      )
+    }
+    const ValidateForm = Form.create()(VForm)
+    const fn = jest.fn()
+    const app = mount(<ValidateForm onSubmit={fn} />)
+    const f = app.find(QueryForm)
+    const formInstance = f.instance().wrappedInstance
+    expect(fn).toHaveBeenCalledTimes(1)
+    // 验证没通过
+    await formInstance.onSubmit({ preventDefault: noop })
+    expect(fn).toHaveBeenCalledTimes(1)
+
+    app
+      .instance()
+      .getForm()
+      .setFieldsValue({
+        name: 'aa',
+      })
+    await formInstance.onSubmit({ preventDefault: noop })
+    expect(fn).toHaveBeenCalledTimes(2)
   })
 })

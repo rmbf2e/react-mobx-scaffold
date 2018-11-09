@@ -3,7 +3,10 @@
 
 module.exports = {
   process() {
-    return 'module.exports = {};'
+    return `module.exports = {
+      use: jest.fn(),
+      unuse: jest.fn(),
+    };`
   },
   getCacheKey() {
     // The output is always the same.

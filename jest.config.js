@@ -12,7 +12,6 @@ module.exports = {
   setupFiles: ['<rootDir>/jest/setup.js'],
   testMatch: ['<rootDir>/__test__/**/?(*.)(spec|test).{js,jsx,mjs}'],
   setupTestFrameworkScriptFile: '<rootDir>/jest/afterSetup.js',
-  // watchPlugins: ['<rootDir>/jest/debounceWatch.js'],
   testEnvironment: 'enzyme',
   testURL: 'http://localhost',
   transform: {
@@ -23,6 +22,7 @@ module.exports = {
   transformIgnorePatterns: ['<rootDir>/node_modules/.+(js|jsx|mjs)$'],
   moduleNameMapper: {
     '^component/(.+)$': '<rootDir>/src/component/$1',
+    '^style/(.+)$': '<rootDir>/src/style/$1',
     '^page/(.+)$': '<rootDir>/src/page/$1',
     '^tool/(.+)$': '<rootDir>/src/tool/$1',
     '^mixin/(.+)$': '<rootDir>/src/mixin/$1',
