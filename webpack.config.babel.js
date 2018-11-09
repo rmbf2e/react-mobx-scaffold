@@ -14,12 +14,12 @@ import CompressionPlugin from 'compression-webpack-plugin'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import appConfig from './src/config'
 import serverConfig from './mockServer/config'
-import getThemeConfig from './src/theme'
+// import getThemeConfig from './src/theme'
 import devServerConfig from './build/config'
 import webpackResolve from './build/webpackResolve'
 
 // 加载定制antd样式
-const theme = getThemeConfig()
+// const theme = getThemeConfig()
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -124,7 +124,40 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
-              modifyVars: theme,
+              // modifyVars: theme,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.theme\.less$/,
+        use: [
+          {
+            loader: 'style-loader/useable',
+            options: {
+              sourceMap: !isProd,
+              hmr: !isProd,
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: !isProd,
+              localIdentName: '[name]__[local]-[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: !isProd,
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: !isProd,
+              javascriptEnabled: true,
+              // modifyVars: theme,
             },
           },
         ],
@@ -151,11 +184,11 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
-              modifyVars: theme,
+              // modifyVars: theme,
             },
           },
         ],
-        exclude: /\.m\.less$/,
+        exclude: [/\.m\.less$/, /\.theme\.less$/],
       },
       {
         test: /\.css$/,

@@ -8,7 +8,10 @@ import routes from 'src/route'
 import 'moment/locale/zh-cn'
 import 'style/index.less'
 import 'style/animate.less'
+import defaultTheme from 'style/default.theme.less'
 import registerServiceWorker from 'src/registerServiceWorker'
+
+defaultTheme.use()
 
 // 设置moment语言
 moment.locale('zh-cn')

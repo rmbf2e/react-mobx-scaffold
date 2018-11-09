@@ -38,7 +38,7 @@ describe('component/Header', () => {
   it('test logout', () => {
     const com = wrapper()
     expect(logout).not.toHaveBeenCalled()
-    const button = com.find('button')
+    const button = com.find('button').last()
     button.simulate('click')
     expect(logout).toHaveBeenCalled()
     logout.mockRestore()

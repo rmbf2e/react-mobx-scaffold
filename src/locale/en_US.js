@@ -15,4 +15,8 @@ export default {
     language: 'Language',
     logout: 'logout',
   },
+  Theme: {
+    turnOn: 'turn on',
+    turnOff: 'turn off',
+  },
 }
