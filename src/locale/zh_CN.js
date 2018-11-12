@@ -1,5 +1,5 @@
 export default {
-  language: '中文',
+  language: '🇨🇳 中文',
   locale: 'zh-cn',
   QueryForm: {
     search: '搜索',

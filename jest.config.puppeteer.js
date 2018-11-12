@@ -1,3 +1,5 @@
+require('module-alias/register')
+
 module.exports = {
   preset: 'jest-puppeteer',
   clearMocks: true,
@@ -7,6 +9,9 @@ module.exports = {
     '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-7-jest',
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js',
     '^(?!.*\\.(js|jsx|mjs|css|json)$)': '<rootDir>/jest/fileTransform.js',
+  },
+  moduleNameMapper: {
+    '^puppeteer$': '<rootDir>/node_modules/puppeteer-core',
   },
   testEnvironment: 'jest-environment-puppeteer',
 

@@ -14,12 +14,8 @@ import CompressionPlugin from 'compression-webpack-plugin'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import appConfig from './src/config'
 import serverConfig from './mockServer/config'
-// import getThemeConfig from './src/theme'
 import devServerConfig from './build/config'
 import webpackResolve from './build/webpackResolve'
-
-// 加载定制antd样式
-// const theme = getThemeConfig()
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -124,7 +120,6 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
-              // modifyVars: theme,
             },
           },
         ],
@@ -157,7 +152,6 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
-              // modifyVars: theme,
             },
           },
         ],
@@ -184,7 +178,6 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
-              // modifyVars: theme,
             },
           },
         ],

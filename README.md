@@ -3,7 +3,6 @@
 ## TODO
 
 * use typescript rewrite this scaffold.
-* use puppeteer replace nightwatch.
 * refector storeProp part.
 
 ## feature
@@ -32,6 +31,7 @@
   mockServer配置文件在mockServer/config.js
 * 在本地模拟接口数据开发环境中，直接使用请求路径的url在mockServer/fixture文件夹中写入对应的模拟数据即可生成响应。
 * 所有接口地址都在src/api/index.js中配置，避免接口到处硬编码。
+* Add change theme. Each theme will increase 1M file size, so when not need change theme feature, remove the <Theme /> part in component/Header/index.jsx.
 
 例如接口配置
 src/api/index.js
@@ -129,16 +129,14 @@ yarn test
 yarn coverage
 ```
 
-* e2e测试用例在`e2e/specs`文件夹，运行e2e测试
-  参考[nightwatch手册](http://nightwatchjs.org/api)
+* e2e使用[puppeteer](https://www.npmjs.com/package/puppeteer)
+
+  由于`puppeteer`在每次安装都会下载一个`Chromium`非常耗时，实际使用的是`puppeteer-core`。
+  下载后需要在`jest-puppeteer.config.js`文件中，修改`executablePath`对应当前系统的`chrome`执行路径后才能运行。
 
 ```bash
 yarn e2e
 ```
-
-  nightwatch启动脚本会尝试使用当前的开发环境，如果没有启动则自动打开一个新的webpackDevServer服务，使用webpack.config文件中的端口号，并运行e2e测试用例。
-  如果使用域名测试，需要配置本地hosts指向配置的域名后，将域名改为
-  使用了一些额外的[nightwatch-helpers](https://www.npmjs.com/package/nightwatch-helpers)(尤大神作品)增强工具。
 
 * 使用changelog脚本自动生成CHANGELOG.md
 
