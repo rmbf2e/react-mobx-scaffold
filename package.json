@@ -13,7 +13,7 @@
     "e2e": "npx jest -c jest.config.puppeteer.js",
     "e2e:debug": "DEBUG=true npx jest -c jest.config.puppeteer.js",
     "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r 10",
-    "zip": "cd dist && zip -r dist ./* && cd -",
+    "zip": "cd dist && npx rimraf dist.zip && npx bestzip dist.zip ./*",
     "test": "npx jest",
     "coverage": "npx jest --coverage && node jest/openCoverage.js",
     "lint": "npx eslint src/ __test__/ e2e/"
@@ -48,6 +48,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-import": "^1.8.0",
+    "bestzip": "^2.1.2",
     "body-parser": "^1.18.3",
     "browserslist": "^4.0.1",
     "chalk": "^2.4.1",
