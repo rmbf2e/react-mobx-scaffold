@@ -16,6 +16,7 @@
     "zip": "cd dist && npx rimraf dist.zip && npx bestzip dist.zip ./*",
     "test": "npx jest",
     "coverage": "npx jest --coverage && node jest/openCoverage.js",
+    "install": "npm test",
     "lint": "npx eslint src/ __test__/ e2e/"
   },
   "author": "superwf@gmail.com",
@@ -118,7 +119,8 @@
   "dependencies": {
     "animate.css": "^3.7.0",
     "ant-design-pro": "^2.0.0",
-    "antd": "^3.10.4",
+    "antd": "^3.10.7",
+    "chrome-paths": "^1.0.0",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "dexie": "^2.0.4",

@@ -1,4 +1,5 @@
 // this is config for jest-environment-puppeteer
+const chromePaths = require('chrome-paths')
 
 module.exports = {
   launch: {
@@ -16,6 +17,6 @@ module.exports = {
     devtools: true,
     slowMo: 250,
     timeout: 0,
-    executablePath: '/usr/bin/google-chrome-stable',
+    executablePath: chromePaths.chrome,
   },
 }
