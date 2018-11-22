@@ -116,10 +116,10 @@ function generateList(options) {
           this[setLoading](true)
           const search = toJS(this[name].search)
           /* 将antd Table的pagination属性映射为后端需要的分页属性
-          * current => page
-          * pageSize => pageSize
-          * 并附加搜索参数
-          * */
+           * current => page
+           * pageSize => pageSize
+           * 并附加搜索参数
+           * */
           this[name].tableProps.dataSource = []
           const request = option.request || fxios.get
           return request(option.url, {
