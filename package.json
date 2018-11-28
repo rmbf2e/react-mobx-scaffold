@@ -17,7 +17,8 @@
     "test": "npx jest",
     "coverage": "npx jest --coverage && node jest/openCoverage.js",
     "install": "npm test",
-    "lint": "npx eslint src/ __test__/ e2e/"
+    "lint": "npx eslint src/ __test__/ e2e/",
+    "commit":"npx git-cz"
   },
   "author": "superwf@gmail.com",
   "license": "ISC",
