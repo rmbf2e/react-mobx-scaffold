@@ -90,7 +90,7 @@ class AppMenu extends React.Component {
       <div
         className={s.menuAll}
         // eslint-disable-next-line react-native/no-inline-styles
-        style={{ minWidth: `${menus.length * 100}px`, height: '64px' }}
+        style={{ minWidth: `${menus.length * 66}px`, height: '64px' }}
       >
         <Menu selectedKeys={selectedKeys} mode="horizontal">
           {this.renderMenus()}
