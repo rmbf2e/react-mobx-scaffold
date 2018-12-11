@@ -123,7 +123,7 @@
     "core-js": "^2.5.7",
     "dexie": "^2.0.4",
     "es6-promise": "^4.2.4",
-    "fxios": "^0.5.1",
+    "fxios": "^1.2.0",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "load-polyfill": "^0.2.1",

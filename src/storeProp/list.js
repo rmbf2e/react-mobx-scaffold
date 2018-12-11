@@ -25,9 +25,9 @@ const getPage = () => {
  *
  * 例如options为
     [{
-      name: 'groups', // 必须，生成属性与方法的名称
+      name: 'list', // 必须，生成属性与方法的名称
       rowKey: 'id', // 必须，传给Table组件的rowKey
-      url: '/autoPricingPool/list', // 必须，获取数据的url，使用GET方法获取数据
+      url: '/record/list', // 必须，获取数据的url，使用GET方法获取数据
       rowSelectionKey: 'id', // 可选，若需要选择table中的行数据，则指定，指定后可在生成的list属性中的checkedKeys数组中获取选中的key数组
       ，可从通过生成的list属性checkedRecords获取选中的对象
       processResponse: func // 可选，在列表数组不符合要求时，可对其进行预处理
@@ -38,7 +38,7 @@ const getPage = () => {
  * 生成方法 setList方法，设置store.list.dataSource与pagination属性
  * 生成方法 setListLoading方法，设置store.list.tableProps.loading属性
  * 生成方法 setListSearch方法，设置store.list.search属性
- * 生成方法 restoreGroups，将列表数据恢复为初始状态
+ * 生成方法 restoreList，将列表数据恢复为初始状态
  *
  * @param {Array} options
  * @return void
@@ -116,10 +116,10 @@ function generateList(options) {
           this[setLoading](true)
           const search = toJS(this[name].search)
           /* 将antd Table的pagination属性映射为后端需要的分页属性
-          * current => page
-          * pageSize => pageSize
-          * 并附加搜索参数
-          * */
+           * current => page
+           * pageSize => pageSize
+           * 并附加搜索参数
+           * */
           this[name].tableProps.dataSource = []
           const request = option.request || fxios.get
           return request(option.url, {

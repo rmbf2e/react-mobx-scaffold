@@ -2,6 +2,7 @@ import { action, extendObservable, observable } from 'mobx'
 import upperFirst from 'lodash/upperFirst'
 import castArray from 'lodash/castArray'
 import fxios from 'tool/fxios'
+import clone from 'lodash/clone'
 
 /**
  * 判断参数的对象有且仅有data query param这几个属性
@@ -134,7 +135,7 @@ function rest(options) {
         this[fetching] = true
         const fetchObj = option.fetch
         const setResponseAction = action(setMethod, res => {
-          let response = { ...res }
+          let response = clone(res)
           if (fetchObj.interceptor && fetchObj.interceptor.response) {
             response = fetchObj.interceptor.response(res)
           }
