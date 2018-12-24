@@ -85,7 +85,7 @@ class QueryForm extends React.Component {
             ...r,
             [k]: Object.prototype.hasOwnProperty.call(query, k)
               ? parseMoment(query[k])
-              : undefined,
+              : v,
           }),
         {},
       )
