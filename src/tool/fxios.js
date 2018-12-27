@@ -1,13 +1,16 @@
 import isObject from 'lodash/isObject'
 import { Fxios } from 'fxios'
+import Events from 'events'
 import appConfig from 'src/config'
+
+export const emitter = new Events()
 
 export const config = {
   credentials: 'include',
   redirect: 'manual',
   mode: 'cors',
   cache: 'reload',
-  base: appConfig.baseURL,
+  baseURL: appConfig.baseURL,
 }
 
 const fxios = new Fxios(config)
@@ -28,7 +31,7 @@ const processList = data => {
   return data
 }
 
-fxios.interceptor.response.push((res, req) => {
+fxios.interceptor.response = (res, req) => {
   if (!res.ok) {
     const error = new Error(res.statusText)
     error.response = res
@@ -37,19 +40,19 @@ fxios.interceptor.response.push((res, req) => {
   return res.json().then(data => {
     res.message = data.message
     if (req.method.toUpperCase() !== 'GET') {
-      fxios.emit('success', res, req)
+      emitter.emit('success', res, req)
     }
     return processList(data)
   })
-})
+}
 
 const fxiosCatch = error => {
   // 若emitter没有监听函数直接emit一个error，会抛出错误不执行下面的throw error
-  if (fxios.listeners('error').length > 0) {
-    fxios.emit('error', error)
+  if (emitter.listeners('error').length > 0) {
+    emitter.emit('error', error)
   }
   throw error
 }
-fxios.interceptor.catch.push(fxiosCatch)
+fxios.interceptor.catch = fxiosCatch
 
 export default fxios

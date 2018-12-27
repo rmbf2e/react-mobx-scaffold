@@ -161,7 +161,15 @@ describe('components/QueryForm', () => {
         .instance()
         .getForm()
         .getFieldsValue(),
-    ).toEqual(originValues)
+    ).toEqual({
+      firstDate: undefined,
+      firstName: 'xxxxxxxx',
+      firstTime: undefined,
+      rangeDate: undefined,
+      secondDate: undefined,
+      secondName: 'yyyyyyyyyy',
+      secondTime: undefined,
+    })
   })
 
   it('测试日期类型的表单参数', async () => {
@@ -276,5 +284,29 @@ describe('components/QueryForm', () => {
       })
     await formInstance.onSubmit({ preventDefault: noop })
     expect(fn).toHaveBeenCalledTimes(2)
+  })
+
+  it('表单有默认值时，页面加载时不覆盖默认值', async () => {
+    const VForm = props => {
+      const { form } = props
+      return (
+        <Provider store={store}>
+          <QueryForm {...props}>
+            {form.getFieldDecorator('name', {
+              initialValue: 'defaultName',
+            })(<Input />)}
+          </QueryForm>
+        </Provider>
+      )
+    }
+    const ValidateForm = Form.create()(VForm)
+    const fn = jest.fn()
+    const app = mount(<ValidateForm onSubmit={fn} />)
+
+    const values = app
+      .instance()
+      .getForm()
+      .getFieldsValue()
+    expect(values).toEqual({ name: 'defaultName' })
   })
 })

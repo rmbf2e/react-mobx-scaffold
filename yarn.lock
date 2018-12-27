@@ -5635,10 +5635,10 @@ functional-red-black-tree@^1.0.1:
   resolved "http://registry.m.jd.com/functional-red-black-tree/download/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-fxios@^0.5.1:
-  version "0.5.1"
-  resolved "http://registry.m.jd.com/fxios/download/fxios-0.5.1.tgz#e67c91fea3e5c73c135da6e3186740a983e0957c"
-  integrity sha1-5nyR/qPlxzwTXabjGGdAqYPglXw=
+fxios@^2.0.1:
+  version "2.0.1"
+  resolved "http://registry.m.jd.com/fxios/download/fxios-2.0.1.tgz#fe05bd0941a802c63df5a5ed975c0e90753971fd"
+  integrity sha1-/gW9CUGoAsY99aXtl1wOkHU5cf0=
   dependencies:
     path-to-regexp "^2.2.1"
     url "^0.11.0"
