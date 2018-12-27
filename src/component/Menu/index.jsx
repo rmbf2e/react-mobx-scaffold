@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import getFirstPathname from 'tool/getFirstPathname'
 import Link from './Link'
+import s from './style.m.less'
 
 // 用解构赋值jest --coverage会Menu is not defined
 // eslint-disable-next-line
@@ -83,11 +84,18 @@ class AppMenu extends React.Component {
     const {
       store: { menu },
     } = this.props
+    const menus = toJS(menu.menus)
     const selectedKeys = toJS(menu.selectedKeys)
     return (
-      <Menu selectedKeys={selectedKeys} mode="horizontal">
-        {this.renderMenus()}
-      </Menu>
+      <div
+        className={s.menuAll}
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{ minWidth: `${menus.length * 66}px`, height: '64px' }}
+      >
+        <Menu selectedKeys={selectedKeys} mode="horizontal">
+          {this.renderMenus()}
+        </Menu>
+      </div>
     )
   }
 }

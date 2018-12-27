@@ -4,6 +4,7 @@ import { computed, toJS } from 'mobx'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
+import ConfirmButton from 'component/ConfirmButton'
 import { GENDER_MAP } from '../../constant'
 
 @inject('store')
@@ -64,12 +65,28 @@ class List extends React.Component {
         dataIndex: 'operation',
         key: 'operation',
         render: (text, record, index) => (
-          <Button size="small" data-index={index} onClick={this.onEdit}>
-            编辑
-          </Button>
+          <>
+            <Button size="small" data-index={index} onClick={this.onEdit}>
+              编辑
+            </Button>
+            <ConfirmButton
+              type="danger"
+              data-id={record.id}
+              onConfirm={this.destroy}
+              size="small"
+            >
+              删除
+            </ConfirmButton>
+          </>
         ),
       },
     ]
+  }
+
+  destroy = e => {
+    this.store.destroyRecord({
+      body: [e.target.dataset.id],
+    })
   }
 
   onEdit = e => {

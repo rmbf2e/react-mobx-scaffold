@@ -54,7 +54,7 @@ describe('page/User/Operation', () => {
       user.list.checkedKeys = [1, 2, 3]
     })
     destroy()
-    expect(spy).toHaveBeenLastCalledWith([1, 2, 3])
+    expect(spy).toHaveBeenLastCalledWith({ body: [1, 2, 3] })
 
     // 恢复数据
     runInAction(() => {

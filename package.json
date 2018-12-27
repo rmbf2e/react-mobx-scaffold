@@ -17,7 +17,8 @@
     "test": "npx jest",
     "coverage": "npx jest --coverage && node jest/openCoverage.js",
     "install": "npm test",
-    "lint": "npx eslint src/ __test__/ e2e/"
+    "lint": "npx eslint src/ __test__/ e2e/",
+    "commit": "npx git-cz"
   },
   "author": "superwf@gmail.com",
   "license": "ISC",
@@ -94,7 +95,7 @@
     "markdownlint-cli": "^0.13.0",
     "mini-css-extract-plugin": "^0.4.4",
     "mobx-react-devtools": "^6.0.3",
-    "nodemon": "^1.17.5",
+    "nodemon": "1.18.7",
     "opn": "^5.3.0",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "portfinder": "^1.0.13",
@@ -119,7 +120,7 @@
   "dependencies": {
     "animate.css": "^3.7.0",
     "ant-design-pro": "^2.0.0",
-    "antd": "^3.10.7",
+    "antd": "^3.11.6",
     "chrome-paths": "^1.0.0",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
