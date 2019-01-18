@@ -21,6 +21,8 @@ const isProd = process.env.NODE_ENV === 'production'
 
 const resolvePath = relativePath => path.resolve(__dirname, relativePath)
 
+const lessLoadPaths = [resolvePath('node_modules'), resolvePath('src')]
+
 // 是否使用远程swagger接口调试
 const proxyTargets = {
   remote: 'http://your.backend',
@@ -120,6 +122,7 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
+              paths: lessLoadPaths,
             },
           },
         ],
@@ -152,6 +155,7 @@ const config = {
             options: {
               sourceMap: !isProd,
               javascriptEnabled: true,
+              paths: lessLoadPaths,
             },
           },
         ],

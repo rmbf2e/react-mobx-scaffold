@@ -33,9 +33,10 @@ class App extends React.Component {
   componentDidCatch = onPageError
 
   componentDidMount() {
-    const { store } = this.props
+    const { store, routes } = this.props
     store.app.load()
     this.dispose = listen()
+    store.router.routes = routes
   }
 
   componentWillUnmount() {

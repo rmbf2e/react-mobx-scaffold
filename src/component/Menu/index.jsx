@@ -3,7 +3,6 @@ import React from 'react'
 import { toJS } from 'mobx'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
-import getFirstPathname from 'tool/getFirstPathname'
 import Link from './Link'
 import s from './style.m.less'
 
@@ -34,9 +33,8 @@ class AppMenu extends React.Component {
       },
     } = this.props
     this.stopSubscribeHistory = history.subscribe(location => {
-      const key = getFirstPathname(location.pathname)
       // 初始化在根路径上，key是'/'，不会为空
-      menu.setCurrent({ key })
+      menu.setActiveMenu(location.pathname)
     })
   }
 

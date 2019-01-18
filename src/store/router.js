@@ -1,6 +1,7 @@
 import URL from 'url'
 import createBrowserHistory from 'history/createBrowserHistory'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import { matchPath } from 'react-router'
 import { computed } from 'mobx'
 
 // 单例模式，全局只需要一个router即可
@@ -22,6 +23,22 @@ export class Router extends RouterStore {
   get query() {
     const { search } = this.location
     return search ? URL.parse(search, true).query : {}
+  }
+
+  // 扩展获取路由参数param
+  @computed
+  get param() {
+    const { pathname } = this.location
+    let param = {}
+    // routes 在component/App中赋值
+    this.routes.find(route => {
+      const match = matchPath(pathname, route)
+      if (match?.params) {
+        param = match.params
+      }
+      return !!match
+    })
+    return param
   }
 }
 
