@@ -22,12 +22,15 @@ class Menu {
   @observable
   selectedKeys = []
 
+  @observable
+  openKeys = []
+
   // 设置当前激活状态的菜单
   // 在监听路由切换时调用
   @action
   setActiveMenu = pathname => {
     // 通过路由匹配来找到当前pathname对应的一级目录
-    let topMenu = find(this.topMenuMap, (v, k) => {
+    let currentMenu = find(this.topMenuMap, (v, k) => {
       if (k !== '/') {
         const match = matchPath(pathname, {
           path: k,
@@ -40,30 +43,43 @@ class Menu {
     })
 
     // 如果按路由匹配找不到，就用url中的第一级路径匹配来找是否有对应的菜单
-    if (!topMenu) {
+    if (!currentMenu) {
       const firstPathname = getFirstPathname(pathname)
-      topMenu = this.topMenuMap[firstPathname]
+      currentMenu = this.topMenuMap[firstPathname]
       // 最后如果没有对应项目则使用根路径
-      if (!topMenu) {
+      if (!currentMenu) {
         const path = '/'
-        topMenu = this.topMenuMap[path]
+        currentMenu = this.topMenuMap[path]
       }
     }
 
-    if (topMenu?.parentId) {
-      this.openKeys[0] = topMenu.parentId
+    // 如果有parentId说明currentMenu是三级目录
+    if (currentMenu?.parentId) {
+      this.openKeys[0] = currentMenu.parentId
     }
 
-    if (topMenu?.menu?.to) {
-      this.selectedKeys[0] = topMenu.menu.to
+    if (currentMenu?.menu?.to) {
+      this.selectedKeys[0] = currentMenu.menu.to
     }
 
-    if (topMenu?.top?.children) {
-      this.setTopMenu(topMenu)
+    // console.log(currentMenu?.top?.children)
+
+    if (currentMenu?.top?.children) {
+      this.setTopMenu(currentMenu)
     }
   }
 
   // 每一级的目录对应的顶级目录
+  // 返回对象key为二级目录对应的路径
+  // 返回对象value为对象
+  //     键menu对应值当前的二级菜单对象
+  //     键top对应值当前的一级菜单对象
+  // 如果有三级菜单
+  // 返回对象key为三级目录对应的路径
+  // 返回对象value为对象
+  //     键menu对应值当前的三级菜单对象
+  //     键parentId对应值是当前的三级菜单所属的二级菜单id
+  //     键top对应当前的一级菜单对象
   @computed
   get topMenuMap() {
     return reduce(
