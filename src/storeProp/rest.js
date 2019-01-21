@@ -2,21 +2,8 @@ import { action, extendObservable, observable } from 'mobx'
 import upperFirst from 'lodash/upperFirst'
 import castArray from 'lodash/castArray'
 import fxios from 'tool/fxios'
-import clone from 'lodash/clone'
 
 /**
- * 判断参数的对象有且仅有data query param这几个属性
- * @param {object} arg 参数对象
- * @return {bool} 判断是否为有效的对象格式参数
- * */
-const isValidArguments = arg => {
-  if (typeof arg !== 'object') {
-    return false
-  }
-  return Object.keys(arg).every(key => ['body', 'query', 'param'].includes(key))
-}
-
-/*
  * 生成以命名为核心的添删改方法与相关的请求状态属性
  * 例如options为 [{
  *   name: 'group',
@@ -44,8 +31,8 @@ const isValidArguments = arg => {
  * create, update, destroy方法成功后，如果该class继承自events，有emit方法，则会emit `${name}:changed`事件，无emit参数
  * 同时emit `${name}:${created|updated|destroyed}`事件，emit参数为请求的response，与请求的数据对象{ body, query, param }，body为请求体，query为url query，param为url参数
  *
- * @param {Array} options
- * @return void
+ * @param {Array} options 配置rest参数
+ * @returns {void} return undefined
  * */
 function rest(options) {
   castArray(options).forEach(option => {
@@ -73,39 +60,21 @@ function rest(options) {
         const ing = `${ingWords[index]}${upperName}`
         const requestMethod = `${method}${upperName}`
         extendObject[ing] = false
-        extendObject[requestMethod] = (...args) => {
+        extendObject[requestMethod] = fxiosOption => {
           const { [method]: methodOption } = option
-          let reqArgs = [...args]
+          let requestOption = fxiosOption
           if (methodOption.interceptor && methodOption.interceptor.request) {
-            reqArgs = methodOption.interceptor.request(args)
-          }
-          const data = reqArgs[0]
-          let body
-          let query
-          let param
-          if (isValidArguments(data) && reqArgs[1] === undefined) {
-            ;({ body, query, param } = data)
-          } else {
-            body = data
-            ;[query, param] = reqArgs.slice(1)
+            requestOption = methodOption.interceptor.request(fxiosOption)
           }
           this[ing] = true
           const request = option[method].request || fxios[httpMethods[index]]
-          const promise = request(
-            { url: methodOption.url, param },
-            body,
-            query,
-          ).then(res => {
+          const promise = request(methodOption.url, requestOption).then(res => {
             if (this.emit) {
               this.emit(`${name}:changed`)
-              this.emit(`${name}:${pastWords[index]}`, res, {
-                body,
-                query,
-                param,
-              })
+              this.emit(`${name}:${pastWords[index]}`, res, requestOption)
             }
             this[restoreMethod]()
-            if (methodOption.interceptor && methodOption.interceptor.response) {
+            if (methodOption.interceptor?.response) {
               return methodOption.interceptor.response(res)
             }
             return res
@@ -124,29 +93,23 @@ function rest(options) {
       const fetching = `fetching${upperName}`
       const fetchMethod = `fetch${upperName}`
       extendObject[fetching] = false
-      extendObject[fetchMethod] = (...args) => {
-        let query = args[0]
-        let param
-        if (isValidArguments(query) && args[1] === undefined) {
-          ;({ query, param } = query)
-        } else {
-          ;[query, param] = args
-        }
+      extendObject[fetchMethod] = fxiosOption => {
         this[fetching] = true
         const fetchObj = option.fetch
         const setResponseAction = action(setMethod, res => {
-          let response = clone(res)
-          if (fetchObj.interceptor && fetchObj.interceptor.response) {
+          let response = { ...res }
+          if (fetchObj.interceptor?.response) {
             response = fetchObj.interceptor.response(res)
           }
           extendObject[setMethod](response)
           return response
         })
-        if (fetchObj.interceptor && fetchObj.interceptor.request) {
-          query = fetchObj.interceptor.request(query)
+        let requestOption = fxiosOption
+        if (fetchObj.interceptor?.request) {
+          requestOption = fetchObj.interceptor.request(fxiosOption)
         }
         const request = option.fetch.request || fxios.get
-        const promise = request({ url: fetchObj.url, param }, query).then(
+        const promise = request(fetchObj.url, requestOption).then(
           setResponseAction,
         )
         promise.finally(

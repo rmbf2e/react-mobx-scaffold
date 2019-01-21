@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock'
-import fxios from 'tool/fxios'
+import fxios, { emitter } from 'tool/fxios'
 import config from 'src/config'
 
 describe('tool/fxios', () => {
@@ -7,7 +7,7 @@ describe('tool/fxios', () => {
     fetchMock.restore()
   })
   describe('测试分页处理', () => {
-    test('测试有分页值', () => {
+    it('测试有分页值', () => {
       const url = '/users'
       const mockResponse = {
         list: [
@@ -112,12 +112,12 @@ describe('tool/fxios', () => {
       new global.Response({ status: 404, ok: false }),
     )
     const spy = jest.fn()
-    fxios.on('error', spy)
-    fxios.on('error', () => {
+    emitter.on('error', spy)
+    emitter.on('error', () => {
       expect(spy).toHaveBeenCalledTimes(1)
       done()
     })
-    fxios.get(url)
+    fxios.get(url).catch(() => {})
   })
 
   it('非get请求会发送success事件', async () => {
@@ -129,7 +129,7 @@ describe('tool/fxios', () => {
       code: 200,
     })
     const spy = jest.fn()
-    fxios.once('success', spy)
+    emitter.once('success', spy)
     await fxios.post(url)
     expect(spy).toHaveBeenCalledTimes(1)
     await fxios.get(url)
@@ -145,7 +145,7 @@ describe('tool/fxios', () => {
     const fn = jest.fn()
     // fxios.interceptor.catch.push(fn)
     expect(fn).not.toHaveBeenCalled()
-    fxios.on('error', fn)
+    emitter.on('error', fn)
     return fxios.get(url).catch(() => {
       expect(fn).toHaveBeenCalled()
       fxios.removeListener('error', fn)

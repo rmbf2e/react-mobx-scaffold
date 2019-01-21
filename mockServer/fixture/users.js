@@ -19,6 +19,6 @@ module.exports = function users(req, res) {
       pageSize: 10,
     })
   } else {
-    res.json({})
+    res.json(req.body)
   }
 }

@@ -38,4 +38,12 @@ app.all('*', (req, res, next) => {
   }
 })
 
+app.put('/user/:id', (req, res) => {
+  res.json(req.params)
+})
+
+app.delete('/user/:id', (req, res) => {
+  res.json(req.params)
+})
+
 app.listen(config.port)

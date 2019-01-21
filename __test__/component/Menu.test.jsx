@@ -1,4 +1,4 @@
-import { Menu as AntMenu, Icon } from 'antd'
+import { Menu as AntMenu } from 'antd'
 import React from 'react'
 import { mount } from 'enzyme'
 import { render, unmountComponentAtNode } from 'react-dom'
@@ -30,10 +30,12 @@ describe('Menu', () => {
     menu.setMenus([
       {
         name: 'parent1',
+        id: 'parent1',
         icon: 'usergroup-add',
         children: [
           {
             name: 'child1',
+            id: 'child1',
             to: '/child1',
             icon: 'usergroup-add',
           },
@@ -41,16 +43,25 @@ describe('Menu', () => {
       },
       {
         name: 'parent2',
+        id: 'parent2',
         children: [
           {
             name: 'child2',
+            id: 'child2',
             to: '/child2',
             icon: 'html5',
             children: [
               {
+                id: 'child4',
                 name: 'child4',
                 to: '/child4',
                 icon: 'html5',
+              },
+              {
+                // 可能没有to，接口可能返回数据不完整
+                // 其实这种应该算数据错误，姑且模拟一下测试
+                name: 'child5',
+                to: '',
               },
             ],
           },
@@ -58,9 +69,10 @@ describe('Menu', () => {
       },
       {
         name: 'parent3',
+        id: 'child3',
       },
     ])
-    menu.setCurrent({ key: 'child1' })
+    menu.setActiveMenu('/child1')
   })
 
   afterEach(() => {
@@ -68,12 +80,14 @@ describe('Menu', () => {
   })
 
   it('挂载之后开始监听history', done => {
+    // console.log(router.location.pathname)
     const com = wrapper()
     const text = com.text()
     expect(text.includes('parent1')).toBe(true)
     expect(text.includes('parent2')).toBe(true)
     expect(text).not.toContain('child1')
-    expect(toJS(menu.selectedKeys)).toEqual(['/'])
+    // 如果按路由匹配找不到，就用url中的第一级路径匹配来找是否有对应的菜单
+    expect(toJS(menu.selectedKeys)).toEqual(['/child1'])
     const submenu = com.find(SubMenu).at(0)
     expect(submenu.prop('onTitleClick')).toBe(undefined)
     router.push('/child2')
@@ -88,7 +102,6 @@ describe('Menu', () => {
   })
 
   it('测试点击Link，to与pathname相同则拦截返回false，enzyme的不灵，上真实dom', () => {
-    router.push('/')
     const A = () => (
       <Provider store={store}>
         <Router history={router.history}>
@@ -170,5 +183,11 @@ describe('Menu', () => {
       antMenu.props().children[1].props.children[0].props.children[0].props
         .children.props.children[0],
     ).toBe(null)
+  })
+
+  it('测试三级目录结构', () => {
+    router.push('/child4')
+    wrapper()
+    expect(toJS(menu.openKeys)).toEqual(['child2'])
   })
 })

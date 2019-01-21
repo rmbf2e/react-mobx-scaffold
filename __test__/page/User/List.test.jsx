@@ -54,7 +54,7 @@ describe('page/User/List', () => {
     expect(td.at(3).text()).toBe(GENDER_MAP[row.gender])
     expect(td.at(4).text()).toBe(row.mail)
     expect(td.at(5).text()).toBe(row.mobile)
-    expect(td.at(6).text()).toBe('编 辑')
+    expect(td.at(6).text()).toBe('编 辑删 除')
   })
 
   it('测试onEdit', () => {

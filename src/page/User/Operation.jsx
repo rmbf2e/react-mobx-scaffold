@@ -30,7 +30,7 @@ class Operation extends React.Component {
 
   destroy = () => {
     const user = this.store
-    user.destroyRecord(toJS(user.list.checkedKeys))
+    user.destroyRecord({ body: toJS(user.list.checkedKeys) })
   }
 
   render() {

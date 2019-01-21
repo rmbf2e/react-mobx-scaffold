@@ -25,13 +25,11 @@ import promisify from 'tool/promisify'
  * 提交表单时，表单项name以Time结尾的被格式化为时间格式字符串
  *
  * beforeSubmit属性：应返回promise的函数，当promise reject时则阻止本次提交
+ * 🈲 该组件会接管url上的query管理，因此一个页面上同时只能存在一个实例，如果一个页面上有多个搜索表单，其他表单请用普通的antd Form。
  */
 @inject('store')
 @observer
 class QueryForm extends React.Component {
-  // 标记此次history push是否由submit引起，避免submit引起的history变更调用两次props.onSubmit
-  pushedBySubmit = false
-
   // 当路由切换时，pathname变化，当前组件会被卸载，比较pathname来决定是否执行props.onSubmit
   pathname = ''
 
@@ -64,7 +62,8 @@ class QueryForm extends React.Component {
       store: { router },
     } = this.props
     this.pathname = router.location.pathname
-    this.stopSubscribeHistory = router.history.subscribe(() => {
+    this.backfillFromQuery()
+    this.stopListenHistory = router.history.listen(() => {
       const {
         form,
         store: {
@@ -91,11 +90,7 @@ class QueryForm extends React.Component {
       )
       // 将表单value与store中的query同步
       queryForm.query = this.compactFormValues(formValues)
-      // queryForm.setQuery(this.compactFormValues(formValues))
-      if (!this.pushedBySubmit) {
-        form.setFieldsValue(formValues)
-      }
-      this.pushedBySubmit = false
+      form.setFieldsValue(formValues)
       if (pathname === this.pathname) {
         onSubmit()
       }
@@ -103,7 +98,41 @@ class QueryForm extends React.Component {
   }
 
   componentWillUnmount() {
-    this.stopSubscribeHistory()
+    this.stopListenHistory()
+  }
+
+  // 组件第一次加载时从query回填表单
+  // 如果表单有默认值则不被query覆盖
+  backfillFromQuery = () => {
+    const {
+      store: { router, queryForm },
+      form,
+      onSubmit,
+    } = this.props
+    const { query } = router
+    const formValues = reduce(
+      form.getFieldsValue(),
+      (r, v, k) => {
+        // 第一次页面载入，有默认值则按表单默认值算
+        const isInQuery = Object.prototype.hasOwnProperty.call(query, k)
+        if (v !== undefined && !isInQuery) {
+          return {
+            ...r,
+            [k]: v,
+          }
+        }
+        return {
+          ...r,
+          [k]: isInQuery ? parseMoment(query[k]) : v,
+        }
+      },
+      {},
+    )
+    // 将表单value与store中的query同步
+    queryForm.query = this.compactFormValues(formValues)
+    // queryForm.setQuery(this.compactFormValues(formValues))
+    form.setFieldsValue(formValues)
+    onSubmit()
   }
 
   beforeSubmit = () => {
@@ -113,7 +142,6 @@ class QueryForm extends React.Component {
 
   onSubmit = async e => {
     e.preventDefault()
-    this.pushedBySubmit = true
     const {
       form,
       beforeSubmit,

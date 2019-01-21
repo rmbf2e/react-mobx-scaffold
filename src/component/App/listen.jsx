@@ -1,7 +1,7 @@
 import React from 'react'
 import { notification } from 'antd'
 import { onError } from 'mobx-react'
-import fxios from 'tool/fxios'
+import { emitter as fxiosEmitter } from 'tool/fxios'
 import { emitter as soundEmitter } from 'component/SoundEffect'
 
 // 监听后端接口错误函数
@@ -51,13 +51,13 @@ export const onMobxError = error => {
 }
 
 const listen = () => {
-  fxios.on('error', onApiError)
-  fxios.on('success', onApiSuccess)
+  fxiosEmitter.on('error', onApiError)
+  fxiosEmitter.on('success', onApiSuccess)
   const dispose = onError(onMobxError)
   return () => {
     dispose()
-    fxios.removeListener('success', onApiSuccess)
-    fxios.removeListener('error', onApiError)
+    fxiosEmitter.removeListener('success', onApiSuccess)
+    fxiosEmitter.removeListener('error', onApiError)
   }
 }
 

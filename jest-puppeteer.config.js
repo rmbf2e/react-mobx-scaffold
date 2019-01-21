@@ -1,3 +1,6 @@
+// this is config for jest-environment-puppeteer
+const chromePaths = require('chrome-paths')
+
 module.exports = {
   launch: {
     // dumpio: true,
@@ -14,5 +17,6 @@ module.exports = {
     devtools: true,
     slowMo: 250,
     timeout: 0,
+    executablePath: chromePaths.chrome,
   },
 }

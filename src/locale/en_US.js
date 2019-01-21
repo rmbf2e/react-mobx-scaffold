@@ -1,5 +1,5 @@
 export default {
-  language: 'English',
+  language: '🇬🇧 English',
   locale: 'en-us',
   QueryForm: {
     search: 'Search',

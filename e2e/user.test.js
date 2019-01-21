@@ -2,6 +2,7 @@
 import devServerConfig from '../build/config'
 
 const { protocal, host, port } = devServerConfig
+const { log } = console
 
 jest.setTimeout(1000000)
 
@@ -46,6 +47,6 @@ describe('goto page', () => {
         usedBytes += range.end - range.start - 1
       })
     })
-    console.log(`Bytes used: ${(usedBytes / totalBytes) * 100}%`)
+    log(`Bytes used: ${(usedBytes / totalBytes) * 100}%`)
   })
 })

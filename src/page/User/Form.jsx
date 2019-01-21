@@ -39,17 +39,16 @@ class FormModal extends React.Component {
         const {
           store: { user },
         } = this.props
-        const isUpdate = !!user.record.id
+        const isUpdate = 'id' in user.record
         if (isUpdate) {
           body.id = user.record.id
         }
-        user[`${isUpdate ? 'update' : 'create'}Record`](
+        user[`${isUpdate ? 'update' : 'create'}Record`]({
           body,
-          {},
-          {
-            id: values.id,
+          param: {
+            id: String(user.record.id),
           },
-        ).finally(user.hideFormModal)
+        }).finally(user.hideFormModal)
       }
     })
   }

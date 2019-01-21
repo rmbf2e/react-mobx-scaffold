@@ -179,9 +179,7 @@ describe('storeProp/list', () => {
       b.setPromotionsSearch(search)
       return b.fetchPromotions().then(() => {
         expect(spy).toHaveBeenLastCalledWith(option.url, {
-          name: ['a', 'b'],
-          page: 1,
-          pageSize: config.pageSize,
+          query: { name: ['a', 'b'], page: 1, pageSize: config.pageSize },
         })
       })
     })

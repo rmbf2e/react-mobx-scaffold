@@ -123,10 +123,12 @@ function generateList(options) {
           this[name].tableProps.dataSource = []
           const request = option.request || fxios.get
           return request(option.url, {
-            page: page.current,
-            pageSize: page.pageSize,
-            // page and pageSize in search can overwrite the values above
-            ...search,
+            query: {
+              page: page.current,
+              pageSize: page.pageSize,
+              // page and pageSize in search can overwrite the values above
+              ...search,
+            },
           })
             .then(this[setMethod])
             .finally(() => {

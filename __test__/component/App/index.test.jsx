@@ -52,6 +52,7 @@ describe('测试App', () => {
     app.setLoading(false)
     com = wrapper()
     expect(com.find(Layout)).toHaveLength(1)
+    expect(router.routes).toEqual(routes)
   })
 
   it('测试App卸载后，移除fxios监听', () => {

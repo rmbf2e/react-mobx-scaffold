@@ -33,6 +33,7 @@ export class Router extends RouterStore {
   get param() {
     const { pathname } = this.location
     let param = {}
+    // routes 在component/App中赋值
     this.routes.find(route => {
       const match = matchPath(pathname, route)
       if (match?.params) {

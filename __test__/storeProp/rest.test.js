@@ -43,15 +43,13 @@ describe('storeProp/rest', () => {
     const mockRes = { name: 'abc' }
     const spy = jest.spyOn(fxios, 'post').mockImplementation(resolve(mockRes))
     const createData = { name: 'newUser' }
-    const p = a.createUser(createData)
+    const p = a.createUser({ body: createData })
     expect(a.creatingUser).toBe(true)
     return p.then(res => {
       expect(a.creatingUser).toBe(false)
-      expect(spy).toHaveBeenLastCalledWith(
-        { url: option.create.url, param: undefined },
-        createData,
-        undefined,
-      )
+      expect(spy).toHaveBeenLastCalledWith(option.create.url, {
+        body: createData,
+      })
       expect(res).toEqual(mockRes)
     })
   })
@@ -125,9 +123,11 @@ describe('storeProp/rest', () => {
       fetch: {
         url: 'user',
         interceptor: {
-          request: d => ({
-            ...d,
-            name: `pre${d.name}`,
+          request: ({ query }) => ({
+            query: {
+              ...query,
+              name: `pre${query.name}`,
+            },
           }),
           response: res => ({
             ...res,
@@ -144,14 +144,13 @@ describe('storeProp/rest', () => {
     }
     const b = new B()
     const query = { name: 'newUser' }
-    const p = b.fetchUser(query)
+    const p = b.fetchUser({ query })
     expect(b.fetchingUser).toBe(true)
     return p.then(res => {
       expect(b.fetchingUser).toBe(false)
-      expect(spy).toHaveBeenLastCalledWith(
-        { url: Boption.fetch.url, param: undefined },
-        { name: 'prenewUser' },
-      )
+      expect(spy).toHaveBeenLastCalledWith(Boption.fetch.url, {
+        query: { name: 'prenewUser' },
+      })
       expect(res).toEqual(Boption.fetch.interceptor.response(mockRes))
     })
   })
@@ -248,9 +247,9 @@ describe('storeProp/rest', () => {
     const b = new B()
 
     expect(fn.mock.calls).toHaveLength(0)
-    await b.createUser({})
+    await b.createUser({ body: {} })
     expect(fn.mock.calls).toHaveLength(2)
-    await b.updateUser({})
+    await b.updateUser({ body: {} })
     expect(fn.mock.calls).toHaveLength(4)
     await b.destroyUser({})
     expect(fn.mock.calls).toHaveLength(6)
@@ -279,7 +278,7 @@ describe('storeProp/rest', () => {
     const bUser = { name: 'b' }
     b.setUser(bUser)
     expect(b.user).toEqual(bUser)
-    await b.updateUser({})
+    await b.updateUser({ body: {} })
     expect(b.user).toEqual({})
   })
 
@@ -311,11 +310,11 @@ describe('storeProp/rest', () => {
         param: { id: 3 },
       })
       .then(() => {
-        expect(spy).toHaveBeenLastCalledWith(
-          { param: { id: 3 }, url: 'user/create/:id' },
-          { a: 1 },
-          { b: 2 },
-        )
+        expect(spy).toHaveBeenLastCalledWith('user/create/:id', {
+          param: { id: 3 },
+          body: { a: 1 },
+          query: { b: 2 },
+        })
         // 恢复create的url
         option.create.url = originCreateUrl
       })
@@ -333,13 +332,10 @@ describe('storeProp/rest', () => {
         param: { id: 3 },
       })
       .then(() => {
-        expect(spy).toHaveBeenLastCalledWith(
-          {
-            url: option.fetch.url,
-            param: { id: 3 },
-          },
-          { b: 2 },
-        )
+        expect(spy).toHaveBeenLastCalledWith(option.fetch.url, {
+          param: { id: 3 },
+          query: { b: 2 },
+        })
         // 恢复url
         option.fetch.url = originFetchUrl
       })
@@ -360,9 +356,9 @@ describe('storeProp/rest', () => {
       const fn = jest.fn()
       e.on('user:changed', fn)
       e.on('user:created', fn)
-      return e.createUser({ a: 2 }, { a: 1 }).then(() => {
+      return e.createUser({ body: { a: 2 }, query: { a: 1 } }).then(() => {
         expect(fn.mock.calls).toHaveLength(2)
-        expect(fn).toHaveBeenCalledWith(createdUser, {
+        expect(fn).toHaveBeenLastCalledWith(createdUser, {
           body: { a: 2 },
           query: { a: 1 },
         })
@@ -376,12 +372,9 @@ describe('storeProp/rest', () => {
       const fn = jest.fn()
       e.on('user:changed', fn)
       e.on('user:updated', fn)
-      return e.updateUser().then(() => {
+      return e.updateUser({ body: 123 }).then(() => {
         expect(fn.mock.calls).toHaveLength(2)
-        expect(fn).toHaveBeenCalledWith(updatedUser, {
-          body: undefined,
-          query: undefined,
-        })
+        expect(fn).toHaveBeenCalledWith(updatedUser, { body: 123 })
       })
     })
 
