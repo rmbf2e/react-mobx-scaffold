@@ -1,28 +1,26 @@
 const fs = require('fs')
+const ejs = require('ejs')
+const resolveRoot = require('./resolveRoot')
+const prettyWrite = require('./prettyWrite')
 
-const routerTemplate = fs
-  .readFileSync('./src/store.template.js')
-  .toString('utf8')
-const files = fs
-  .readdirSync('./src/store')
-  .filter(file => {
-    // Main在模板中已经定义为主路由
-    if (file === 'index.js') {
-      return false
-    }
-    return true
+const generateStore = () => {
+  const storeTemplate = fs
+    .readFileSync(resolveRoot('build/template/store.ejs'))
+    .toString('utf8')
+
+  const files = fs
+    .readdirSync(resolveRoot('src/store'))
+    .filter(f => f !== 'interface.ts')
+    .map(fileName => fileName.replace(/\.(j|t)s$/, ''))
+
+  const imports = files.map(store => `import {${store}} from 'store/${store}'`)
+
+  const storeContent = ejs.render(storeTemplate, {
+    imports: imports.join('\n'),
+    stores: `${files.join(', ')}`,
   })
-  .map(fileName => fileName.replace(/\.js$/, ''))
 
-const imports = files.map(store => `import ${store} from 'store/${store}'`)
+  prettyWrite(storeContent, 'src/store.ts')
+}
 
-const importsPlaceholder = routerTemplate.replace(
-  '/* imports-placeholder */',
-  imports.join('\n'),
-)
-const storesPlaceholder = importsPlaceholder.replace(
-  '/* stores-placeholder */',
-  `${files.join(',\n  ')},
-  /* 本路由文件由src/store.template.js文件生成，不要手动更改 */`,
-)
-fs.writeFileSync('./src/store/index.js', storesPlaceholder)
+module.exports = generateStore

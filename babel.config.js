@@ -12,7 +12,7 @@ module.exports = {
     '@babel/plugin-proposal-object-rest-spread',
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-syntax-jsx',
-    '@babel/plugin-proposal-export-default-from',
+    // '@babel/plugin-proposal-export-default-from',
     [
       '@babel/plugin-proposal-decorators',
       {
@@ -27,4 +27,9 @@ module.exports = {
     ],
     '@babel/plugin-proposal-optional-chaining',
   ],
+  env: {
+    production: {
+      plugins: ['transform-react-remove-prop-types'],
+    },
+  },
 }

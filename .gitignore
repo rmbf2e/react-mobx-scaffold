@@ -1,10 +1,13 @@
 /node_modules
 .idea
 package-lock.json
-src/route.js
+src/route.ts
+src/store.ts
 dist
 *.vim
 *.log
 e2e/report/*
 coverage
 CHANGELOG.md
+tsconfig.json
+tslint.json

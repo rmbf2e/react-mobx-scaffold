@@ -1,12 +1,12 @@
 {
   "src/component/*": { "type": "component" },
   "src/page/*": { "type": "page" },
-  "src/store/*.js": { "type": "store" },
-  "src/storeProp/*.js": { "type": "storeProp" },
-  "src/mixin/*.js": { "type": "mixin" },
-  "src/locale/*.js": { "type": "locale" },
-  "src/style/*.less": { "type": "style" },
-  "src/tool/*.js": { "type": "tool" },
+  "src/store/*": { "type": "store" },
+  "src/extendStore/*": { "type": "extendStore" },
+  "src/mixin/*": { "type": "mixin" },
+  "src/locale/*": { "type": "locale" },
+  "src/style/*": { "type": "style" },
+  "src/tool/*": { "type": "tool" },
   "__test__/*": { "type": "test" },
-  "e2e/spec/*.js": { "type": "spec" }
+  "e2e/spec/*": { "type": "spec" }
 }
