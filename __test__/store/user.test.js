@@ -1,5 +1,5 @@
 import noop from 'lodash'
-import user from 'store/user'
+import { user } from 'store/user'
 
 describe('store/user', () => {
   it('record:changed event', () => {

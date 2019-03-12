@@ -1,4 +1,4 @@
-import getPopupContainer from 'tool/getPopupContainer'
+import { getPopupContainer } from 'tool/getPopupContainer'
 
 describe('tool/getPopupContainer', () => {
   it('返回参数的parentNode属性', () => {

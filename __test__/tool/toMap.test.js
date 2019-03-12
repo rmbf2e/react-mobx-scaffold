@@ -1,4 +1,4 @@
-import toMap from 'tool/toMap'
+import { toMap } from 'tool/toMap'
 
 describe('测试toMap', () => {
   test('将数组转换成value为key，label为值的对象', () => {

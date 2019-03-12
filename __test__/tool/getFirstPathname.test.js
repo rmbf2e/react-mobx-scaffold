@@ -1,4 +1,4 @@
-import getFirstPathname from 'tool/getFirstPathname'
+import { getFirstPathname } from 'tool/getFirstPathname'
 
 describe('tool/getFirstPathname', () => {
   it('从/或空路径获取', () => {
