@@ -1,7 +1,7 @@
 /node_modules
 .idea
 package-lock.json
-src/route.ts
+src/route.tsx
 src/store.ts
 dist
 *.vim
