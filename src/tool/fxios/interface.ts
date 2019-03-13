@@ -4,6 +4,7 @@ export interface IApiData {
   page?: number
   pageSize?: number
   message?: string
+  code?: string
   [key: string]: any
 }
 

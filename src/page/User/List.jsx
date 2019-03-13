@@ -100,9 +100,7 @@ class List extends React.Component {
   render() {
     const { list } = this.store
     const tableProps = toJS(list.tableProps)
-    // console.log(tableProps)
     return <Table columns={this.columns} {...tableProps} />
-    // return null
   }
 }
 export default List

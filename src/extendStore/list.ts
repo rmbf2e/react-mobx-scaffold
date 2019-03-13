@@ -1,5 +1,5 @@
 import { FxiosRequestOption } from 'fxios/typings/index'
-import { castArray, upperFirst } from 'lodash'
+import { upperFirst } from 'lodash'
 import { action, extendObservable, toJS } from 'mobx'
 import config from 'src/config'
 import { router } from 'store/router'
@@ -14,17 +14,17 @@ import {
 } from './interface'
 
 // 动态获取分页值
-const getPage = (isDrivenByQuery?: boolean) => {
-  if (isDrivenByQuery) {
-    const { query } = router
+const getPage = (independent?: boolean) => {
+  if (independent) {
     return {
-      current: Number(query.page || 1),
-      pageSize: Number(query.pageSize || config.pageSize),
+      current: 1,
+      pageSize: config.pageSize,
     }
   }
+  const { query } = router
   return {
-    current: 1,
-    pageSize: config.pageSize,
+    current: Number(query.page || 1),
+    pageSize: Number(query.pageSize || config.pageSize),
   }
 }
 
@@ -44,9 +44,12 @@ const getPage = (isDrivenByQuery?: boolean) => {
       url: '/autoPricingPool/list', // 必须，获取数据的url，使用GET方法获取数据
       rowSelectionKey: 'id', // 可选，若需要选择table中的行数据，则指定，指定后可在生成的list属性中的checkedKeys数组中获取选中的key数组
       ，可从通过生成的list属性checkedRecords获取选中的对象
-      processResponse: func // 可选，在列表数组不符合要求时，可对其进行预处理
+      interceptor: {
+        request: func // 可选，加工请求前的参数
+        response: func // 可选，在列表数组不符合要求时，可对其进行预处理
+      }
       request: (url, query) => Promise // func, 通常使用fxios.get
-      isDrivenByQuery?: boolean，// 默认为true，当作为modal层内列表使用时，置为false取消与query的关联
+      independent?: boolean，// 默认为false，当作为modal层内列表使用时，置为false取消与query的关联
     }]
  * 则生成属性 list，具体数据结构参考下面的list局部变量
  * 生成方法 fetchList，调用request属性函数并返回
@@ -58,17 +61,16 @@ const getPage = (isDrivenByQuery?: boolean) => {
  * @return void
  * */
 function generateList(this: IExtendableObject, options: IListOption[]) {
-  castArray(options).forEach(option => {
+  options.forEach(option => {
     const { name } = option
-    const isDrivenByQuery: boolean =
-      option.isDrivenByQuery === undefined ? true : option.isDrivenByQuery
+    const independent: boolean = !!option.independent
     const upperName = upperFirst(name)
     const fetchMethod = `fetch${upperName}`
     const restoreMethod = `restore${upperName}`
     const setMethod = `set${upperName}`
     const setLoading = `set${upperName}Loading`
     const list: IList = {
-      isDrivenByQuery,
+      independent,
       tableProps: {
         bordered: true,
         dataSource: [],
@@ -79,37 +81,36 @@ function generateList(this: IExtendableObject, options: IListOption[]) {
         pagination: {
           defaultPageSize: config.pageSize,
           showSizeChanger: true,
-          ...getPage(isDrivenByQuery),
-          onChange: action('pagination', page => {
+          ...getPage(independent),
+          onChange: action('pagination', (page: number) => {
             this[name].tableProps.pagination.current = page
-            if (isDrivenByQuery) {
+            if (independent) {
+              this[fetchMethod]()
+            } else {
               router.push({
                 hash: router.location.hash,
                 search: URL.format({
                   query: { ...toJS(router.query), page },
                 }),
               })
-            } else {
-              this[fetchMethod]()
             }
           }),
           onShowSizeChange: action(
             'onShowSizeChange',
             (currentSize: number, size: number) => {
-              // config.pageSize = size
               const { pagination } = this[name].tableProps
               pagination.pageSize = size
-              pagination.page = 1
+              pagination.current = 1
               config.pageSize = size
-              if (isDrivenByQuery) {
+              if (independent) {
+                this[fetchMethod]()
+              } else {
                 router.push({
                   hash: router.location.hash,
                   search: URL.format({
                     query: { ...toJS(router.query), page: 1, pageSize: size },
                   }),
                 })
-              } else {
-                this[fetchMethod]()
               }
             },
           ),
@@ -120,12 +121,19 @@ function generateList(this: IExtendableObject, options: IListOption[]) {
         rowKey: option.rowKey,
       },
     }
+    if (independent) {
+      list.query = {}
+      const setQueryMethod = `set${upperName}Query`
+      this[setQueryMethod] = (v: IExtendableObject) => {
+        this[name].query = v
+      }
+    }
     if (option.rowSelectionKey !== undefined) {
-      const rowSelectionKey = option.rowSelectionKey
+      // const rowSelectionKey = option.rowSelectionKey
       list.tableProps.rowSelection = {
-        getCheckboxProps: (record: IRecord): any => {
-          return { [rowSelectionKey]: record[rowSelectionKey] }
-        },
+        // getCheckboxProps: (record: IRecord): any => {
+        //   return { [rowSelectionKey]: record[rowSelectionKey] }
+        // },
         onChange: action(
           'changeSelectKeys',
           (keys: Array<keyof IRecord>, records: IRecord[]) => {
@@ -145,41 +153,50 @@ function generateList(this: IExtendableObject, options: IListOption[]) {
         },
       })
     }
+    this[fetchMethod] = (query?: object) => {
+      this[setLoading](true)
+      /* 将antd Table的pagination属性映射为后端需要的分页属性
+       * current => page
+       * pageSize => pageSize
+       * 并附加搜索参数
+       * */
+      const request = option.request || fxios.get
+      const pagination = independent
+        ? this[name].tableProps.pagination
+        : getPage()
+      let requestQuery = {
+        page: String(pagination.current),
+        pageSize: String(pagination.pageSize),
+      }
+      if (independent) {
+        requestQuery = {
+          ...requestQuery,
+          ...this[name].query,
+        }
+      } else {
+        requestQuery = { ...requestQuery, ...router.query }
+      }
+      requestQuery = { ...requestQuery, ...query }
+      let fxiosOption: FxiosRequestOption = {
+        query: requestQuery,
+      }
+      if (option.interceptor && option.interceptor.request) {
+        ;[option.url, fxiosOption] = option.interceptor.request.call(
+          this,
+          option.url,
+          fxiosOption,
+        )
+      }
+      return request(option.url, fxiosOption)
+        .then(this[setMethod])
+        .finally(() => {
+          this[setLoading](false)
+        })
+    }
     extendObservable(
       this,
       {
         [name]: list,
-        [fetchMethod]: (query?: object) => {
-          this[setLoading](true)
-          /* 将antd Table的pagination属性映射为后端需要的分页属性
-           * current => page
-           * pageSize => pageSize
-           * 并附加搜索参数
-           * */
-          // this[name].tableProps.dataSource = []
-          const request = option.request || fxios.get
-          const pagination = getPage(isDrivenByQuery)
-          let fxiosOption: FxiosRequestOption = {
-            query: {
-              page: String(pagination.current),
-              pageSize: String(pagination.pageSize),
-              ...router.query,
-              ...query,
-            },
-          }
-          if (option.interceptor && option.interceptor.request) {
-            ;[option.url, fxiosOption] = option.interceptor.request.call(
-              this,
-              option.url,
-              fxiosOption,
-            )
-          }
-          return request(option.url, fxiosOption)
-            .then(this[setMethod])
-            .finally(() => {
-              this[setLoading](false)
-            })
-        },
         [restoreMethod]: () => {
           const observedList = this[name]
           observedList.tableProps.dataSource = []
@@ -197,12 +214,13 @@ function generateList(this: IExtendableObject, options: IListOption[]) {
             newData = option.interceptor.response.call(this, data)
           }
           const observedList = this[name]
+          const pagination = getPage(independent)
           Object.assign(observedList.tableProps, {
             dataSource: newData.dataSource,
             pagination: {
               ...observedList.tableProps.pagination,
               ...newData.pagination,
-              pageSize: config.pageSize,
+              pageSize: pagination.pageSize,
             },
           })
           if (option.rowSelectionKey) {
@@ -217,7 +235,6 @@ function generateList(this: IExtendableObject, options: IListOption[]) {
         },
       },
       {
-        [fetchMethod]: action,
         [restoreMethod]: action,
         [setMethod]: action,
         [setLoading]: action,

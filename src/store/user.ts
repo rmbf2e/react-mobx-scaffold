@@ -26,7 +26,7 @@ abstract class AStore extends Events {
       name: 'list',
       url: api.list,
       rowKey: 'id',
-      rowSelectionKey: 'id',
+      rowSelectionKey: 'name',
     },
   ],
   modal: ['form'],

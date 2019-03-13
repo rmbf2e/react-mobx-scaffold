@@ -73,16 +73,16 @@ export interface IListOption extends IBaseOption {
     ) => [string, FxiosRequestOption, FxiosConfig | undefined]
     response?: (data: any) => any
   }
-  // processResponse?: (data: TableProps<object>) => TableProps<object>
-  isDrivenByQuery?: boolean
+  independent?: boolean
 }
 
 export interface IList {
-  isDrivenByQuery: boolean
+  independent?: boolean
   tableProps: TableProps<object>
   checkedKeys?: string[]
   checkedRecords?: object[]
   hasCheckedKeys?: boolean
+  query?: IExtendableObject
 }
 
 export interface ILazyOption extends IBaseOption {

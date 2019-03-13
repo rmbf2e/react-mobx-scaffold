@@ -18,7 +18,7 @@ export const config: FxiosConfig = {
 
 class FxiosError extends Error {
   public response: Response | null = null
-  public code: string = ''
+  public code?: string = ''
 }
 
 export interface IResponse extends Response {
