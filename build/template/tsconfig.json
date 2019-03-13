@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "noUnusedLocals": true,
+    "typeRoots": ["node_modules/@types", "typings"],
+    "strictPropertyInitialization": false,
+    "paths": {
+      "tool/*": ["src/tool/*"],
+      "component/*": ["src/component/*"],
+      "locale/*": ["src/locale/*"],
+      "page/*": ["src/page/*"],
+      "store/*": ["src/store/*"],
+      "storeProp/*": ["src/storeProp/*"],
+      "style/*": ["src/style/*"],
+      "mixin/*": ["src/mixin/*"],
+      "src/*": ["src/*"],
+      "fixture/*": ["__test__/fixture/*"]
+    }
+  },
+  "include": ["src", "__test__"],
+  "exclude": ["src/service"]
+}

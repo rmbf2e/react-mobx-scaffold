@@ -9,5 +9,5 @@ dist
 e2e/report/*
 coverage
 CHANGELOG.md
-./tsconfig.json
-./tslint.json
+/tsconfig.json
+/tslint.json
