@@ -12,6 +12,7 @@ module.exports = {
     'src/extendStore/**/*.{js,jsx,ts,tsx}',
     'src/mixin/**/*.{js,jsx,ts,tsx}',
     'src/tool/**/*.{js,jsx,ts,tsx}',
+    '!src/**/interface.ts',
   ],
   setupFiles: ['<rootDir>/jest/setup.js'],
   testMatch: ['<rootDir>/__test__/**/*.(spec|test).{js,jsx,ts,tsx}'],
