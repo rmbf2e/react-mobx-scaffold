@@ -1,7 +1,7 @@
 import { setter } from 'extendStore/setter'
 import { reaction, runInAction, toJS } from 'mobx'
 
-describe('storeProp/setter', () => {
+describe('extendStore/setter', () => {
   abstract class AA {
     public user: any
     public setUser: (v: any) => void

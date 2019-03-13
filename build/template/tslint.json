@@ -86,22 +86,7 @@
     "jsx-no-string-ref": false,
     "jsx-boolean-value": [true, "never"],
     "jsx-no-multiline-js": false,
-    "object-literal-sort-keys": [false],
-    "no-implicit-dependencies": [
-      true,
-      [
-        "component",
-        "tool",
-        "locale",
-        "page",
-        "store",
-        "storeProp",
-        "style",
-        "mixin",
-        "src",
-        "fixture"
-      ]
-    ]
+    "object-literal-sort-keys": [false]
   },
   "linterOptions": {
     "include": ["src"],

@@ -24,7 +24,7 @@
       "locale/*": ["src/locale/*"],
       "page/*": ["src/page/*"],
       "store/*": ["src/store/*"],
-      "storeProp/*": ["src/storeProp/*"],
+      "extendStore/*": ["src/extendStore/*"],
       "style/*": ["src/style/*"],
       "mixin/*": ["src/mixin/*"],
       "src/*": ["src/*"],
