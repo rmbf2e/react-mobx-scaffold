@@ -3,4 +3,5 @@ module.exports = {
   declarationKeyword: 'import',
   groupImports: false,
   sortImports: false,
+  excludes: ['./coverage/**/*', './__test__/**/*']
 }
