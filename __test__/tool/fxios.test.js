@@ -3,10 +3,42 @@ import { fxios, emitter } from 'tool/fxios'
 import config from 'src/config'
 
 describe('tool/fxios', () => {
-  afterEach(() => {
-    fetchMock.restore()
+  const originalLocation = global.location
+
+  const href = '/abc?name=xxxxx'
+
+  beforeEach(() => {
+    const value = { href }
+    Object.defineProperty(global, 'location', {
+      value,
+    })
+    /**
+     * 暂时归结为windows问题
+     */
+    expect(global.location.href).toBe(href)
   })
+
+  afterEach(() => {
+    global.location.href = href
+    // restore location
+    Object.defineProperty(global, 'location', originalLocation)
+  })
+
   describe('测试分页处理', () => {
+    it('测试未登录跳转', () => {
+      const url = 'user/me'
+      fetchMock.get(`${config.baseURL}${url}`, 302)
+
+      return fxios.get(url).then(() => {
+        /**
+         * 暂时归结为windows问题
+         */
+        expect(global.location.href).toBe(
+          `${config.loginHost}?ReturnUrl=${global.encodeURIComponent(href)}`,
+        )
+      })
+    })
+
     it('测试有分页值', () => {
       const url = '/users'
       const mockResponse = {
@@ -136,7 +168,7 @@ describe('tool/fxios', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('测试fxios catch的emit功能', () => {
+  it('测试fxios catch的emit功能', () => {
     const url = 'user/me'
     fetchMock.get(`${config.baseURL}${url}`, {
       code: 400,

@@ -29,7 +29,7 @@ import resolveRoot = require('./build/resolveRoot')
 import webpackResolve = require('./build/webpackResolve')
 import * as serverConfig from './mockServer/config'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import appConfig = require('./src/config')
+import appConfig from './src/config'
 
 // 加载定制antd样式
 // const theme = getThemeConfig()

@@ -30,7 +30,7 @@ export interface IAnyClass {
 
 /**
  * 通过传入一系列option，批量生成被定义Class的属性和方法
- * option的每个键与storeProp里的某个文件名对应
+ * option的每个键与extendStore里的某个文件名对应
  *
  * @param {Object} option 各种配置选项
  * @return {Class} 继承后的新class

@@ -1,6 +1,6 @@
 // for test develop compoennt
 // in real app you could extend this config for your app config
-module.exports = {
+export default {
   title: 'my site',
   baseURL: '/api/',
   pageSize: 10,
