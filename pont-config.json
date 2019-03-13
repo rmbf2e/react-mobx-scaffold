@@ -1,0 +1,5 @@
+{
+  "originUrl": "http://localhost:3009/service",
+  "outDir": "./service",
+  "templatePath": "./pontTemplate"
+}

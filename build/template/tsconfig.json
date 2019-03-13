@@ -17,20 +17,8 @@
     "baseUrl": ".",
     "noUnusedLocals": true,
     "typeRoots": ["node_modules/@types", "typings"],
-    "strictPropertyInitialization": false,
-    "paths": {
-      "tool/*": ["src/tool/*"],
-      "component/*": ["src/component/*"],
-      "locale/*": ["src/locale/*"],
-      "page/*": ["src/page/*"],
-      "store/*": ["src/store/*"],
-      "extendStore/*": ["src/extendStore/*"],
-      "style/*": ["src/style/*"],
-      "mixin/*": ["src/mixin/*"],
-      "src/*": ["src/*"],
-      "fixture/*": ["__test__/fixture/*"]
-    }
+    "strictPropertyInitialization": false
   },
   "include": ["src", "__test__"],
-  "exclude": ["src/service"]
+  "exclude": ["service"]
 }

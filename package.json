@@ -174,6 +174,7 @@
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "path-to-regexp": "^2.2.1",
     "pluralize": "^7.0.0",
+    "pont-engine": "^0.1.53",
     "prop-types": "^15.6.1",
     "rc-animate": "^2.5.4",
     "rc-table": "^6.3.4",

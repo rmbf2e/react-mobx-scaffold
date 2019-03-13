@@ -1361,6 +1361,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/blueimp-md5@^2.7.0":
+  version "2.7.0"
+  resolved "http://registry.m.jd.com/@types/blueimp-md5/download/@types/blueimp-md5-2.7.0.tgz#404222806800478ca2782e8ad46590aba7f14627"
+  integrity sha1-QEIigGgAR4yieC6K1GWQq6fxRic=
+
 "@types/body-parser@*":
   version "1.17.0"
   resolved "http://registry.m.jd.com/@types/body-parser/download/@types/body-parser-1.17.0.tgz#9f5c9d9bd04bb54be32d5eb9fc0d8c974e6cf58c"
@@ -1523,6 +1528,11 @@
   version "10.12.18"
   resolved "http://registry.m.jd.com/@types/node/download/@types/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha1-HTynZHGJFVhPzZ9jRGIbdnJmXGc=
+
+"@types/node@^9.3.0":
+  version "9.6.46"
+  resolved "http://registry.m.jd.com/@types/node/download/@types/node-9.6.46.tgz#bb2eeb0eeb58e401ef9e4e29abc4f81003ee767c"
+  integrity sha1-uy7rDutY5AHvnk4pq8T4EAPudnw=
 
 "@types/nprogress@^0.0.29":
   version "0.0.29"
@@ -2302,7 +2312,7 @@ array.prototype.flat@^1.2.1:
     es-abstract "^1.10.0"
     function-bind "^1.1.1"
 
-arrify@^1.0.1:
+arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"
   resolved "http://registry.m.jd.com/arrify/download/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
   integrity sha1-iYUI2iIm84DfkEcoRWhJwVAaSw0=
@@ -2749,6 +2759,11 @@ bluebird@^3.5.1, bluebird@^3.5.3:
   version "3.5.3"
   resolved "http://registry.m.jd.com/bluebird/download/bluebird-3.5.3.tgz#7d01c6f9616c9a51ab0f8c549a79dfe6ec33efa7"
   integrity sha1-fQHG+WFsmlGrD4xUmnnf5uwz76c=
+
+blueimp-md5@^2.10.0:
+  version "2.10.0"
+  resolved "http://registry.m.jd.com/blueimp-md5/download/blueimp-md5-2.10.0.tgz#02f0843921f90dca14f5b8920a38593201d6964d"
+  integrity sha1-AvCEOSH5DcoU9biSCjhZMgHWlk0=
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
@@ -6192,6 +6207,15 @@ fs-exists-sync@^0.1.0:
   version "0.1.0"
   resolved "http://registry.m.jd.com/fs-exists-sync/download/fs-exists-sync-0.1.0.tgz#982d6893af918e72d08dec9e8673ff2b5a8d6add"
   integrity sha1-mC1ok6+RjnLQjeyehnP/K1qNat0=
+
+fs-extra@^5.0.0:
+  version "5.0.0"
+  resolved "http://registry.m.jd.com/fs-extra/download/fs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
+  integrity sha1-QU0BEM3QZwVzTQVWUsVBEmDDGr0=
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
 
 fs-extra@^7.0.0:
   version "7.0.1"
@@ -9647,7 +9671,7 @@ no-case@^2.2.0:
   dependencies:
     lower-case "^1.1.1"
 
-node-fetch@^1.0.1:
+node-fetch@^1.0.1, node-fetch@^1.7.3:
   version "1.7.3"
   resolved "http://registry.m.jd.com/node-fetch/download/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   integrity sha1-mA9vcthSEaU0fGsrwYxbhMPrR+8=
@@ -10517,6 +10541,21 @@ point-at-length@~1.0.2:
     isarray "~0.0.1"
     parse-svg-path "~0.1.1"
 
+pont-engine@^0.1.53:
+  version "0.1.53"
+  resolved "http://registry.m.jd.com/pont-engine/download/pont-engine-0.1.53.tgz#e4136d330fada330028eaa7e5904d20b4ffc250b"
+  integrity sha1-5BNtMw+tozACjqp+WQTSC0/8JQs=
+  dependencies:
+    chalk "^2.3.0"
+    commander "^2.19.0"
+    fs-extra "^5.0.0"
+    lodash "^4.17.5"
+    node-fetch "^1.7.3"
+    prettier "^1.15.3"
+    translation.js "^0.7.5"
+    ts-node "^3.3.0"
+    typescript "^2.9.2"
+
 portfinder@^1.0.13, portfinder@^1.0.9:
   version "1.0.20"
   resolved "http://registry.m.jd.com/portfinder/download/portfinder-1.0.20.tgz#bea68632e54b2e13ab7b0c4775e9b41bf270e44a"
@@ -10969,7 +11008,7 @@ prettier@^1.14.3:
   resolved "http://registry.m.jd.com/prettier/download/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
   integrity sha1-H+qsW90YEje1Tb5l2HTgKhRyeGo=
 
-prettier@^1.16.4:
+prettier@^1.15.3, prettier@^1.16.4:
   version "1.16.4"
   resolved "http://registry.m.jd.com/prettier/download/prettier-1.16.4.tgz#73e37e73e018ad2db9c76742e2647e21790c9717"
   integrity sha1-c+N+c+AYrS25x2dC4mR+IXkMlxc=
@@ -12904,6 +12943,13 @@ source-map-support@^0.3.2:
   dependencies:
     source-map "0.1.32"
 
+source-map-support@^0.4.0:
+  version "0.4.18"
+  resolved "http://registry.m.jd.com/source-map-support/download/source-map-support-0.4.18.tgz#0286a6de8be42641338594e97ccea75f0a2c585f"
+  integrity sha1-Aoam3ovkJkEzhZTpfM6nXwosWF8=
+  dependencies:
+    source-map "^0.5.6"
+
 source-map-support@^0.5.6, source-map-support@^0.5.9, source-map-support@~0.5.6:
   version "0.5.9"
   resolved "http://registry.m.jd.com/source-map-support/download/source-map-support-0.5.9.tgz#41bc953b2534267ea2d605bccfa7bfa3111ced5f"
@@ -13265,7 +13311,7 @@ strip-json-comments@1.0.2:
   resolved "http://registry.m.jd.com/strip-json-comments/download/strip-json-comments-1.0.2.tgz#5a48ab96023dbac1b7b8d0ffabf6f63f1677be9f"
   integrity sha1-WkirlgI9usG3uND/q/b2PxZ3vp8=
 
-strip-json-comments@2.0.1, strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
+strip-json-comments@2.0.1, strip-json-comments@^2.0.0, strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "http://registry.m.jd.com/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
@@ -13726,6 +13772,16 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
+translation.js@^0.7.5:
+  version "0.7.5"
+  resolved "http://registry.m.jd.com/translation.js/download/translation.js-0.7.5.tgz#97e871d78318770930773f297fffb40c4209b053"
+  integrity sha1-l+hx14MYdwkwdz8pf/+0DEIJsFM=
+  dependencies:
+    "@types/blueimp-md5" "^2.7.0"
+    "@types/node" "^9.3.0"
+    blueimp-md5 "^2.10.0"
+    tslib "^1.8.1"
+
 tree-kill@^1.2.1:
   version "1.2.1"
   resolved "http://registry.m.jd.com/tree-kill/download/tree-kill-1.2.1.tgz#5398f374e2f292b9dcc7b2e71e30a5c3bb6c743a"
@@ -13797,6 +13853,22 @@ ts-loader@^5.3.3:
     micromatch "^3.1.4"
     semver "^5.0.1"
 
+ts-node@^3.3.0:
+  version "3.3.0"
+  resolved "http://registry.m.jd.com/ts-node/download/ts-node-3.3.0.tgz#c13c6a3024e30be1180dd53038fc209289d4bf69"
+  integrity sha1-wTxqMCTjC+EYDdUwOPwgkonUv2k=
+  dependencies:
+    arrify "^1.0.0"
+    chalk "^2.0.0"
+    diff "^3.1.0"
+    make-error "^1.1.1"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    source-map-support "^0.4.0"
+    tsconfig "^6.0.0"
+    v8flags "^3.0.0"
+    yn "^2.0.0"
+
 ts-node@^8.0.3:
   version "8.0.3"
   resolved "http://registry.m.jd.com/ts-node/download/ts-node-8.0.3.tgz#aa60b836a24dafd8bf21b54766841a232fdbc641"
@@ -13807,6 +13879,14 @@ ts-node@^8.0.3:
     make-error "^1.1.1"
     source-map-support "^0.5.6"
     yn "^3.0.0"
+
+tsconfig@^6.0.0:
+  version "6.0.0"
+  resolved "http://registry.m.jd.com/tsconfig/download/tsconfig-6.0.0.tgz#6b0e8376003d7af1864f8df8f89dd0059ffcd032"
+  integrity sha1-aw6DdgA9evGGT434+J3QBZ/80DI=
+  dependencies:
+    strip-bom "^3.0.0"
+    strip-json-comments "^2.0.0"
 
 tslib@1.9.0:
   version "1.9.0"
@@ -13908,6 +13988,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "http://registry.m.jd.com/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@^2.9.2:
+  version "2.9.2"
+  resolved "http://registry.m.jd.com/typescript/download/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+  integrity sha1-HL9h0F1rliaSROtqO85L2RTg8Aw=
 
 typescript@^3.3.3333:
   version "3.3.3333"
@@ -14249,7 +14334,7 @@ v8-compile-cache@^2.0.2:
   resolved "http://registry.m.jd.com/v8-compile-cache/download/v8-compile-cache-2.0.2.tgz#a428b28bb26790734c4fc8bc9fa106fccebf6a6c"
   integrity sha1-pCiyi7JnkHNMT8i8n6EG/M6/amw=
 
-v8flags@^3.1.1:
+v8flags@^3.0.0, v8flags@^3.1.1:
   version "3.1.2"
   resolved "http://registry.m.jd.com/v8flags/download/v8flags-3.1.2.tgz#fc5cd0c227428181e6c29b2992e4f8f1da5e0c9f"
   integrity sha1-/FzQwidCgYHmwpspkuT48dpeDJ8=
@@ -14838,6 +14923,11 @@ yauzl@2.4.1:
   integrity sha1-lSj0QtqxsihOWLQ3m7GU4i4MQAU=
   dependencies:
     fd-slicer "~1.0.1"
+
+yn@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.m.jd.com/yn/download/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
+  integrity sha1-5a2ryKz0CPY4X8dklWhMiOavaJo=
 
 yn@^3.0.0:
   version "3.0.0"

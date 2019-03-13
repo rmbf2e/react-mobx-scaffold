@@ -11,3 +11,4 @@ coverage
 CHANGELOG.md
 /tsconfig.json
 /tslint.json
+/service
