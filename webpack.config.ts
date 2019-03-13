@@ -1,5 +1,4 @@
-// import { fork } from 'child_process'
-import { exec } from 'child_process'
+import { exec, fork } from 'child_process'
 import CopyWebpackPlugin = require('copy-webpack-plugin')
 import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 import HappyPack = require('happypack')
@@ -54,8 +53,6 @@ const proxyTargets: IProxyTarget = {
 
 const envProxy: keyof IProxyTarget = (process.env.PROXY ||
   'local') as keyof IProxyTarget
-
-exec('npx nodemon --config build/nodemon.json build/generate.js')
 
 const styleLoader = isProd
   ? MiniCssExtractPlugin.loader
@@ -301,6 +298,7 @@ config.plugins = [
       {
         loader: 'ts-loader',
         options: {
+          // 打包分割必须
           compilerOptions: {
             module: 'esnext',
           },
@@ -367,6 +365,7 @@ if (isProd) {
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
   )
+  fork(resolveRoot('build/generate.js'))
 } else {
   config.devtool = 'cheap-module-eval-source-map'
   config.plugins.push(
@@ -375,6 +374,7 @@ if (isProd) {
     // }),
     new ForkTsCheckerWebpackPlugin(),
   )
+  exec('npx nodemon --config build/nodemon.json build/generate.js')
 }
 
 export default config

@@ -15,3 +15,5 @@ export const NoMatch = () => (
     <Exception type="404" actions={actions} />
   </Card>
 )
+
+export default NoMatch

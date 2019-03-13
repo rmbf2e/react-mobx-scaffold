@@ -2,13 +2,13 @@
 
 ## TODO
 
-* []typescript重构.
-* []将storeProp 改名为 extendStore.
-* []目前路径别名有三个配置需要定义: webpack, tsconfg, jest，改为一处统一定义.
-* []重构extendStore, 在rest与list复用setter.
-* []重构extendStore/list, 将fetchList从search中取值，改为接收查询参数的函数。
-* []重构router, store, tsconfig的自动生成功能，并添加监听文件修改。
-* []重构大部分模块的export，使用named export代替default
+* [x]typescript重构.
+* [x]将storeProp 改名为 extendStore.
+* [x]目前路径别名有三个配置需要定义: webpack, tsconfg, jest，改为一处统一定义.
+* [x]重构extendStore, 在rest中复用setter.
+* [x]重构extendStore/list, 将fetchList从search中取值，改为接收查询参数的函数。
+* [x]重构router, store, tsconfig的自动生成功能，并添加监听文件修改。
+* [x]重构大部分模块的export，使用named export代替default
     [参考typescript-export-vs-default-export](https://stackoverflow.com/questions/33305954/typescript-export-vs-default-export)
 
 ## feature
