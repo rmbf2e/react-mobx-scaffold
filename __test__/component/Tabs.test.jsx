@@ -1,8 +1,8 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Tabs as AntTabs } from 'antd'
-import Tabs from 'component/Tabs'
-import router from 'store/router'
+import { Tabs } from 'component/Tabs'
+import { router } from 'store/router'
 
 const store = { router }
 
@@ -71,8 +71,7 @@ describe('components/Tabs', () => {
     const app = mount(TabWrapper)
     const tabs = app.find(AntTabs).at(0)
     expect(tabs.prop('defaultActiveKey')).toBe('')
-    const tabTitle = app.find('.ant-tabs-tab').at(0)
-    tabTitle.simulate('click')
+    tabs.prop('onChange')('one')
     expect(router.location.hash).toBe('#one')
   })
 })

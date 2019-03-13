@@ -1,5 +1,3 @@
-type IKey = number | string
-
 interface INode {
   parent: INode
   [key: string]: any
@@ -11,11 +9,8 @@ interface INode {
  * @param {String} keyName 获取节点的键名，默认为key
  * @return {Array} 所有上级节点的集合
  * */
-export default function getParentKeys(
-  node: INode,
-  keyName: string = 'key',
-): IKey[] {
-  const keys: IKey[] = []
+export function getParentKeys(node: INode, keyName: string = 'key'): string[] {
+  const keys: string[] = []
   if (node) {
     let p = node.parent
     while (p) {

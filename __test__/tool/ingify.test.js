@@ -1,4 +1,4 @@
-import ingify from 'tool/ingify'
+import { ingify } from 'tool/ingify'
 
 describe('tool/ingify', () => {
   it('结尾有e或没有e的单词', () => {

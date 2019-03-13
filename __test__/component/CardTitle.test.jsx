@@ -1,6 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
-import CardTitle from 'component/CardTitle'
+import { CardTitle } from 'component/CardTitle'
 
 describe('component/CardTitle', () => {
   const wrapper = () => mount(<CardTitle>xxxxxx</CardTitle>)

@@ -1,18 +1,17 @@
-import find from 'lodash/find'
-import reduce from 'lodash/reduce'
+import { find, reduce } from 'lodash'
 import { action, computed, observable, toJS } from 'mobx'
 import { matchPath } from 'react-router'
 import { extendStore } from 'src/extendStore'
 import { Imenu, TNoop } from 'store/interface'
 import { getFirstPathname } from 'tool/getFirstPathname'
 
-interface ITopMenuMapValue {
+export interface IMenuToTopMenu {
   menu: Imenu
   top: Imenu
 }
 
 interface ITopMenuMap {
-  [key: string]: ITopMenuMapValue
+  [key: string]: IMenuToTopMenu
 }
 
 abstract class AMenu {
@@ -25,8 +24,7 @@ abstract class AMenu {
   public restoreBreadcrumbContent: TNoop
   public topMenuMap: ITopMenuMap
 
-  public setTopMenu: (m: ITopMenuMapValue) => void
-  public selectedKeys: string[]
+  public setTopMenu: (m: IMenuToTopMenu) => void
 }
 
 @extendStore({
@@ -44,7 +42,10 @@ abstract class AMenu {
 })
 export class Menu extends AMenu {
   @observable
-  public selectedKeys: string[] = []
+  public selectedKeys: string[]
+
+  // @observable
+  // public openKeys: string[]
 
   // 设置当前激活状态的菜单
   // 在监听路由切换时调用
@@ -74,13 +75,18 @@ export class Menu extends AMenu {
       }
     }
 
-    if (currentMenu.menu) {
-      this.selectedKeys[0] = currentMenu.menu.to
+    // 如果有parentId说明currentMenu是三级目录
+    // if (currentMenu.menu && currentMenu.menu.parentId) {
+    //   this.openKeys = [currentMenu.menu.parentId]
+    // }
+
+    if (currentMenu && currentMenu.menu) {
+      this.selectedKeys = [currentMenu.menu.to]
     }
 
     // console.log(currentMenu?.top?.children)
 
-    if (currentMenu.top.children && currentMenu.top.children) {
+    if (currentMenu && currentMenu.top && currentMenu.top.children) {
       this.setTopMenu(currentMenu)
     }
   }

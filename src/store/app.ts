@@ -1,6 +1,6 @@
 import { base as api } from 'src/api'
 import { extendStore } from 'src/extendStore'
-import fxios from 'tool/fxios'
+import { fxios } from 'tool/fxios'
 
 interface IUser {
   name: string

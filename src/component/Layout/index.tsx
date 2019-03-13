@@ -1,9 +1,9 @@
-import { ConfigProvider, Layout } from 'antd'
+import { ConfigProvider, Layout as AntLayout } from 'antd'
 import { Footer } from 'component/Footer'
 import { Header } from 'component/Header'
 import { TransitionRoute } from 'component/TransitionRoute'
 import React from 'react'
-import { IRouteProps } from 'src/route'
+import { IRouteProps } from 'store/interface'
 import { getPopupContainer } from 'tool/getPopupContainer'
 import s from './style.m.less'
 
@@ -14,16 +14,14 @@ interface IProps {
 /*
  * 项目最外层组件，负责监听事件
  * */
-const AppLayout = ({ routes }: IProps) => (
+export const Layout = ({ routes }: IProps) => (
   <ConfigProvider getPopupContainer={getPopupContainer}>
-    <Layout>
+    <AntLayout>
       <Header />
-      <Layout.Content className={s.content}>
+      <AntLayout.Content className={s.content}>
         <TransitionRoute routes={routes} />
-      </Layout.Content>
+      </AntLayout.Content>
       <Footer />
-    </Layout>
+    </AntLayout>
   </ConfigProvider>
 )
-
-export default AppLayout

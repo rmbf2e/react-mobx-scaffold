@@ -1,9 +1,9 @@
 import React from 'react'
-import Theme from 'component/Theme'
+import { Theme } from 'component/Theme'
 import { Switch } from 'antd'
 import { mount } from 'enzyme'
 import { Provider } from 'mobx-react'
-import locale from 'store/locale'
+import { locale } from 'store/locale'
 import defaultTheme from 'style/default.theme.less'
 import darkTheme from 'style/dark.theme.less'
 

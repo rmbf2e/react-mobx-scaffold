@@ -3,7 +3,7 @@ import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import { Imenu, MenuStore, RouterStore } from 'store/interface'
-import Link from './Link'
+import { Link } from './Link'
 import s from './style.m.less'
 
 const { SubMenu } = Menu
@@ -82,11 +82,15 @@ class AppMenu extends React.Component<IProp> {
         // eslint-disable-next-line react-native/no-inline-styles
         style={{ minWidth: `${menus.length * 66}px`, height: '64px' }}
       >
-        <Menu selectedKeys={selectedKeys} mode="horizontal">
+        <Menu
+          getPopupContainer={() => document.body}
+          selectedKeys={selectedKeys}
+          mode="horizontal"
+        >
           {this.renderMenus()}
         </Menu>
       </div>
     )
   }
 }
-export default AppMenu
+export { AppMenu as Menu }

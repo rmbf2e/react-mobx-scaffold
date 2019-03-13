@@ -2,8 +2,8 @@ import Events from 'events'
 import { observe } from 'mobx'
 import { user as api } from 'src/api'
 import { GENDER } from 'src/constant'
-import extendStore from 'src/extendStore'
-import queryForm from 'store/queryForm'
+import { extendStore } from 'src/extendStore'
+import { queryForm } from 'store/queryForm'
 
 const defaultRecord = {
   account: '',
@@ -17,8 +17,7 @@ abstract class AStore extends Events {
   public formModal: boolean
   public restoreRecord: () => void
 
-  public setListSearch: (v: any) => void
-  public fetchList: () => Promise<any>
+  public fetchList: (v: any) => Promise<any>
 }
 
 @extendStore({
@@ -62,6 +61,5 @@ observe(user, 'formModal', ({ newValue }) => {
 })
 
 user.on('record:changed', () => {
-  user.setListSearch(queryForm.query)
-  user.fetchList()
+  user.fetchList(queryForm.query)
 })

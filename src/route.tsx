@@ -1,9 +1,6 @@
 import React from 'react'
 import { RouteProps } from 'react-router'
-
-export interface IRouteProps extends RouteProps {
-  key: string;
-}
+import { IRouteProps } from 'store/interface'
 
 const Home = React.lazy(() =>
   import(/* webpackChunkName: "home" */ './page/Home'),

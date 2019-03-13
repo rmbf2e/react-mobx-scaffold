@@ -1,3 +1,5 @@
+import { RouteProps } from 'react-router'
+
 export type TNoop = (v?: any) => void
 
 export { QueryForm as QueryFormStore } from 'store/queryForm'
@@ -12,17 +14,16 @@ export interface Imenu {
   children?: Imenu[]
 }
 
-export interface IMenuToTopMenu {
-  menu: Imenu
-  top: Imenu
-}
-
-export { Menu as MenuStore } from 'store/menu'
+export { Menu as MenuStore, IMenuToTopMenu } from 'store/menu'
 
 /* define menu end */
 
-export { Locale as LocaleStore } from 'store/locale'
+export { Locale as LocaleStore, ILangs } from 'store/locale'
 
 export { Router as RouterStore } from 'store/router'
+
+export interface IRouteProps extends RouteProps {
+  key: string
+}
 
 export { App as AppStore } from 'store/app'

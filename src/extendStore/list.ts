@@ -2,8 +2,8 @@ import { FxiosRequestOption } from 'fxios/typings/index'
 import { castArray, upperFirst } from 'lodash'
 import { action, extendObservable, toJS } from 'mobx'
 import config from 'src/config'
-import router from 'store/router'
-import fxios from 'tool/fxios'
+import { router } from 'store/router'
+import { fxios } from 'tool/fxios'
 import URL from 'url'
 import {
   IExtendableObject,
@@ -123,7 +123,9 @@ function generateList(this: IExtendableObject, options: IListOption[]) {
     if (option.rowSelectionKey !== undefined) {
       const rowSelectionKey = option.rowSelectionKey
       list.tableProps.rowSelection = {
-        getCheckboxProps: (record: IRecord): any => record[rowSelectionKey],
+        getCheckboxProps: (record: IRecord): any => {
+          return { [rowSelectionKey]: record[rowSelectionKey] }
+        },
         onChange: action(
           'changeSelectKeys',
           (keys: Array<keyof IRecord>, records: IRecord[]) => {

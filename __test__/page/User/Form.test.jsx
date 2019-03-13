@@ -2,7 +2,7 @@ import { Modal } from 'antd'
 import { mount } from 'enzyme'
 import React from 'react'
 import { Provider } from 'mobx-react'
-import user from 'store/user'
+import { user } from 'store/user'
 import Form from 'page/User/Form'
 import listFixture from 'fixture/users.json'
 

@@ -1,11 +1,10 @@
-import Loading from 'component/Loading'
-import NoMatch from 'component/NoMatch'
+import { Loading } from 'component/Loading'
+import { NoMatch } from 'component/NoMatch'
 import { inject, observer } from 'mobx-react'
 import React, { Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { IRouteProps } from 'src/route'
-import { RouterStore } from 'store/interface'
+import { IRouteProps, RouterStore } from 'store/interface'
 import s from './style.m.less'
 
 interface IProps {

@@ -1,4 +1,4 @@
-import formatTreeData from 'tool/formatTreeData'
+import { formatTreeData } from 'tool/formatTreeData'
 import data from '../fixture/tree.json'
 
 describe('tool/formatTreeData', () => {

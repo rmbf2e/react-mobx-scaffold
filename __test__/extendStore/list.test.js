@@ -1,7 +1,7 @@
-import router from 'store/router'
+import { router } from 'store/router'
 import { list } from 'extendStore/list'
 import config from 'src/config'
-import fxios from 'tool/fxios'
+import { fxios } from 'tool/fxios'
 
 const resolve = any => () => Promise.resolve(any)
 
@@ -125,7 +125,7 @@ describe('extendStore/list', () => {
         b.promotions.tableProps.rowSelection.getCheckboxProps({
           id: 2222,
         }),
-      ).toBe(2222)
+      ).toEqual({ id: 2222 })
       return b.fetchPromotions().then(() => {
         const { tableProps } = b.promotions
         expect(tableProps.dataSource).toEqual(data.dataSource)

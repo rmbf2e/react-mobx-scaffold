@@ -1,4 +1,4 @@
-import { INode, TKey } from 'tool/getDescendantKeys'
+import { INode } from 'tool/getDescendantKeys'
 
 /*
  * 格式化将树状结构对象
@@ -7,9 +7,9 @@ import { INode, TKey } from 'tool/getDescendantKeys'
  * @param {String} titleName
  * @param {Object} parent
  * */
-export default function formatTreeData(
+export function formatTreeData(
   tree: INode[],
-  keyName: TKey,
+  keyName: string,
   titleName: string,
   parent: INode | null = null,
 ) {

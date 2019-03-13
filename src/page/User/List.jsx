@@ -1,11 +1,11 @@
 import { Button, Table } from 'antd'
-import propertyOf from 'lodash/propertyOf'
+import { propertyOf } from 'lodash'
 import { computed, toJS } from 'mobx'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import ConfirmButton from 'component/ConfirmButton'
-import { GENDER_MAP } from '../../constant'
+import { ConfirmButton } from 'component/ConfirmButton'
+import { GENDER_MAP } from 'src/constant'
 
 @inject('store')
 @observer
@@ -100,7 +100,9 @@ class List extends React.Component {
   render() {
     const { list } = this.store
     const tableProps = toJS(list.tableProps)
+    // console.log(tableProps)
     return <Table columns={this.columns} {...tableProps} />
+    // return null
   }
 }
 export default List

@@ -14,10 +14,10 @@ abstract class ALocale {
 }
 
 // merge antd language with app language
-const zhCN = { ...zh_CN, ...appZhCN }
-const enUS = { ...en_US, ...appEnUS }
+export const zhCN = { ...zh_CN, ...appZhCN }
+export const enUS = { ...en_US, ...appEnUS }
 
-interface ILangs {
+export interface ILangs {
   zhCN: ILang
   enUS: ILang
 }

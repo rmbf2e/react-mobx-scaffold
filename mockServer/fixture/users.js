@@ -16,6 +16,7 @@ module.exports = function users(req, res) {
     res.json({
       list,
       page,
+      total: 1000,
       pageSize: 10,
     })
   } else {

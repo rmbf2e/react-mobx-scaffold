@@ -7,7 +7,7 @@
 
 const needDoubleLastCharator = /[^aeiou][aeiou][tnm]$/
 
-function ingify(word: string): string {
+export function ingify(word: string): string {
   if (word.endsWith('ie')) {
     return `${word.slice(0, word.length - 2)}ying`
   }
@@ -23,5 +23,3 @@ function ingify(word: string): string {
   }
   return `${word}ing`
 }
-
-export default ingify

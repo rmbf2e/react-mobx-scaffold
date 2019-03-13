@@ -7,7 +7,7 @@ const emptyValues = ['', null, undefined]
  * @param {any} v the query value
  * @return {boolean} test result
  * */
-const isEmptyQuery = (value: any): boolean => {
+export const isEmptyQuery = (value: any): boolean => {
   let v = value
   if (Array.isArray(v)) {
     v = [...v]
@@ -16,5 +16,3 @@ const isEmptyQuery = (value: any): boolean => {
   }
   return emptyValues.includes(v)
 }
-
-export default isEmptyQuery

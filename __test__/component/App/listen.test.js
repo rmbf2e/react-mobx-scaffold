@@ -1,6 +1,7 @@
-import noop from 'lodash/noop'
+import { noop } from 'lodash'
 import { notification } from 'antd'
-import listen, {
+import {
+  listen,
   onPageError,
   onApiError,
   onApiSuccess,

@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 import { toJS } from 'mobx'
 import { rest } from 'extendStore/rest'
-import fxios from 'tool/fxios'
+import { fxios } from 'tool/fxios'
 
 describe('extendStore/rest', () => {
   const option = {

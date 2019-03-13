@@ -1,9 +1,9 @@
-import store from 'src/store'
-import app from 'store/app'
-import router from 'store/router'
-import queryForm from 'store/queryForm'
-import menu from 'store/menu'
-import user from 'store/user'
+import * as store from 'src/store'
+import { app } from 'store/app'
+import { router } from 'store/router'
+import { queryForm } from 'store/queryForm'
+import { menu } from 'store/menu'
+import { user } from 'store/user'
 
 describe('store', () => {
   it('test store children', () => {

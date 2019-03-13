@@ -1,15 +1,15 @@
 import { runInAction } from 'mobx'
 import { mount } from 'enzyme'
-import noop from 'lodash/noop'
+import { noop } from 'lodash'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import { Form } from 'antd'
-import queryForm from 'store/queryForm'
-import QueryForm from 'component/QueryForm'
+import { queryForm } from 'store/queryForm'
+import { QueryForm } from 'component/QueryForm'
 import Search from 'page/User/Search'
-import user from 'store/user'
-import router from 'store/router'
-import locale from 'store/locale'
+import { user } from 'store/user'
+import { router } from 'store/router'
+import { locale } from 'store/locale'
 
 describe('page/User/Search', () => {
   const store = {
@@ -57,7 +57,6 @@ describe('page/User/Search', () => {
     const queryFormInstance = app.find(QueryForm).first()
     fetchListSpy.mockReset()
     expect(fetchListSpy).not.toHaveBeenCalled()
-    expect(user.list.search).toEqual({})
 
     const query = {
       account: 'abc',
@@ -67,14 +66,8 @@ describe('page/User/Search', () => {
     }
     form.setFieldsValue(query)
     queryForm.query = query
-    queryFormInstance.prop('onSubmit')()
-    expect(user.list.search).toEqual(query)
+    queryFormInstance.prop('onSubmit')(query)
     expect(fetchListSpy).toHaveBeenCalled()
-
-    // 恢复数据
-    runInAction(() => {
-      user.list.search = {}
-    })
   })
 
   it('手机号格式验证不通过则不提交搜索', async () => {

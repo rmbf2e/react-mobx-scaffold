@@ -1,6 +1,7 @@
 // for test develop compoennt
 // in real app you could extend this config for your app config
 module.exports = {
+  title: 'my site',
   baseURL: '/api/',
   pageSize: 10,
   loginHost: `${process.env.LOGIN_HOST === 'test' ? 'http' : 'https'}://${

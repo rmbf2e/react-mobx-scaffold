@@ -1,4 +1,4 @@
-import noop from 'lodash'
+import { noop } from 'lodash'
 import { user } from 'store/user'
 
 describe('store/user', () => {

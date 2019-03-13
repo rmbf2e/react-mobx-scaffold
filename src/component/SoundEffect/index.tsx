@@ -1,10 +1,15 @@
 import Events from 'events'
-import React from 'react'
+import React, { RefObject } from 'react'
 
 export const emitter = new Events()
 
-class SoundEffect extends React.Component {
-  constructor(props) {
+export class SoundEffect extends React.Component {
+  public successAudio: RefObject<HTMLAudioElement>
+  public failureAudio: RefObject<HTMLAudioElement>
+  public playSuccess: () => void
+  public playFailure: () => void
+
+  constructor(props: object) {
     super(props)
     this.successAudio = React.createRef()
     this.failureAudio = React.createRef()
@@ -12,25 +17,31 @@ class SoundEffect extends React.Component {
     this.playFailure = this.play('failure')
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     emitter.on('success', this.playSuccess)
     emitter.on('failure', this.playFailure)
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     emitter.removeListener('success', this.playSuccess)
     emitter.removeListener('failure', this.playFailure)
   }
 
   // 每次播放，重置audio播放状态重新播放
-  play = type => () => {
-    const audio = this[`${type}Audio`].current
-    audio.pause()
-    audio.currentTime = 0
-    audio.play()
+  public play = (type: 'success' | 'failure') => () => {
+    const map = {
+      success: this.successAudio,
+      failure: this.failureAudio,
+    }
+    const audio: HTMLAudioElement | null = map[type].current
+    if (!!audio) {
+      audio.pause()
+      audio.currentTime = 0
+      audio.play()
+    }
   }
 
-  render() {
+  public render() {
     return (
       <div hidden>
         <audio
@@ -51,5 +62,3 @@ class SoundEffect extends React.Component {
     )
   }
 }
-
-export default SoundEffect

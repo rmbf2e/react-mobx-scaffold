@@ -1,4 +1,4 @@
-import promisify from 'tool/promisify'
+import { promisify } from 'tool/promisify'
 
 describe('util/promisify', () => {
   it('convert cb function to return promise', async () => {

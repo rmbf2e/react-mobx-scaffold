@@ -11,7 +11,7 @@ const generateRoute = () => {
     .readFileSync(resolveRoot('build/template/route.ejs'))
     .toString('utf8')
 
-  const files = fs.readdirSync('./src/page').filter(file => {
+  const files = fs.readdirSync(resolveRoot('src/page')).filter(file => {
     // Home在模板中已经定义为主路由
     if (excludes.includes(file)) {
       return false

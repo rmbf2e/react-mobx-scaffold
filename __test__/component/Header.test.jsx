@@ -1,14 +1,14 @@
 import { Layout, Select } from 'antd'
-import noop from 'lodash/noop'
+import { noop } from 'lodash'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import { mount } from 'enzyme'
-import AppHeader from 'component/Header'
-import router from 'store/router'
-import locale from 'store/locale'
-import menu from 'store/menu'
+import { Header } from 'component/Header'
+import { router } from 'store/router'
+import { locale } from 'store/locale'
+import { menu } from 'store/menu'
 
-const { Header } = Layout
+const { Header: AntHeader } = Layout
 
 const logout = jest.fn()
 const store = {
@@ -27,12 +27,12 @@ describe('component/Header', () => {
   const wrapper = () =>
     mount(
       <Provider store={store}>
-        <AppHeader />
+        <Header />
       </Provider>,
     )
   it('test include antd Header', () => {
     const app = wrapper()
-    expect(app.find(Header)).toHaveLength(1)
+    expect(app.find(AntHeader)).toHaveLength(1)
   })
 
   it('test logout', () => {

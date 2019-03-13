@@ -1,26 +1,27 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import reduce from 'lodash/reduce'
 import { Button, Popover } from 'antd'
-import locale from 'store/locale'
+import { BaseButtonProps } from 'antd/lib/button/button'
+import { reduce } from 'lodash'
+import React from 'react'
+import { locale } from 'store/locale'
 import s from './style.m.less'
+
+export interface IConfirmButtonProps extends BaseButtonProps {
+  children: React.ReactNode
+  onConfirmText: string
+  onConfirm: React.MouseEventHandler
+  disabled?: boolean
+}
 
 /**
  * 自带确认过程的按钮
  * 使用popover内的按钮执行实际操作
  * */
-class ConfirmButton extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    onConfirm: PropTypes.func.isRequired,
-    onConfirmText: PropTypes.node,
-  }
-
-  static defaultProps = {
+export class ConfirmButton extends React.PureComponent<IConfirmButtonProps> {
+  public static defaultProps = {
     onConfirmText: locale.lang.ConfirmButton.confirm,
   }
 
-  render() {
+  public render() {
     const { children, onConfirmText, onConfirm, ...props } = this.props
     const datasetProps = reduce(
       props,
@@ -57,5 +58,3 @@ class ConfirmButton extends React.PureComponent {
     )
   }
 }
-
-export default ConfirmButton

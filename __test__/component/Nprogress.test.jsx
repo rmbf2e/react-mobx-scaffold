@@ -2,8 +2,8 @@ import React from 'react'
 import noop from 'lodash/noop'
 import { mount } from 'enzyme'
 import nprogress from 'nprogress'
-import Nprogress from 'component/Nprogress'
-import router from 'store/router'
+import { Nprogress } from 'component/Nprogress'
+import { router } from 'store/router'
 
 const wrapper = () => mount(<Nprogress />)
 
@@ -20,7 +20,7 @@ describe('测试App', () => {
       .instance()
     expect(typeof instance.unlisten).toBe('function')
     const unlistenSpy = jest.spyOn(instance, 'unlisten')
-    expect(instance.timer).toBe(null)
+    expect(instance.timer).toBe(undefined)
     router.history.push('/noMatch')
     expect(instance.timer).not.toBe(null)
     expect(startSpy).toHaveBeenCalled()

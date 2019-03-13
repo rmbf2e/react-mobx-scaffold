@@ -1,6 +1,6 @@
 import { castArray, upperFirst } from 'lodash'
 import { action, extendObservable } from 'mobx'
-import fxios from 'tool/fxios'
+import { fxios } from 'tool/fxios'
 import {
   FxiosRequestOption,
   IExtendableObject,

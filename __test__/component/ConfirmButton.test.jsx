@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Button, Popover } from 'antd'
-import ConfirmButton from 'component/ConfirmButton'
+import { ConfirmButton } from 'component/ConfirmButton'
 
 describe('component/ConfirmButton', () => {
   it('按钮的popover内的按钮执行onConfirm', () => {

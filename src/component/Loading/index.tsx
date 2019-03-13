@@ -1,11 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Alert } from 'antd'
 import classnames from 'classnames'
-import locale from 'store/locale'
+import React from 'react'
+import { locale } from 'store/locale'
 import style from './style.m.less'
 
-const Loading = ({ text, error }) => {
+export const Loading = ({ text, error }: { text: string; error: Error }) => {
   const err = error ? <Alert type="error" message={error.toString()} /> : null
   return (
     <div className={style.loading}>
@@ -21,13 +20,7 @@ const Loading = ({ text, error }) => {
   )
 }
 
-Loading.propTypes = {
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Error)]),
-  text: PropTypes.string,
-}
 Loading.defaultProps = {
   error: null,
   text: locale.lang.Loading.loading,
 }
-
-export default Loading

@@ -1,7 +1,7 @@
 import { Form, Input } from 'antd'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
-import QueryForm from 'component/QueryForm'
+import { QueryForm } from 'component/QueryForm'
 import React from 'react'
 
 const FormItem = Form.Item
@@ -28,8 +28,7 @@ class Search extends React.Component {
     const {
       store: { user, queryForm },
     } = this.props
-    user.setListSearch(queryForm.query)
-    user.fetchList()
+    user.fetchList(queryForm.query)
   }
 
   beforeSubmit = () =>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import formatTreeData from 'tool/formatTreeData'
-import Tree from 'component/Tree'
+import { formatTreeData } from 'tool/formatTreeData'
+import { Tree } from 'component/Tree'
 import treeData from '../fixture/tree.json'
 
 describe('component/Tree', () => {

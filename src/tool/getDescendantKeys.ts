@@ -1,5 +1,3 @@
-export type TKey = number | string
-
 export interface INode {
   checked?: boolean
   children?: INode[]
@@ -13,11 +11,8 @@ export interface INode {
  * @param {String} keyName 获取节点的键名称，默认为key
  * @return {Array} 后代节点键集合
  * */
-export default function getDescendantKeys(
-  node: INode,
-  keyName: string = 'key',
-) {
-  const keys: TKey[] = []
+export function getDescendantKeys(node: INode, keyName: string = 'key') {
+  const keys: string[] = []
   if (node && node.children) {
     node.children.forEach(n => {
       keys.push(n[keyName])

@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import locale from 'store/locale'
-import Loading from 'component/Loading'
+import { locale } from 'store/locale'
+import { Loading } from 'component/Loading'
 
 describe('component/Loading', () => {
   const { loading } = locale.lang.Loading

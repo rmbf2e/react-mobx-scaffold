@@ -1,12 +1,12 @@
 import { intersection, pull } from 'lodash'
-import getDescendantKeys, { INode, TKey } from 'tool/getDescendantKeys'
+import { getDescendantKeys, INode } from 'tool/getDescendantKeys'
 
 /* 从checkedKeys中删除node的所有空的上级节点的key */
-export default function removeEmptyParentKey(
+export function removeEmptyParentKey(
   node: INode,
-  checkedKeys: TKey[],
+  checkedKeys: string[],
   keyName = 'key',
-): TKey[] {
+): string[] {
   const clonedKeys = [...checkedKeys]
   if (
     node.parent &&

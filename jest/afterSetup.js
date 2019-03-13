@@ -1,5 +1,5 @@
 import 'jest-enzyme'
-import noop from 'lodash/noop'
+import { noop } from 'lodash'
 import fetchMock from 'fetch-mock'
 import { queryForm } from '../src/store/queryForm'
 import { router } from '../src/store/router'

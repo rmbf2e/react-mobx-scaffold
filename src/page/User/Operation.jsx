@@ -3,9 +3,8 @@ import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import PropTypes from 'prop-types'
 import React from 'react'
-
-import CardTitle from 'component/CardTitle'
-import ConfirmButton from 'component/ConfirmButton'
+import { CardTitle } from 'component/CardTitle'
+import { ConfirmButton } from 'component/ConfirmButton'
 
 @inject('store')
 @observer

@@ -1,4 +1,4 @@
-import getDescendantKeys from 'tool/getDescendantKeys'
+import { getDescendantKeys } from 'tool/getDescendantKeys'
 
 describe('tool/getDescendantKeys', () => {
   it('get keys with keyName "k"', () => {

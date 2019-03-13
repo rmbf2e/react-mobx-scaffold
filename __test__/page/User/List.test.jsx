@@ -4,7 +4,7 @@ import { mount } from 'enzyme'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import listFixture from 'fixture/users.json'
-import user from 'store/user'
+import { user } from 'store/user'
 import List from 'page/User/List'
 import { GENDER_MAP } from 'src/constant'
 

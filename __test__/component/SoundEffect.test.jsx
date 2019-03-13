@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import noop from 'lodash/noop'
-import SoundEffect, { emitter } from 'component/SoundEffect'
+import { noop } from 'lodash'
+import { SoundEffect, emitter } from 'component/SoundEffect'
 
 const wrapper = () => mount(<SoundEffect />)
 

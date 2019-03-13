@@ -1,20 +1,20 @@
-import PropTypes from 'prop-types'
 import { Switch } from 'antd'
-import React from 'react'
 import { inject, observer } from 'mobx-react'
-import defaultTheme from 'style/default.theme.less'
+import React from 'react'
+import { LocaleStore } from 'store/interface'
 import darkTheme from 'style/dark.theme.less'
+import defaultTheme from 'style/default.theme.less'
+
+interface IProp {
+  store?: {
+    locale: LocaleStore
+  }
+}
 
 @inject('store')
 @observer
-class Theme extends React.Component {
-  static propTypes = {
-    store: PropTypes.shape({
-      lang: PropTypes.object,
-    }).isRequired,
-  }
-
-  toggleTheme = use => {
+export class Theme extends React.Component<IProp> {
+  public toggleTheme = (use: boolean) => {
     if (use) {
       defaultTheme.use()
       darkTheme.unuse()
@@ -24,12 +24,10 @@ class Theme extends React.Component {
     }
   }
 
-  render() {
+  public render() {
     const {
-      store: {
-        locale: { lang },
-      },
-    } = this.props
+      locale: { lang },
+    } = this.props.store!
     return (
       <Switch
         checkedChildren={lang.Theme.turnOn}
@@ -40,5 +38,3 @@ class Theme extends React.Component {
     )
   }
 }
-
-export default Theme

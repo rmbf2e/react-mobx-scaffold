@@ -1,6 +1,6 @@
 import { toJS } from 'mobx'
-import noop from 'lodash/noop'
-import fxios from 'tool/fxios'
+import { noop } from 'lodash'
+import { fxios } from 'tool/fxios'
 import { app } from 'store/app'
 import { base as api } from 'src/api'
 

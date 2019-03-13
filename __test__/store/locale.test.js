@@ -1,6 +1,4 @@
-import enUS from 'antd/lib/locale-provider/en_US'
-import zhCN from 'antd/lib/locale-provider/zh_CN'
-import { Locale } from 'store/locale'
+import { enUS, zhCN, Locale } from 'store/locale'
 
 describe('store/locale', () => {
   let originalNavigator
@@ -20,19 +18,19 @@ describe('store/locale', () => {
     })
     const store = new Locale()
     setTimeout(() => {
-      expect(store.lang).toBe(enUS)
+      expect(store.lang).toBe(zhCN)
 
       done()
     }, 5)
   })
   it('when browser lang is zhCN, lang is zhCN', done => {
     Object.defineProperty(global, 'navigator', {
-      get: () => ({ language: 'zh-CN' }),
+      get: () => ({ language: 'en-US' }),
     })
     const store = new Locale()
     setTimeout(() => {
-      expect(store.lang).toBe(zhCN)
+      expect(store.lang).toBe(enUS)
       done()
-    }, 5)
+    }, 10)
   })
 })

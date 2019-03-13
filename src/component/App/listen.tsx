@@ -1,11 +1,11 @@
-import React from 'react'
 import { notification } from 'antd'
-import { onError } from 'mobx-react'
-import { emitter as fxiosEmitter } from 'tool/fxios'
 import { emitter as soundEmitter } from 'component/SoundEffect'
+import { onError } from 'mobx-react'
+import React from 'react'
+import { emitter as fxiosEmitter, IResponse } from 'tool/fxios'
 
 // 监听后端接口错误函数
-export const onApiError = error => {
+export const onApiError = (error: Error) => {
   notification.error({
     message: '接口错误',
     description: error.message || error.toString(),
@@ -15,8 +15,8 @@ export const onApiError = error => {
 }
 
 // 监听后端接口成功提示
-export const onApiSuccess = (res, req) => {
-  if (req.method !== 'get') {
+export const onApiSuccess = (res: IResponse, req: Request) => {
+  if (req.method.toUpperCase() !== 'GET') {
     notification.success({
       message: '操作成功',
       description: res.message,
@@ -27,7 +27,7 @@ export const onApiSuccess = (res, req) => {
 }
 
 // 监听React组件错误
-export const onPageError = (error, info) => {
+export const onPageError = (error: Error, info: React.ErrorInfo) => {
   notification.error({
     message: '页面错误',
     description: (
@@ -41,7 +41,7 @@ export const onPageError = (error, info) => {
   soundEmitter.emit('failure')
 }
 
-export const onMobxError = error => {
+export const onMobxError = (error: Error) => {
   notification.error({
     message: 'mobx错误',
     description: error.toString(),
@@ -50,7 +50,7 @@ export const onMobxError = error => {
   soundEmitter.emit('failure')
 }
 
-const listen = () => {
+export const listen = () => {
   fxiosEmitter.on('error', onApiError)
   fxiosEmitter.on('success', onApiSuccess)
   const dispose = onError(onMobxError)
@@ -60,5 +60,3 @@ const listen = () => {
     fxiosEmitter.removeListener('error', onApiError)
   }
 }
-
-export default listen

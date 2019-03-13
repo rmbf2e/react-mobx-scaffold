@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Form, Select } from 'antd'
-import SelectOption from 'component/SelectOption'
+import { SelectOption } from 'component/SelectOption'
 
 describe('component/SelectOption', () => {
   it('测试包含Option数据', () => {

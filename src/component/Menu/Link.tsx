@@ -1,24 +1,23 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { RouterStore } from 'store/interface'
+
+interface IProp {
+  store?: {
+    router: RouterStore
+  }
+  to: string
+}
 
 @inject('store')
 @observer
-class MenuLink extends React.Component {
-  static propTypes = {
-    store: PropTypes.shape({
-      router: PropTypes.object,
-    }).isRequired,
-  }
-
-  checkSamePathname = e => {
+class MenuLink extends React.Component<IProp> {
+  public checkSamePathname = (e: React.MouseEvent) => {
     const {
-      store: {
-        router: { location },
-      },
-    } = this.props
-    const href = e.target.getAttribute('href')
+      router: { location },
+    } = this.props.store!
+    const href = (e.target as HTMLAnchorElement).getAttribute('href')
     if (href === location.pathname) {
       e.preventDefault()
       e.stopPropagation()
@@ -27,10 +26,10 @@ class MenuLink extends React.Component {
     return true
   }
 
-  render() {
+  public render() {
     // 避免store属性挂载到html中
-    const { store, ...props } = this.props
-    return <Link {...props} onClick={this.checkSamePathname} />
+    const { to, store, ...props } = this.props
+    return <Link to={to} {...props} onClick={this.checkSamePathname} />
   }
 }
-export default MenuLink
+export { MenuLink as Link }

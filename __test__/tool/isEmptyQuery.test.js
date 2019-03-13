@@ -1,4 +1,4 @@
-import isEmptyQuery from 'tool/isEmptyQuery'
+import { isEmptyQuery } from 'tool/isEmptyQuery'
 
 describe('测试那些在query应该被认为是空的值', () => {
   it('测试空值', () => {

@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock'
-import fxios, { emitter } from 'tool/fxios'
+import { fxios, emitter } from 'tool/fxios'
 import config from 'src/config'
 
 describe('tool/fxios', () => {
@@ -17,14 +17,14 @@ describe('tool/fxios', () => {
             id: 2,
           },
         ],
-        pageNo: 2,
-        count: 10,
+        page: 2,
+        total: 10,
       }
       fetchMock.get(`${config.baseURL}${url}`, mockResponse)
       return fxios.get(url).then(res => {
-        expect(res.originalData).toEqual(mockResponse)
         expect(res.dataSource).toEqual(mockResponse.list)
         expect(res.pagination).toEqual({
+          current: 2,
           total: 10,
         })
       })
@@ -73,9 +73,9 @@ describe('tool/fxios', () => {
       }
       fetchMock.get(`${config.baseURL}${url}`, mockResponse)
       return fxios.get(url).then(res => {
-        expect(res.originalData).toEqual(mockResponse)
         expect(res.dataSource).toEqual(mockResponse.list)
         expect(res.pagination).toEqual({
+          current: 1,
           total: 0,
         })
       })
