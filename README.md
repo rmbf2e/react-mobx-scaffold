@@ -29,8 +29,8 @@
 * 当前项目与后端的约定配置，比如返回状态码为200则为成功，返回分页数据格式等，需要在src/tool/fxios中配置。
 * QueryForm使用时注意如果里面有Datepicker组件，若为时间格式则需要该表单项以Time结尾，否则不能正确识别为时间格式。
   [QueryForm](https://github.com/rmbf2e/react-mobx-scaffold/blob/master/src/component/QueryForm/index.tsx)具体使用文档见代码注释。
-* 使用`extendStore`修饰mobx store，可自动生成一些store属性与方法。
-  具体每个修饰方法说明，见代码注释。
+* 使用`extendStore`修饰`mobx store`，在运行时生成一些store属性与方法，简化大量方法定义。
+  具体每个修饰方法说明，见代码注释与[extendStore文档](doc/extendStore.md)。
 * 开发模式`webpack-dev-server`使用3000端口，模拟后端数据的mockServer使用3009端口。
   `webpack`配置使用ts。
   `mockServer`配置文件在`mockServer/config.js`。

@@ -35,27 +35,32 @@ const getPage = (independent?: boolean) => {
  * 针对列表与分页处理使用
  * 使用page字段作为query中的分页数
  * 使用pageSize字段作为query中的每页显示数
- * 该组件与component/QueryForm,store/router耦合
+ * 默认该组件与component/QueryForm,store/router耦合
+ * 当independent参数为true时，与component/QueryForm,store/router无关
+ *
+ * 在doc文件夹内有详细设计流程图
  *
  * 例如options为
     [{
       name: 'list', // 必须，生成属性与方法的名称
       rowKey: 'id', // 必须，传给Table组件的rowKey
-      url: '/autoPricingPool/list', // 必须，获取数据的url，使用GET方法获取数据
-      rowSelectionKey: 'id', // 可选，若需要选择table中的行数据，则指定，指定后可在生成的list属性中的checkedKeys数组中获取选中的key数组
-      ，可从通过生成的list属性checkedRecords获取选中的对象
+      url: 'autoPricingPool/list', // 必须，获取数据的url，使用GET方法获取数据
+      rowSelectionKey: 'id', // 可选，是否需要用checkbox选择行
       interceptor: {
         request: func // 可选，加工请求前的参数
         response: func // 可选，在列表数组不符合要求时，可对其进行预处理
       }
       request: (url, query) => Promise // func, 通常使用fxios.get
-      independent?: boolean，// 默认为false，当作为modal层内列表使用时，置为false取消与query的关联
+      independent?: boolean，// 默认为false，当作为modal层内列表使用或其他独立运行，不与url query关联时，置为true。
     }]
  * 则生成属性 list，具体数据结构参考下面的list局部变量
  * 生成方法 fetchList，调用request属性函数并返回
  * 生成方法 setList方法，设置store.list.dataSource与pagination属性
  * 生成方法 setListLoading方法，设置store.list.tableProps.loading属性
  * 生成方法 restoreList，将列表数据恢复为初始状态
+ *
+ * 如果independent为true
+ * 生产方法 setListQuery
  *
  * @param {Array} options
  * @return void
