@@ -27,3 +27,5 @@ export interface IRouteProps extends RouteProps {
 }
 
 export { App as AppStore } from 'store/app'
+
+export { User as UserStore } from 'store/user'

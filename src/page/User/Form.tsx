@@ -1,5 +1,6 @@
+import { UserStore } from 'store/interface'
+import { WrappedFormUtils } from 'antd/lib/form/Form'
 import React from 'react'
-import PropTypes from 'prop-types'
 import { toJS } from 'mobx'
 import { Modal, Form, Input, Radio } from 'antd'
 import { inject, observer } from 'mobx-react'
@@ -12,23 +13,17 @@ const layout = {
   wrapperCol: { span: 18 },
 }
 
-@Form.create()
+interface IProp {
+  store?: {
+    user: UserStore
+  }
+  form: WrappedFormUtils
+}
+
 @inject('store')
 @observer
-class FormModal extends React.Component {
-  static propTypes = {
-    store: PropTypes.shape({
-      user: PropTypes.shape({
-        formModal: PropTypes.bool,
-      }),
-    }).isRequired,
-    form: PropTypes.shape({
-      getFieldDecorator: PropTypes.func,
-      validateFieldsAndScroll: PropTypes.func,
-    }).isRequired,
-  }
-
-  submit = e => {
+class FormModal extends React.Component<IProp> {
+  submit = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e) {
       e.preventDefault()
     }
@@ -36,14 +31,14 @@ class FormModal extends React.Component {
     form.validateFields((err, values) => {
       const body = { ...values }
       if (!err) {
-        const {
-          store: { user },
-        } = this.props
+        const { user } = this.props.store!
         const isUpdate = 'id' in user.record
         if (isUpdate) {
           body.id = user.record.id
         }
-        user[`${isUpdate ? 'update' : 'create'}Record`]({
+
+        const method = isUpdate ? user.updateRecord : user.createRecord
+        method({
           body,
           param: {
             id: String(user.record.id),
@@ -54,10 +49,8 @@ class FormModal extends React.Component {
   }
 
   render() {
-    const {
-      store: { user },
-      form,
-    } = this.props
+    const { form } = this.props
+    const { user } = this.props.store!
     const record = toJS(user.record)
     const isUpdate = !!record.id
     return (
@@ -105,4 +98,5 @@ class FormModal extends React.Component {
     )
   }
 }
-export default FormModal
+
+export default Form.create()(FormModal)

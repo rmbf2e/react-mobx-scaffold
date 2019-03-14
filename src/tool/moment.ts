@@ -37,9 +37,9 @@ export { parseMoment }
 function formatMoment(value: Moment.Moment, isTime: boolean): string
 function formatMoment(value: Moment.Moment[], isTime: boolean): string[]
 function formatMoment(value: any, isTime: boolean = false): any {
-  if (value instanceof Moment) {
+  if (Moment.isMoment(value)) {
     const format = isTime ? timeFormat : dateFormat
-    return (value as Moment.Moment).format(format)
+    return value.format(format)
   }
   if (Array.isArray(value) && value.length > 0) {
     return value.map(v => formatMoment(v, isTime))

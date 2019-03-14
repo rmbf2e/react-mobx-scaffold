@@ -1,9 +1,11 @@
+import { IList } from 'extendStore/interface'
 import Events from 'events'
 import { observe } from 'mobx'
 import { user as api } from 'src/api'
 import { GENDER } from 'src/constant'
 import { extendStore } from 'src/extendStore'
 import { queryForm } from 'store/queryForm'
+import { FxiosRequestOption } from 'fxios/typings'
 
 const defaultRecord = {
   account: '',
@@ -15,9 +17,20 @@ const defaultRecord = {
 
 abstract class AStore extends Events {
   public formModal: boolean
+  public showFormModal: () => void
+  public hideFormModal: () => void
   public restoreRecord: () => void
 
-  public fetchList: (v: any) => Promise<any>
+  public list: IList
+  public fetchList: (v?: any) => Promise<any>
+  public restoreList: () => void
+
+  public record: any
+
+  public setRecord: (v: any) => void
+  public createRecord: (v: FxiosRequestOption) => Promise<any>
+  public updateRecord: (v: FxiosRequestOption) => Promise<any>
+  public destroyRecord: (v: FxiosRequestOption) => Promise<any>
 }
 
 @extendStore({
@@ -49,7 +62,7 @@ abstract class AStore extends Events {
     },
   ],
 })
-class User extends AStore {}
+export class User extends AStore {}
 
 export const user = new User()
 

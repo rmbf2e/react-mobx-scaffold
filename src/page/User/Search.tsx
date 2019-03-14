@@ -1,34 +1,24 @@
-import { Form, Input } from 'antd'
-import PropTypes from 'prop-types'
+import { DatePicker, Form, Input } from 'antd'
+import { WrappedFormUtils } from 'antd/lib/form/Form'
 import { inject, observer } from 'mobx-react'
 import { QueryForm } from 'component/QueryForm'
+import { UserStore } from 'store/interface'
 import React from 'react'
 
 const FormItem = Form.Item
+interface IProp {
+  store?: {
+    user: UserStore
+  }
+  form: WrappedFormUtils
+}
 
-@Form.create()
 @inject('store')
 @observer
-class Search extends React.Component {
-  static propTypes = {
-    form: PropTypes.shape({
-      getFieldDecorator: PropTypes.func,
-    }).isRequired,
-    store: PropTypes.shape({
-      user: PropTypes.shape({
-        fetchList: PropTypes.func,
-      }),
-      queryForm: PropTypes.shape({
-        query: PropTypes.object,
-      }),
-    }).isRequired,
-  }
-
+class Search extends React.Component<IProp> {
   onSubmit = () => {
-    const {
-      store: { user, queryForm },
-    } = this.props
-    user.fetchList(queryForm.query)
+    const { user } = this.props.store!
+    user.fetchList()
   }
 
   beforeSubmit = () =>
@@ -58,6 +48,9 @@ class Search extends React.Component {
         </FormItem>
         <FormItem label="姓名">{getFieldDecorator('name')(<Input />)}</FormItem>
         <FormItem label="邮箱">{getFieldDecorator('mail')(<Input />)}</FormItem>
+        <FormItem label="出生日期">
+          {getFieldDecorator('birthday')(<DatePicker />)}
+        </FormItem>
         <FormItem label="手机">
           {getFieldDecorator('mobile', {
             rules: [
@@ -72,4 +65,5 @@ class Search extends React.Component {
     )
   }
 }
-export default Search
+
+export default Form.create()(Search)

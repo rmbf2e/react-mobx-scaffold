@@ -1,29 +1,25 @@
+import { UserStore } from 'store/interface'
 import { Button } from 'antd'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { CardTitle } from 'component/CardTitle'
 import { ConfirmButton } from 'component/ConfirmButton'
 
+interface IProp {
+  store?: {
+    user: UserStore
+  }
+}
+
 @inject('store')
 @observer
-class Operation extends React.Component {
-  static propTypes = {
-    store: PropTypes.shape({
-      user: PropTypes.shape({
-        list: PropTypes.shape({
-          hasCheckedKeys: PropTypes.bool,
-        }),
-      }),
-    }).isRequired,
-  }
+class Operation extends React.Component<IProp> {
+  private store: UserStore
 
-  constructor(props) {
+  constructor(props: IProp) {
     super(props)
-    const {
-      store: { user },
-    } = this.props
+    const { user } = this.props.store!
     this.store = user
   }
 
@@ -49,4 +45,5 @@ class Operation extends React.Component {
     )
   }
 }
+
 export default Operation

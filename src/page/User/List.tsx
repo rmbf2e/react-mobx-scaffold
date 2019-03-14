@@ -1,33 +1,26 @@
+import { UserStore } from 'store/interface'
 import { Button, Table } from 'antd'
 import { propertyOf } from 'lodash'
 import { computed, toJS } from 'mobx'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
 import { ConfirmButton } from 'component/ConfirmButton'
 import { GENDER_MAP } from 'src/constant'
 
+interface IProp {
+  store?: {
+    user: UserStore
+  }
+}
+
 @inject('store')
 @observer
-class List extends React.Component {
-  static propTypes = {
-    store: PropTypes.shape({
-      user: PropTypes.shape({
-        list: PropTypes.shape({
-          dataSource: PropTypes.array,
-          pagination: PropTypes.object,
-        }),
-        showFormModal: PropTypes.func,
-        restoreList: PropTypes.func,
-      }),
-    }).isRequired,
-  }
+class List extends React.Component<IProp> {
+  private store: UserStore
 
-  constructor(props) {
+  constructor(props: IProp) {
     super(props)
-    const {
-      store: { user },
-    } = this.props
+    const { user } = this.props.store!
     this.store = user
   }
 
@@ -64,7 +57,7 @@ class List extends React.Component {
         title: '操作',
         dataIndex: 'operation',
         key: 'operation',
-        render: (text, record, index) => (
+        render: (text: string, record: any, index: number) => (
           <>
             <Button size="small" data-index={index} onClick={this.onEdit}>
               编辑
@@ -83,18 +76,19 @@ class List extends React.Component {
     ]
   }
 
-  destroy = e => {
+  destroy = (e: React.MouseEvent) => {
     this.store.destroyRecord({
-      body: [e.target.dataset.id],
+      body: [(e.target as HTMLButtonElement).dataset.id],
     })
   }
 
-  onEdit = e => {
-    const { index } = e.target.dataset
-    const { store } = this
-    const data = store.list.tableProps.dataSource[index]
-    store.setRecord(data)
-    store.showFormModal()
+  onEdit = (e: React.MouseEvent) => {
+    const index = Number((e.target as HTMLButtonElement).dataset.index!)
+    const dataSource = this.store.list.tableProps.dataSource!
+    const data = dataSource[index]
+    this.store.list.tableProps.dataSource
+    this.store.setRecord(data)
+    this.store.showFormModal()
   }
 
   render() {

@@ -48,7 +48,7 @@ describe('page/User/Search', () => {
     expect(label.at(0).text()).toBe('帐号')
     expect(label.at(1).text()).toBe('姓名')
     expect(label.at(2).text()).toBe('邮箱')
-    expect(label.at(3).text()).toBe('手机')
+    expect(label.at(4).text()).toBe('手机')
   })
 
   it('测试提交搜索', () => {

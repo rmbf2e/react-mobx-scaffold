@@ -173,7 +173,7 @@ export class QueryForm extends React.Component<IProp> {
       search: URL.format({ query: { ...query, ...values } }),
       hash: location.hash,
     })
-    return isFormValid
+    return true
   }
 
   // 过滤掉空值
