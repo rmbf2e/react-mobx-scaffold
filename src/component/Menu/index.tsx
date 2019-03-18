@@ -38,38 +38,30 @@ class AppMenu extends React.Component<IProp> {
     this.stopSubscribeHistory()
   }
 
-  public renderMenus = () => {
-    const { menu } = this.props.store!
-    const menus: Imenu[] = toJS(menu.menus)
-    return menus.map(topMenu => (
-      <SubMenu key={topMenu.name} title={topMenu.name}>
-        {topMenu.children &&
-          topMenu.children.map(m => {
-            if (m.children) {
-              return (
-                <SubMenu key={m.name} title={m.name}>
-                  {m.children.map(c => (
-                    <Menu.Item key={c.to}>
-                      <Link to={c.to}>
-                        {c.icon ? <Icon type={c.icon} /> : null}
-                        {c.name}
-                      </Link>
-                    </Menu.Item>
-                  ))}
-                </SubMenu>
-              )
-            }
-            return (
-              <Menu.Item key={m.to}>
-                <Link to={m.to}>
-                  {m.icon ? <Icon type={m.icon} /> : null}
-                  {m.name}
-                </Link>
-              </Menu.Item>
-            )
-          })}
-      </SubMenu>
-    ))
+  // 递归显示目录
+  public renderMenus = (menus?: Imenu[]) => {
+    if (!menus) {
+      const { menu } = this.props.store!
+      menus = toJS(menu.menus)
+    }
+    return menus.map(menu => {
+      const key = `${menu.name}-${menu.to}`
+      if (menu.children) {
+        return (
+          <SubMenu key={key} title={menu.name}>
+            {menu.children && this.renderMenus(menu.children)}
+          </SubMenu>
+        )
+      }
+      return (
+        <Menu.Item key={key}>
+          <Link to={menu.to}>
+            {menu.icon ? <Icon type={menu.icon} /> : null}
+            {menu.name}
+          </Link>
+        </Menu.Item>
+      )
+    })
   }
 
   public render() {
