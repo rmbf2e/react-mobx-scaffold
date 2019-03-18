@@ -271,6 +271,7 @@ config.plugins = [
   new HtmlWebpackPlugin({
     template: './public/index.html',
     inject: true,
+    title: appConfig.title,
     cdn: cdn.files[NODE_ENV].map(
       src => `<script rel="preload" src="${cdn.prefix}${src}"></script>`,
     ).join(''),
