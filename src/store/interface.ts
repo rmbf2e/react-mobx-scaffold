@@ -9,8 +9,8 @@ export { QueryForm as QueryFormStore } from 'store/queryForm'
 // m小写表示是数据
 export interface Imenu {
   name: string
-  to: string
-  icon: string
+  to?: string
+  icon?: string
   children?: Imenu[]
 }
 

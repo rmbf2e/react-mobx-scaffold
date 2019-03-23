@@ -90,6 +90,6 @@
   },
   "linterOptions": {
     "include": ["src"],
-    "exclude": ["/tmp/**", "src/service", "node_modules"]
+    "exclude": ["src/service", "node_modules"]
   }
 }

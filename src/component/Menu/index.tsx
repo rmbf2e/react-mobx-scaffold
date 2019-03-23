@@ -49,13 +49,13 @@ class AppMenu extends React.Component<IProp> {
       if (menu.children) {
         return (
           <SubMenu key={key} title={menu.name}>
-            {menu.children && this.renderMenus(menu.children)}
+            this.renderMenus(menu.children)
           </SubMenu>
         )
       }
       return (
         <Menu.Item key={key}>
-          <Link to={menu.to}>
+          <Link to={menu.to!}>
             {menu.icon ? <Icon type={menu.icon} /> : null}
             {menu.name}
           </Link>
@@ -71,7 +71,6 @@ class AppMenu extends React.Component<IProp> {
     return (
       <div
         className={s.menuAll}
-        // eslint-disable-next-line react-native/no-inline-styles
         style={{ minWidth: `${menus.length * 66}px`, height: '64px' }}
       >
         <Menu

@@ -15,8 +15,8 @@ interface ITopMenuMap {
 }
 
 abstract class AMenu {
-  public menus: any[]
-  public setMenus: TNoop
+  public menus: Imenu[]
+  public setMenus: (v: Imenu[]) => void
   public restoreMenus: TNoop
 
   public breadcrumbContent: any
@@ -81,7 +81,7 @@ export class Menu extends AMenu {
     // }
 
     if (currentMenu && currentMenu.menu) {
-      this.selectedKeys = [currentMenu.menu.to]
+      this.selectedKeys = [currentMenu.menu.to!]
     }
 
     // console.log(currentMenu?.top?.children)
