@@ -126,13 +126,17 @@ const config: Configuration = {
         use: [
           styleLoader,
           {
-            loader: 'css-loader',
+            loader: 'typings-for-css-modules-loader',
             options: {
               modules: true,
+              camelCase: false,
+              namedExport: true,
               sourceMap: !isProd,
+              silent: true,
               localIdentName: '[name]__[local]-[hash:base64:5]',
             },
           },
+
           {
             loader: 'postcss-loader',
             options: {
